@@ -37,3 +37,4 @@ lib/generated_plugin_registrant.dart
 0
 pubspec.lock
 build/cache.dill
+build/flutter_assets/
