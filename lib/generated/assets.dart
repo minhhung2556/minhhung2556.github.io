@@ -2,7 +2,7 @@
 class Assets {
   Assets._();
 
-  static const String assetAvatar = 'asset/avatar.jpeg';
+  static const String assetAvatar = 'asset/avatar.jpg';
   static const String assetAvatar1 = 'asset/avatar1.jpg';
   static const String assetIcDartpub = 'asset/ic_dartpub.png';
   static const String assetIcFacebook = 'asset/ic_facebook.png';
