@@ -286,9 +286,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
 
-    // FIXME test a page
-    // return Material(child: _buildPage5());
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
@@ -301,10 +298,145 @@ class _MyHomePageState extends State<MyHomePage> {
             _buildPage3(),
             _buildPage4(),
             _buildPage5(),
+            _buildPage6(),
             SizedBox(
               height: _screenH * 3,
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPage6() {
+    var av = min(1.0, _page5Value + 0.7);
+    var dy = _page5Value * _screenH +
+        _screenH * 3 +
+        -(1 - av) * _screenH -
+        av * _screenH;
+
+    return Transform.translate(
+      offset: Offset(0, dy),
+      child: Container(
+        height: _screenH / 5,
+        child: Card(
+          color: Color(0xff111111),
+          elevation: 0.0,
+          margin: const EdgeInsets.all(_kScreenPadding),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(_kBorderRadius),
+          ),
+          child: Center(
+            child: Stack(
+              children: [
+                Center(
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: TextStyle(
+                        shadows: [kBoxShadow],
+                      ),
+                      children: [
+                        TextSpan(
+                          text: " © 2021 ",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white38,
+                          ),
+                        ),
+                        TextSpan(
+                          text: _kMyName,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                        TextSpan(
+                          text: ". All rights reserved.\n\n",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white38,
+                          ),
+                        ),
+                        TextSpan(
+                          text: "Thank ",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.white38,
+                          ),
+                        ),
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: buildFlatButton(
+                            child: Text(
+                              'Md Sojon Islam',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white,
+                              ),
+                            ),
+                            onPressed: () {
+                              html.window.open(
+                                  'https://www.behance.net/sojonatbe', '');
+                            },
+                          ),
+                        ),
+                        TextSpan(
+                          text: " for an awesome portfolio design.\n",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.white38,
+                          ),
+                        ),
+                        TextSpan(
+                          text: "Thank ",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.white38,
+                          ),
+                        ),
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: buildFlatButton(
+                              child: Text(
+                            'Apple Inc',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white,
+                            ),
+                          )),
+                        ),
+                        TextSpan(
+                          text: " for the idea.",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.white38,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Transform.translate(
+                  offset: Offset(0, (-36 - _kItemPadding * 1.5 * 2) * 0.8),
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      color: Colors.cyan,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: _kItemPadding * 1.5,
+                          horizontal: _kItemPadding / 2),
+                      child: Icon(
+                        Icons.upgrade,
+                        size: 36,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -387,18 +519,19 @@ class _MyHomePageState extends State<MyHomePage> {
                                   child: Wrap(
                                     children: _kSocialData
                                         .map<Widget>((e) => buildCircleButton(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(
-                                                  _kItemPadding),
-                                              child: Image.asset(
-                                                e['i'],
-                                                width: _kSocialIconSize,
-                                                height: _kSocialIconSize,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(
+                                                    _kItemPadding),
+                                                child: Image.asset(
+                                                  e['i'],
+                                                  width: _kSocialIconSize,
+                                                  height: _kSocialIconSize,
+                                                ),
                                               ),
-                                            ),
-                                            onPressed: () {
-                                              html.window.open(e['l'], '');
-                                            }))
+                                              onPressed: () {
+                                                html.window.open(e['l'], '');
+                                              },
+                                            ))
                                         .toList(),
                                   ),
                                 ),
@@ -894,10 +1027,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                     break;
                                 }
                                 return buildCircleButton(
-                                    child: c,
-                                    onPressed: () {
-                                      html.window.open(e['l'], e['n']);
-                                    });
+                                  child: c,
+                                  onPressed: () {
+                                    html.window.open(e['l'], e['n']);
+                                  },
+                                );
                               }).toList(),
                             ),
                           ),
