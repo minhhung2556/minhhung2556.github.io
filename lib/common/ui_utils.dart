@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 MaterialColor createMaterialColor(Color color) {
@@ -42,3 +44,5 @@ class ShadowWidget extends StatelessWidget {
     );
   }
 }
+
+const kDegToRad = pi / 180.0;

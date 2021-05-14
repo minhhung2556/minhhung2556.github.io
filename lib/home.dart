@@ -17,7 +17,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   late ScrollController _scrollController;
   late Size _screenSize;
   double _scrollOffset = 0.0;
@@ -31,7 +31,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   double get _screenW => _screenSize.width;
 
-  bool get _isPortrait => _screenW < _screenH;
+  // bool get _isPortrait => _screenW < _screenH;
+
+  late AnimationController _page1AC;
+  late AnimationController _page6AC;
 
   @override
   void initState() {
@@ -56,6 +59,13 @@ class _MyHomePageState extends State<MyHomePage> {
           '_MyHomePageState.initState: _page4Value=${_page4Value.toStringAsFixed(2)}');
       print(
           '_MyHomePageState.initState: _page5Value=${_page5Value.toStringAsFixed(2)}');*/
+
+      if (_page5Value == 1.0) {
+        Future.delayed(Duration(milliseconds: 100), () {
+          _page6AC.repeat();
+        });
+      }
+
       setState(() {});
     });
 
@@ -64,7 +74,28 @@ class _MyHomePageState extends State<MyHomePage> {
     //   _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
     // });
 
+    _page1AC =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
+    _page1AC.addListener(() {
+      setState(() {});
+    });
+    Future.delayed(Duration(seconds: 1), () {
+      _page1AC.forward(from: 0.0);
+    });
+
+    _page6AC =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
+    _page6AC.addListener(() {
+      setState(() {});
+    });
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -207,10 +238,22 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.symmetric(
                           vertical: kItemPadding * 1.5,
                           horizontal: kItemPadding / 2),
-                      child: Icon(
-                        Icons.upgrade,
-                        size: 36,
-                        color: kLightestColor,
+                      child: SlideTransition(
+                        position: Tween<Offset>(
+                          begin: Offset(
+                            0.0,
+                            -0.1,
+                          ),
+                          end: Offset(
+                            0.0,
+                            0.1,
+                          ),
+                        ).animate(_page6AC),
+                        child: Icon(
+                          Icons.upgrade,
+                          size: 36,
+                          color: kLightestColor,
+                        ),
                       ),
                     ),
                   ),
@@ -298,6 +341,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: Container(
                                   color: Colors.white30,
                                   child: Wrap(
+                                    alignment: WrapAlignment.center,
                                     children: kSocialData
                                         .map<Widget>((e) => buildCircleButton(
                                               child: Padding(
@@ -394,14 +438,28 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
               child: Transform.translate(
                 offset: Offset(dx, 0),
-                child: ShadowWidget(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(kBorderRadiusSmall),
-                    child: Opacity(
-                      opacity: max(0.0, 1 - _page1Value * 2),
-                      child: Image.asset(
-                        Assets.assetAvatar,
-                        fit: BoxFit.fitWidth,
+                child: RotationTransition(
+                  turns: TweenSequence<double>([
+                    TweenSequenceItem(
+                        tween: Tween<double>(
+                            begin: kDegToRad * 5.0, end: kDegToRad * -5.0),
+                        weight: 0.5),
+                    TweenSequenceItem(
+                        tween: Tween<double>(begin: kDegToRad * -5, end: 0.0),
+                        weight: 0.5),
+                  ])
+                      .chain(CurveTween(curve: Curves.bounceInOut))
+                      .animate(_page1AC),
+                  alignment: Alignment.topCenter,
+                  child: ShadowWidget(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(kBorderRadiusSmall),
+                      child: Opacity(
+                        opacity: max(0.0, 1 - _page1Value * 2),
+                        child: Image.asset(
+                          Assets.assetAvatar,
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
                     ),
                   ),
