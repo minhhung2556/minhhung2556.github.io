@@ -539,7 +539,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var av = min(1.0, _page3Value + 0.1);
 
     var itemW = (_screenW - kScreenPadding * 4) / 3;
-    var itemH = itemW * (_isPortrait ? 1.7 : 0.56);
+    var itemH = (_screenH - kScreenPadding * 6 - 40) / 2;
 
     var dx = 0.0;
     var dy = 0.0;
@@ -633,7 +633,8 @@ class _MyHomePageState extends State<MyHomePage> {
         -(1 - av) * _screenH -
         av * _screenH;
 
-    var itemW = ((_screenW - kScreenPadding * 2) / 2.5).roundToDouble();
+    var itemW =
+        ((min(_screenW, _screenH) - kScreenPadding * 2) / 2.5).roundToDouble();
     var itemH = (itemW * 1.7).roundToDouble();
 
     return Transform.translate(
