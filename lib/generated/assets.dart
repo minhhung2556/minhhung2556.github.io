@@ -3,6 +3,14 @@ class Assets {
   Assets._();
 
   static const String assetAvatar = 'asset/avatar.jpeg';
+  static const String assetIcDartpub = 'asset/ic_dartpub.png';
+  static const String assetIcFacebook = 'asset/ic_facebook.png';
+  static const String assetIcGithub = 'asset/ic_github.png';
+  static const String assetIcGitlab = 'asset/ic_gitlab.png';
+  static const String assetIcGmail = 'asset/ic_gmail.png';
+  static const String assetIcLinkedin = 'asset/ic_linkedin.png';
+  static const String assetIcMedium = 'asset/ic_medium.png';
+  static const String assetIcSkype = 'asset/ic_skype.png';
   static const String assetLogoapple = 'asset/logoapple.png';
   static const String assetLogoflutter = 'asset/logoflutter.png';
 }

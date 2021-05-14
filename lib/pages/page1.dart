@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 Widget _buildPage1() {
   var av = _page1Value * 3;
   var dx = av * _screenW / 2;
-  return Transform.translate(
+  return Transform.translte(
     offset: Offset(0, _page1Value * _screenH),
     child: Container(
       color: kColorTween12.transform(av),

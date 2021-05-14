@@ -35,10 +35,11 @@ class MyHomePage extends StatefulWidget {
 const _kScreenPadding = 24.0;
 const _kItemPadding = 16.0;
 const _kBorderRadiusSmall = 8.0;
-const _kBorderRadius = 16.0;
+const _kBorderRadius = 4.0;
 const _kIconSize = 32.0;
 const _kItemColor = const Color(0x08ffffff);
 final _kColorTween12 = ColorTween(begin: Colors.white, end: Colors.black);
+const _kSocialIconSize = 30.0;
 
 const _kMyName = "Lương Đỗ Minh Hưng";
 const _kMyTitle =
@@ -193,6 +194,41 @@ const _kWorksData = <Map<String, dynamic>>[
   },
 ];
 
+const _kSocialData = <Map<String, dynamic>>[
+  {
+    'i': Assets.assetIcMedium,
+    'l': 'https://minhhung2556.medium.com/',
+  },
+  {
+    'i': Assets.assetIcDartpub,
+    'l': 'https://pub.dev/packages?q=email%3Aminhhung2556%40gmail.com',
+  },
+  {
+    'i': Assets.assetIcGitlab,
+    'l': 'https://gitlab.com/romantic_project',
+  },
+  {
+    'i': Assets.assetIcGithub,
+    'l': 'https://github.com/minhhung2556',
+  },
+  {
+    'i': Assets.assetIcLinkedin,
+    'l': 'https://www.linkedin.com/in/hungldm/',
+  },
+  {
+    'i': Assets.assetIcFacebook,
+    'l': 'https://www.facebook.com/luongdominhhung',
+  },
+  {
+    'i': Assets.assetIcGmail,
+    'l': 'mailto:minhhung2556@gmail.com',
+  },
+  {
+    'i': Assets.assetIcSkype,
+    'l': 'https://join.skype.com/invite/aQ1WVNVCMHIa',
+  },
+];
+
 class _MyHomePageState extends State<MyHomePage> {
   late ScrollController _scrollController;
   late Size _screenSize;
@@ -201,6 +237,7 @@ class _MyHomePageState extends State<MyHomePage> {
   double _page2Value = 0;
   double _page3Value = 0;
   double _page4Value = 0;
+  double _page5Value = 0;
   int _scrolledPageCount = 0;
 
   double get _screenH => _screenSize.height;
@@ -218,6 +255,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _page2Value = max(0.0, min(1.0, (o - _screenH) / _screenH));
       _page3Value = max(0.0, min(1.0, (o - _screenH * 2) / (_screenH)));
       _page4Value = max(0.0, min(1.0, (o - _screenH * 4) / (_screenH)));
+      _page5Value = max(0.0, min(1.0, (o - _screenH * 6) / (_screenH)));
 
       _scrolledPageCount = o ~/ _screenH;
       print(
@@ -230,8 +268,17 @@ class _MyHomePageState extends State<MyHomePage> {
           '_MyHomePageState.initState: _page3Value=${_page3Value.toStringAsFixed(2)}');
       print(
           '_MyHomePageState.initState: _page4Value=${_page4Value.toStringAsFixed(2)}');
+      print(
+          '_MyHomePageState.initState: _page5Value=${_page5Value.toStringAsFixed(2)}');
       setState(() {});
     });
+
+    //FIXME test
+    // Future.delayed(Duration(milliseconds: 500), () {
+    //   _scrollController
+    //       .jumpTo(_scrollController.position.maxScrollExtent - _screenH);
+    // });
+
     super.initState();
   }
 
@@ -240,7 +287,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _screenSize = MediaQuery.of(context).size;
 
     // FIXME test a page
-    // return Material(child: _buildPage4());
+    // return Material(child: _buildPage5());
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -253,9 +300,121 @@ class _MyHomePageState extends State<MyHomePage> {
             _buildPage2(),
             _buildPage3(),
             _buildPage4(),
+            _buildPage5(),
             SizedBox(
-              height: _screenH * 2,
+              height: _screenH * 3,
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPage5() {
+    var av = min(1.0, _page5Value + 0.7);
+    var dy = _page5Value * _screenH +
+        _screenH * 3 +
+        -(1 - av) * _screenH -
+        av * _screenH;
+
+    var dx = _screenW * (1 - _page5Value);
+    var avaDx = _screenW * (_page5Value - 1) - dx;
+    var socialDy = _screenH * (1 - _page5Value);
+
+    return Transform.translate(
+      offset: Offset(0, dy),
+      child: Container(
+        color: Colors.black,
+        width: _screenW,
+        height: _screenH,
+        child: Column(
+          children: [
+            Expanded(child: Container()),
+            Transform.translate(
+              offset: Offset(dx, 0),
+              child: Card(
+                color: Color(0xff111111),
+                elevation: 0.0,
+                margin: const EdgeInsets.all(_kScreenPadding),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(_kBorderRadius),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(width: _kScreenPadding),
+                    Expanded(
+                      child: Transform.translate(
+                        offset: Offset(avaDx, 0),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: _kScreenPadding),
+                          child: Image.network(
+                            "https://scontent-xsp1-3.xx.fbcdn.net/v/t1.6435-9/175700739_4029854070391181_1311522878777132494_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=8bfeb9&_nc_ohc=Xo7rcXcs5SwAX_LY9_u&_nc_ht=scontent-xsp1-3.xx&oh=aff62b59af8967e9174f826ca7999350&oe=60C4179A",
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: _kScreenPadding),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: _kScreenPadding),
+                          Text(
+                            "Drop A Line",
+                            style: TextStyle(fontSize: 26, color: Colors.white),
+                          ),
+                          const SizedBox(height: _kScreenPadding / 2),
+                          Icon(
+                            Icons.stacked_line_chart,
+                            size: 24,
+                            color: Colors.cyan,
+                          ),
+                          const SizedBox(height: _kScreenPadding / 2),
+                          Transform.translate(
+                            offset: Offset(-_kScreenPadding / 2 - dx,
+                                _kSocialIconSize / 2 + socialDy),
+                            child: Container(
+                              color: Colors.black45,
+                              child: Transform.translate(
+                                offset: Offset(
+                                    _kScreenPadding, -_kSocialIconSize / 2),
+                                child: Container(
+                                  color: Colors.white30,
+                                  child: Wrap(
+                                    children: _kSocialData
+                                        .map<Widget>((e) => buildCircleButton(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                  _kItemPadding),
+                                              child: Image.asset(
+                                                e['i'],
+                                                width: _kSocialIconSize,
+                                                height: _kSocialIconSize,
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              html.window.open(e['l'], '');
+                                            }))
+                                        .toList(),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: _kScreenPadding),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: _kScreenPadding),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(child: Container()),
           ],
         ),
       ),
@@ -289,7 +448,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           children: [
                             TextSpan(
-                              text: "Hi!   I'm ",
+                              text: "Hi! I'm ",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 30,
@@ -362,7 +521,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Opacity(
                     opacity: max(0.0, min(1.0, av)),
                     child: Card(
-                      color: Colors.white10,
+                      color: Color(0xff111111),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(_kBorderRadius),
                       ),
@@ -543,7 +702,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 data['d'],
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: 12,
+                  fontSize: 13,
                   color: Colors.white70,
                 ),
                 // overflow: TextOverflow.ellipsis,

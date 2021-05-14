@@ -24,7 +24,7 @@ Widget buildCircleButton({Widget? child, Function()? onPressed}) {
     child: child,
     style: ButtonStyle(
       shape: MaterialStateProperty.all<OutlinedBorder>(
-          CircleBorder(side: BorderSide(color: Colors.white))),
+          CircleBorder(side: BorderSide(color: Colors.transparent))),
       padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
       elevation: MaterialStateProperty.all<double>(0.0),
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
