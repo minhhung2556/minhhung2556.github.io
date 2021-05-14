@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:minhhung2556/generated/assets.dart';
 
-const kScreenPadding = 24.0;
-const kItemPadding = 16.0;
-const kBorderRadiusSmall = 8.0;
-const kBorderRadius = 16.0;
-const kIconSize = 32.0;
-const kItemColor = const Color(0x08ffffff);
-final kColorTween12 = ColorTween(begin: Colors.white, end: Colors.black);
-
 const kMyName = "Lương Đỗ Minh Hưng";
 const kMyTitle =
     "\nA Romantic Mobile Application/Game developer, a friendly daddy, a motivating leader, a funny friend, and a handsome husband. :D";
@@ -60,7 +52,7 @@ const kWorksData = <Map<String, dynamic>>[
     'c': 'HomeCredit.vn',
     'd': '12/2020 - now',
     't': 'Senior Mobile Developer',
-    'i': 'https://hoanhap.vn/uploads/photos/40/2-9/5f6ea66fed9fe.jpg',
+    'i': Assets.assetWorkHomecredit,
     'ls': [
       {
         'n': 'Android',
@@ -80,8 +72,7 @@ const kWorksData = <Map<String, dynamic>>[
     'c': 'Sendo.vn',
     'd': '05/2018 - 12/2020',
     't': 'Mobile Team Leader',
-    'i':
-        'https://play-lh.googleusercontent.com/1vYJL7AazCUYnp317d4dWb-3Dfa9Mv5IPSPnQh88UAK8ZQE8LW9XkVRpL-6x440Zcg=w3584-h2018-rw',
+    'i': Assets.assetWorkSendo,
     'ls': [
       {
         'n': 'Android',
@@ -101,8 +92,7 @@ const kWorksData = <Map<String, dynamic>>[
     'c': 'SenPay.vn',
     'd': '05/2017 - 05/2018',
     't': 'Android Team Leader',
-    'i':
-        'https://play-lh.googleusercontent.com/29JuGgFCHDnSn_yI3zW68B2U9Qh6LAjuDuu9ZUoovHBfIpKqi8cUhsmmZvs7mKi2GCyI=w3584-h2018-rw',
+    'i': Assets.assetWorkSenpay,
     'ls': [
       {
         'n': 'Android',
@@ -122,8 +112,7 @@ const kWorksData = <Map<String, dynamic>>[
     'c': 'iCareBenefits',
     'd': '06/2015 - 06/2016',
     't': 'Android Team Leader',
-    'i':
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShVYoMxykZG_7pKFaj-_61crTPgo0cp5869-ToLROHZvQt3OG9zUWKbaM2jdwPBMlBoBE&usqp=CAU',
+    'i': Assets.assetWorkIcarebenefits,
     'ls': [
       {
         'n': 'Android',
@@ -143,8 +132,7 @@ const kWorksData = <Map<String, dynamic>>[
     'c': 'ME Corp',
     'd': '06/2012 - 06/2015',
     't': 'Senior Game Developer',
-    'i':
-        'http://static.gamehub.vn/img/files/2015/08/17/gamehubvn-diem-mat-gmo-dong-cua-2015.jpg',
+    'i': Assets.assetWorkMecorp,
     'ls': [
       {
         'n': 'Android',
@@ -160,4 +148,52 @@ const kWorksData = <Map<String, dynamic>>[
       },
     ],
   },
+];
+
+const kSocialData = <Map<String, dynamic>>[
+  {
+    'i': Assets.assetIcMedium,
+    'l': 'https://minhhung2556.medium.com/',
+  },
+  {
+    'i': Assets.assetIcDartpub,
+    'l': 'https://pub.dev/packages?q=email%3Aminhhung2556%40gmail.com',
+  },
+  {
+    'i': Assets.assetIcGitlab,
+    'l': 'https://gitlab.com/romantic_project',
+  },
+  {
+    'i': Assets.assetIcGithub,
+    'l': 'https://github.com/minhhung2556',
+  },
+  {
+    'i': Assets.assetIcLinkedin,
+    'l': 'https://www.linkedin.com/in/hungldm/',
+  },
+  {
+    'i': Assets.assetIcFacebook,
+    'l': 'https://www.facebook.com/luongdominhhung',
+  },
+  {
+    'i': Assets.assetIcGmail,
+    'l': 'mailto:minhhung2556@gmail.com',
+  },
+  {
+    'i': Assets.assetIcSkype,
+    'l': 'https://join.skype.com/invite/aQ1WVNVCMHIa',
+  },
+];
+
+const kCopyrightData = <String>[
+  " © 2021 ",
+  kMyName,
+  ". All rights reserved.\n\n",
+  "Thank ",
+  'Md Sojon Islam',
+  'https://www.behance.net/sojonatbe',
+  " for an awesome portfolio design.\n",
+  "Thank ",
+  'Apple Inc',
+  " for the idea.",
 ];

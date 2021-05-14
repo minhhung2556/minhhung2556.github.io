@@ -3,6 +3,7 @@ class Assets {
   Assets._();
 
   static const String assetAvatar = 'asset/avatar.jpeg';
+  static const String assetAvatar1 = 'asset/avatar1.jpg';
   static const String assetIcDartpub = 'asset/ic_dartpub.png';
   static const String assetIcFacebook = 'asset/ic_facebook.png';
   static const String assetIcGithub = 'asset/ic_github.png';
@@ -13,4 +14,9 @@ class Assets {
   static const String assetIcSkype = 'asset/ic_skype.png';
   static const String assetLogoapple = 'asset/logoapple.png';
   static const String assetLogoflutter = 'asset/logoflutter.png';
+  static const String assetWorkHomecredit = 'asset/work_homecredit.jpg';
+  static const String assetWorkIcarebenefits = 'asset/work_icarebenefits.jpeg';
+  static const String assetWorkMecorp = 'asset/work_mecorp.jpg';
+  static const String assetWorkSendo = 'asset/work_sendo.jpg';
+  static const String assetWorkSenpay = 'asset/work_senpay.jpg';
 }
