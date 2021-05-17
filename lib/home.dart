@@ -8,7 +8,6 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:minhhung2556/common/flat_elevated_button.dart';
 import 'package:minhhung2556/common/res.dart';
-import 'package:minhhung2556/common/ui_utils.dart';
 import 'package:minhhung2556/data.dart';
 import 'package:minhhung2556/generated/assets.dart';
 
@@ -288,20 +287,20 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               child: Card(
                 color: kCardColor,
                 elevation: 0.0,
-                margin: const EdgeInsets.all(kScreenPadding),
+                margin: const EdgeInsets.all(kScreenPadding * 2),
                 shape: RoundedRectangleBorder(
                   borderRadius: kBorder,
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(width: kScreenPadding),
+                    const SizedBox(width: kScreenPadding * 2),
                     Expanded(
                       child: Transform.translate(
                         offset: Offset(avaDx, 0),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: kScreenPadding),
+                              vertical: kScreenPadding * 2),
                           child: Image.asset(
                             Assets.assetAvatar1,
                             fit: BoxFit.cover,
@@ -315,7 +314,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const SizedBox(height: kScreenPadding),
+                          const SizedBox(height: kScreenPadding * 2),
                           Text(
                             "Drop A Line",
                             style: TextStyle(fontSize: 26, color: Colors.white),
@@ -360,11 +359,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                               ),
                             ),
                           ),
-                          const SizedBox(height: kScreenPadding),
+                          const SizedBox(height: kScreenPadding * 2),
                         ],
                       ),
                     ),
-                    const SizedBox(width: kScreenPadding),
+                    const SizedBox(width: kScreenPadding * 2),
                   ],
                 ),
               ),
@@ -430,17 +429,15 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       const SizedBox(width: kScreenPadding, height: kScreenPadding),
       Transform.translate(
         offset: Offset(dx, 0),
-        child: ShadowWidget(
-          child: ClipRRect(
-            borderRadius: kBorder,
-            child: Opacity(
-              opacity: max(0.0, 1 - _page1Value * 2),
-              child: Container(
-                constraints: BoxConstraints(maxHeight: contentH),
-                child: Image.asset(
-                  Assets.assetAvatar,
-                  fit: BoxFit.fitWidth,
-                ),
+        child: ClipRRect(
+          borderRadius: kBorder,
+          child: Opacity(
+            opacity: max(0.0, 1 - _page1Value * 2),
+            child: Container(
+              constraints: BoxConstraints(maxHeight: contentH),
+              child: Image.asset(
+                Assets.assetAvatar,
+                fit: BoxFit.fitWidth,
               ),
             ),
           ),
@@ -453,10 +450,23 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       child: Container(
         width: _screenW,
         height: _screenH,
-        child: Center(
-          child: Container(
-            color: kDarkestColor,
-            padding: EdgeInsets.all(kScreenPadding * 2),
+        color: kDarkestColor,
+        padding: EdgeInsets.symmetric(
+          horizontal: kScreenPadding * 2,
+          vertical: max(
+              kScreenPadding * 2,
+              (_screenH -
+                      contentH * (_isPortrait ? 2 : 1) -
+                      kScreenPadding * 2) *
+                  0.5),
+        ),
+        child: Card(
+          color: kColorTween12.transform(min(1.0, _page1Value * 1.5)),
+          shape: RoundedRectangleBorder(
+            borderRadius: kBorder,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(kScreenPadding * 2),
             child: _isPortrait
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -484,7 +494,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           opacity: 1 - _page2Value,
           child: Container(
             height: _screenH,
-            padding: EdgeInsets.symmetric(horizontal: kScreenPadding),
+            padding: EdgeInsets.symmetric(horizontal: kScreenPadding * 2),
             alignment: Alignment.center,
             child: Container(
               height: contentH,
@@ -496,7 +506,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     borderRadius: kBorder,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(kScreenPadding),
+                    padding: const EdgeInsets.all(kScreenPadding * 2),
                     child: Center(
                       child: RichText(
                         text: TextSpan(
@@ -659,7 +669,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               data['t'],
               style: TextStyle(
                 fontWeight: FontWeight.w400,
-                fontSize: 16,
+                fontSize: 18,
                 color: kAccentColor,
               ),
               maxLines: 1,
@@ -768,104 +778,86 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         child: Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-            width: itemW,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
+            color: kLightestColor,
+            padding: EdgeInsets.symmetric(horizontal: kScreenPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  width: kItemPadding,
-                  height: itemW / 2,
-                  color: kDarkestColor,
-                ),
-                Expanded(
-                  child: Container(
-                    color: kLightestColor,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(height: kItemPadding / 2),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: kItemPadding * 0.5,
-                              right: kItemPadding * 0.5),
-                          child: Text(
-                            data['c'],
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.black87,
-                            ),
-                            maxLines: 1,
-                          ),
-                        ),
-                        const SizedBox(height: kItemPadding / 2),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: kItemPadding * 0.5,
-                              right: kItemPadding * 0.5),
-                          child: Text(
-                            '----- ${data['d']}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: Colors.black45,
-                            ),
-                            // overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        const SizedBox(height: kItemPadding / 2),
-                        const Divider(height: 0.5),
-                        const SizedBox(height: kItemPadding / 2),
-                        Center(
-                          child: FittedBox(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: data['ls'].map<Widget>((e) {
-                                Widget c;
-                                var iconSize = 24.0;
-                                switch (e['n'].toString().toLowerCase()) {
-                                  case 'android':
-                                    c = Icon(
-                                      Icons.android_rounded,
-                                      size: iconSize,
-                                      color: Colors.black45,
-                                    );
-                                    break;
-                                  case 'ios':
-                                    c = Image.asset(
-                                      Assets.assetLogoapple,
-                                      width: iconSize,
-                                      height: iconSize,
-                                      color: Colors.black45,
-                                    );
-                                    break;
-                                  case 'website':
-                                  default:
-                                    c = Icon(
-                                      Icons.forward,
-                                      size: iconSize,
-                                      color: Colors.black45,
-                                    );
-                                    break;
-                                }
-                                return buildCircleButton(
-                                  child: c,
-                                  onPressed: () {
-                                    html.window.open(e['l'], e['n']);
-                                  },
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: kItemPadding / 2),
-                      ],
+                const SizedBox(height: kItemPadding / 2),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: kItemPadding * 0.5, right: kItemPadding * 0.5),
+                  child: Text(
+                    data['c'],
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black87,
                     ),
+                    maxLines: 1,
                   ),
                 ),
+                const SizedBox(height: kItemPadding / 2),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: kItemPadding * 0.5, right: kItemPadding * 0.5),
+                  child: Text(
+                    '----- ${data['d']}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      color: Colors.black45,
+                    ),
+                    // overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(height: kItemPadding / 2),
+                const Divider(height: 0.5),
+                const SizedBox(height: kItemPadding / 2),
+                FittedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: data['ls'].map<Widget>((e) {
+                      Widget c;
+                      var iconSize = 24.0;
+                      switch (e['n'].toString().toLowerCase()) {
+                        case 'android':
+                          c = Icon(
+                            Icons.android_rounded,
+                            size: iconSize,
+                            color: Colors.black45,
+                          );
+                          break;
+                        case 'ios':
+                          c = Image.asset(
+                            Assets.assetLogoapple,
+                            width: iconSize,
+                            height: iconSize,
+                            color: Colors.black45,
+                          );
+                          break;
+                        case 'website':
+                        default:
+                          c = Icon(
+                            Icons.forward,
+                            size: iconSize,
+                            color: Colors.black45,
+                          );
+                          break;
+                      }
+                      return buildCircleButton(
+                        child: c,
+                        onPressed: () {
+                          html.window.open(e['l'], e['n']);
+                        },
+                      );
+                    }).toList(),
+                  ),
+                ),
+                const SizedBox(height: kItemPadding / 2),
               ],
             ),
           ),
