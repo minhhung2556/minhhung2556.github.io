@@ -4,9 +4,9 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "version.json": "67f3aa081b4fa6fa8e12ee3466b4d7f4",
-"index.html": "209168b679be8ab3e773d7fd141f0029",
-"/": "209168b679be8ab3e773d7fd141f0029",
-"main.dart.js": "6630622a9bed74ecb7f7e8ef6f54c6ed",
+"index.html": "b09ba4c1b70c5ba9e0eaf5cc845dcbf4",
+"/": "b09ba4c1b70c5ba9e0eaf5cc845dcbf4",
+"main.dart.js": "9b580978d48edea91474e224fbe9b04e",
 "favicon.png": "1febf57da596ee5e57bab0f2c232d5df",
 "icons/Icon-192.png": "2044a82c479c3cbf19829b6ce646540e",
 "icons/Icon-512.png": "d6c3a21dd684231969dbe686ca415a50",
@@ -17,7 +17,7 @@ const RESOURCES = {
 "assets/asset/work_icarebenefits.jpeg": "284d16b92f3c5f2b872c484f99baa09e",
 "assets/asset/work_senpay.jpg": "600442cf5d008428f87c58d2fa0db9b4",
 "assets/asset/work_mecorp.jpg": "7b24adba927540b9400b1c3e1e95e1cd",
-"assets/asset/logoapple.png": "874b3e5fe6a58285fb9c52f108cf7bc5",
+"assets/asset/logoapple.png": "0cea61654d604a311091b38912a03797",
 "assets/asset/ic_skype.png": "6e8372dd1d02bb07e3b645deef2f5b6a",
 "assets/asset/ic_facebook.png": "e53c31b2d8af8d4f2ef1540059672b2e",
 "assets/asset/work_homecredit.jpg": "273c57b926c3926e6c56f830cd0d5c87",
@@ -28,10 +28,9 @@ const RESOURCES = {
 "assets/asset/ic_gmail.png": "360e04a14359127804ef640fe1cacf2a",
 "assets/asset/avatar1.jpg": "5b6fe373bfd9e434010118b915a2e103",
 "assets/asset/logoflutter.png": "efa5e8370c235bd0e4df4ccaece43457",
-"assets/AssetManifest.json": "75a0251ed695324436d513ab7d536e6a",
-"assets/NOTICES": "b87e7ceb9de555cb3775cbfd1db2618c",
-"assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
-"assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
+"assets/AssetManifest.json": "83735334b7b84a66743a4b7b4aa72c01",
+"assets/NOTICES": "d408711e07b7a1acf3c8434b1c115f3b",
+"assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "assets/fonts/MaterialIcons-Regular.otf": "1288c9e28052e028aba623321f7826ac"
 };
 
