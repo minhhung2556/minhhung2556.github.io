@@ -142,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               elevation: 0.0,
               margin: const EdgeInsets.all(kScreenPadding),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(kBorderRadius),
+                borderRadius: kBorder,
               ),
               child: Center(
                 child: Padding(
@@ -290,7 +290,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 elevation: 0.0,
                 margin: const EdgeInsets.all(kScreenPadding),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(kBorderRadius),
+                  borderRadius: kBorder,
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -391,15 +391,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               FittedBox(
                 child: RichText(
                   text: TextSpan(
-                    style: TextStyle(
-                      shadows: [kBoxShadow],
-                    ),
                     children: [
                       TextSpan(
                         text: "Hi! I'm ",
                         style: TextStyle(
                           fontSize: 30,
-                          color: kDarkestColor,
+                          color: kLightestColor,
                         ),
                       ),
                       TextSpan(
@@ -407,7 +404,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
-                          color: kDarkestColor,
+                          color: kLightestColor,
                         ),
                       ),
                     ],
@@ -419,11 +416,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
-                  color: kDarkestColor,
+                  color: kLightestColor,
                 ),
               ),
               const SizedBox(height: kScreenPadding),
-              Divider(),
+              Divider(
+                color: Colors.white60,
+              ),
             ],
           ),
         ),
@@ -433,7 +432,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         offset: Offset(dx, 0),
         child: ShadowWidget(
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(kBorderRadius),
+            borderRadius: kBorder,
             child: Opacity(
               opacity: max(0.0, 1 - _page1Value * 2),
               child: Container(
@@ -456,7 +455,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         height: _screenH,
         child: Center(
           child: Container(
-            color: kColorTween12.transform(min(1.0, _page1Value * 3)),
+            color: kDarkestColor,
             padding: EdgeInsets.all(kScreenPadding * 2),
             child: _isPortrait
                 ? Column(
@@ -494,7 +493,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 child: Card(
                   color: kCardColor,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(kBorderRadius),
+                    borderRadius: kBorder,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(kScreenPadding),
@@ -631,7 +630,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         decoration: ShapeDecoration(
           color: kItemColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kBorderRadius),
+            borderRadius: kBorder,
             side: BorderSide(
               color: Colors.white10,
               width: 2,
@@ -703,44 +702,32 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           color: kDarkestColor,
           height: _screenH,
           width: _screenW,
-          child: Stack(
-            fit: StackFit.expand,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  height: _screenH / 2,
+              Text(
+                "Works",
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 32,
                   color: kLightestColor,
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Works",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 32,
-                      color: kDarkestColor,
-                    ),
+              const SizedBox(height: kScreenPadding),
+              SizedBox(
+                height: itemH,
+                child: ListView.builder(
+                  controller: _workSC,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: kWorksData.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: EdgeInsets.only(
+                        left: index == 0 ? kItemPadding : 0,
+                        right: kItemPadding),
+                    child: _buildPage4Item(
+                        itemW - kItemPadding, itemH, index, kWorksData[index]),
                   ),
-                  const SizedBox(height: kScreenPadding),
-                  SizedBox(
-                    height: itemH,
-                    child: ListView.builder(
-                      controller: _workSC,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: kWorksData.length,
-                      itemBuilder: (context, index) => Padding(
-                        padding: EdgeInsets.only(
-                            left: index == 0 ? kItemPadding : 0,
-                            right: kItemPadding),
-                        child: _buildPage4Item(itemW - kItemPadding, itemH,
-                            index, kWorksData[index]),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ],
           ),
