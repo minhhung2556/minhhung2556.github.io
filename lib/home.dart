@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   double get _screenW => _screenSize.width;
 
-  // bool get _isPortrait => _screenW < _screenH;
+  bool get _isPortrait => _screenW < _screenH;
 
   late AnimationController _page1AC;
   late AnimationController _page6AC;
@@ -70,9 +70,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     });
 
     //FIXME test
-    // Future.delayed(Duration(milliseconds: 500), () {
-    //   _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-    // });
+    Future.delayed(Duration(milliseconds: 500), () {
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    });
 
     _page1AC =
         AnimationController(vsync: this, duration: Duration(milliseconds: 600));
@@ -134,18 +134,20 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     return Transform.translate(
       offset: Offset(0, dy),
       child: Container(
-        height: _screenH / 5,
-        child: Card(
-          color: kCardColor,
-          elevation: 0.0,
-          margin: const EdgeInsets.all(kScreenPadding),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kBorderRadius),
-          ),
-          child: Center(
-            child: Stack(
-              children: [
-                Center(
+        constraints: BoxConstraints(minHeight: _screenH / 5),
+        child: Column(
+          verticalDirection: VerticalDirection.up,
+          children: [
+            Card(
+              color: kCardColor,
+              elevation: 0.0,
+              margin: const EdgeInsets.all(kScreenPadding),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(kBorderRadius),
+              ),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(kScreenPadding),
                   child: RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
@@ -229,38 +231,34 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                Transform.translate(
-                  offset: Offset(0, (-36 - kItemPadding * 1.5 * 2) * 0.8),
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      color: kAccentColor,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: kItemPadding * 1.5,
-                          horizontal: kItemPadding / 2),
-                      child: SlideTransition(
-                        position: Tween<Offset>(
-                          begin: Offset(
-                            0.0,
-                            -0.1,
-                          ),
-                          end: Offset(
-                            0.0,
-                            0.1,
-                          ),
-                        ).animate(_page6AC),
-                        child: Icon(
-                          Icons.upgrade,
-                          size: 36,
-                          color: kLightestColor,
-                        ),
-                      ),
+              ),
+            ),
+            Transform.translate(
+              offset: Offset(0, kScreenPadding * 1.5),
+              child: Container(
+                color: kAccentColor,
+                padding: const EdgeInsets.symmetric(
+                    vertical: kItemPadding * 1.5, horizontal: kItemPadding / 2),
+                child: SlideTransition(
+                  position: Tween<Offset>(
+                    begin: Offset(
+                      0.0,
+                      -0.1,
                     ),
+                    end: Offset(
+                      0.0,
+                      0.1,
+                    ),
+                  ).animate(_page6AC),
+                  child: Icon(
+                    Icons.upgrade,
+                    size: 36,
+                    color: kLightestColor,
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -380,117 +378,116 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   Widget _buildPage1() {
+    var contentH = min(_screenW, _screenH) / 2;
     var av = _page1Value * 3;
     var dx = av * _screenW / 2;
+
+    var children = [
+      Expanded(
+        child: Transform.translate(
+          offset: Offset(-dx, 0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FittedBox(
+                child: RichText(
+                  text: TextSpan(
+                    style: TextStyle(
+                      shadows: [kBoxShadow],
+                    ),
+                    children: [
+                      TextSpan(
+                        text: "Hi! I'm ",
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: kDarkestColor,
+                        ),
+                      ),
+                      TextSpan(
+                        text: kMyName,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                          color: kDarkestColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Text(
+                kMyTitle,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                  color: kDarkestColor,
+                ),
+              ),
+              const SizedBox(height: kScreenPadding),
+              Divider(),
+            ],
+          ),
+        ),
+      ),
+      const SizedBox(width: kScreenPadding, height: kScreenPadding),
+      Transform.translate(
+        offset: Offset(dx, 0),
+        child: RotationTransition(
+          turns: TweenSequence<double>([
+            TweenSequenceItem(
+                tween: Tween<double>(
+                    begin: kDegToRad * 5.0, end: kDegToRad * -5.0),
+                weight: 0.5),
+            TweenSequenceItem(
+                tween: Tween<double>(begin: kDegToRad * -5, end: 0.0),
+                weight: 0.5),
+          ]).chain(CurveTween(curve: Curves.bounceInOut)).animate(_page1AC),
+          alignment: Alignment.topCenter,
+          child: ShadowWidget(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(kBorderRadiusSmall),
+              child: Opacity(
+                opacity: max(0.0, 1 - _page1Value * 2),
+                child: Container(
+                  constraints: BoxConstraints(maxHeight: contentH),
+                  child: Image.asset(
+                    Assets.assetAvatar,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ];
+
     return Transform.translate(
       offset: Offset(0, _page1Value * _screenH),
       child: Container(
         width: _screenW,
         height: _screenH,
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                color: kColorTween12.transform(av),
-                width: _screenW,
-                height: _screenH * 0.8,
-              ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(width: kScreenPadding),
-                  Expanded(
-                    child: Transform.translate(
-                      offset: Offset(-dx, 0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FittedBox(
-                            child: RichText(
-                              text: TextSpan(
-                                style: TextStyle(
-                                  shadows: [kBoxShadow],
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: "Hi! I'm ",
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: kMyName,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 30,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Text(
-                            kMyTitle,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                            ),
-                          ),
-                          Divider(),
-                        ],
-                      ),
-                    ),
+        child: Center(
+          child: Container(
+            color: kColorTween12.transform(min(1.0, _page1Value * 3)),
+            padding: EdgeInsets.all(kScreenPadding * 2),
+            child: _isPortrait
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: children,
+                  )
+                : Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: children,
                   ),
-                  const SizedBox(width: kScreenPadding * 2),
-                  Expanded(
-                    child: Transform.translate(
-                      offset: Offset(dx, 0),
-                      child: RotationTransition(
-                        turns: TweenSequence<double>([
-                          TweenSequenceItem(
-                              tween: Tween<double>(
-                                  begin: kDegToRad * 5.0,
-                                  end: kDegToRad * -5.0),
-                              weight: 0.5),
-                          TweenSequenceItem(
-                              tween: Tween<double>(
-                                  begin: kDegToRad * -5, end: 0.0),
-                              weight: 0.5),
-                        ])
-                            .chain(CurveTween(curve: Curves.bounceInOut))
-                            .animate(_page1AC),
-                        alignment: Alignment.topCenter,
-                        child: ShadowWidget(
-                          child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.circular(kBorderRadiusSmall),
-                            child: Opacity(
-                              opacity: max(0.0, 1 - _page1Value * 2),
-                              child: Image.asset(
-                                Assets.assetAvatar,
-                                fit: BoxFit.fitWidth,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: kScreenPadding),
-                ],
-              ),
-            )
-          ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildPage2() {
+    var contentH = _screenH / 2;
     var av = min(1.0, _page1Value * 2 - 1);
     return Transform.translate(
       offset: Offset(
@@ -501,62 +498,60 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           opacity: 1 - _page2Value,
           child: Container(
             height: _screenH,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(width: kScreenPadding),
-                Expanded(
-                  child: Opacity(
-                    opacity: max(0.0, min(1.0, av)),
-                    child: Card(
-                      color: kCardColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(kBorderRadius),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(kScreenPadding),
-                        child: RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: kSummaryData[0],
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30,
-                                  color: kLightestColor,
-                                ),
+            padding: EdgeInsets.symmetric(horizontal: kScreenPadding),
+            alignment: Alignment.center,
+            child: Container(
+              height: contentH,
+              child: Opacity(
+                opacity: max(0.0, min(1.0, av)),
+                child: Card(
+                  color: kCardColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(kBorderRadius),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(kScreenPadding),
+                    child: Center(
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: kSummaryData[0],
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30,
+                                color: kLightestColor,
                               ),
-                              WidgetSpan(
-                                child: Icon(
-                                  Icons.wifi_tethering,
-                                  color: kAccentColor,
-                                ),
+                            ),
+                            WidgetSpan(
+                              child: Icon(
+                                Icons.wifi_tethering,
+                                color: kAccentColor,
                               ),
-                              TextSpan(
-                                text: kSummaryData[1],
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 22,
-                                  color: kLightestColor,
-                                ),
+                            ),
+                            TextSpan(
+                              text: kSummaryData[1],
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 22,
+                                color: kLightestColor,
                               ),
-                              TextSpan(
-                                text: kSummaryData[2],
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                  color: Colors.white70,
-                                ),
+                            ),
+                            TextSpan(
+                              text: kSummaryData[2],
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                                color: Colors.white70,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(width: kScreenPadding),
-              ],
+              ),
             ),
           ),
         ),
@@ -584,6 +579,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(height: kScreenPadding),
                 Text(
                   "Skills",
                   style: TextStyle(
@@ -614,7 +610,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     var av = min(1.0, _page3Value + 0.1);
 
     var itemW = (_screenW - kScreenPadding * 4) / 3;
-    var itemH = (_screenH - kScreenPadding * 6 - 40) / 2;
+    var itemH = (_screenH - kScreenPadding * 4 - kItemPadding * 3) / 2;
 
     var dx = 0.0;
     var dy = 0.0;
@@ -701,7 +697,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   Widget _buildPage4() {
-    var av = min(1.0, _page4Value + 0.7);
+    var av = min(1.0, _page4Value * 3);
     var dy = _page4Value * _screenH +
         _page1Value * _screenH +
         _page2Value * _screenH +
@@ -847,27 +843,27 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         const SizedBox(height: kItemPadding / 2),
                         const Divider(height: 0.5),
                         const SizedBox(height: kItemPadding / 2),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: kItemPadding, right: kItemPadding),
+                        Center(
                           child: FittedBox(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: data['ls'].map<Widget>((e) {
                                 Widget c;
+                                var iconSize = 24.0;
                                 switch (e['n'].toString().toLowerCase()) {
                                   case 'android':
                                     c = Icon(
                                       Icons.android_rounded,
-                                      size: 24,
+                                      size: iconSize,
                                       color: Colors.black45,
                                     );
                                     break;
                                   case 'ios':
                                     c = Image.asset(
                                       Assets.assetLogoapple,
-                                      width: 24,
-                                      height: 24,
+                                      width: iconSize,
+                                      height: iconSize,
                                       color: Colors.black45,
                                     );
                                     break;
@@ -875,7 +871,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                   default:
                                     c = Icon(
                                       Icons.forward,
-                                      size: 24,
+                                      size: iconSize,
                                       color: Colors.black45,
                                     );
                                     break;
