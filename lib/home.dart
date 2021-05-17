@@ -70,9 +70,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     });
 
     //FIXME test
-    Future.delayed(Duration(milliseconds: 500), () {
-      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-    });
+    // Future.delayed(Duration(milliseconds: 500), () {
+    //   _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    // });
 
     _page1AC =
         AnimationController(vsync: this, duration: Duration(milliseconds: 600));
@@ -445,7 +445,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           alignment: Alignment.topCenter,
           child: ShadowWidget(
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(kBorderRadiusSmall),
+              borderRadius: BorderRadius.circular(kBorderRadius),
               child: Opacity(
                 opacity: max(0.0, 1 - _page1Value * 2),
                 child: Container(
@@ -644,7 +644,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         decoration: ShapeDecoration(
           color: kItemColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kBorderRadiusSmall),
+            borderRadius: BorderRadius.circular(kBorderRadius),
             side: BorderSide(
               color: Colors.white10,
               width: 2,

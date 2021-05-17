@@ -14,37 +14,37 @@ const kSkillData = <Map<String, dynamic>>[
     'i': Assets.assetLogoflutter,
     't': 'Flutter',
     'd':
-        "Researched and learned Flutter since May 2018, hands on developing a lot of big features in one of biggest E-commerce in Viet Nam, at Sendo. Leaded and trained a strong Flutter Dev Team at that company."
+        "Researched Flutter since May 2018, released a lot of big features in one of biggest E-commerce in Viet Nam, at Sendo. Leaded and trained a strong Flutter Dev Team at that company."
   },
   {
     'i': Icons.android,
     't': 'Android',
     'd':
-        "Started working on Android since 2013, hands on developing and releasing some Android applications, such as Social Network, Payment SDK. And then started leading a Android team since 2015."
+        "Started working on Android in 2013, released some Android Apps, such as Social Network, Payment SDK. And then started leading an Android team in 2015."
   },
   {
     'i': Assets.assetLogoapple,
     't': 'iOS',
     'd':
-        "Learned since 2014, but until 2019 I've released my first iOS application. I'm not have many experiences in iOS development, but know how to work with it :D."
+        "Learned since 2014, but until 2019 I've released my first iOS application. I'm not have many experiences, but know how to work with it."
   },
   {
     'i': Icons.mobile_friendly,
     't': 'Mobile',
     'd':
-        "Mobile Application development is my passion. Since the first time I owned a smartphone in 2008, my first java mobile phone. In 2012, by self learning in J2ME development. I got my first job by my Dictionary App and Pikachu Kawai game."
+        "The first time I owned a smartphone in 2008. By self learning in J2ME development, I got the first job with my Dictionary App and Pikachu Kawai game in 2012."
   },
   {
     'i': Icons.people,
     't': 'Leadership',
     'd':
-        "Leading people is one of my best. Every group I'm in to play or work, everything go on by my requests."
+        "Leading people is one of my best. Every group I'm in to play or work, everything go on by my orders."
   },
   {
     'i': Icons.model_training,
     't': 'Others',
     'd':
-        "Many of my team members and friends are a key member/leader/trainer who got high performance in work. That's is my happiness. Helping people grow up and make life better."
+        "Many of my team members and friends are a key member/leader/trainer who got high performance in work. That's is my happiness."
   },
 ];
 const kWorksData = <Map<String, dynamic>>[
