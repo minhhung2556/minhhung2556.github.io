@@ -46,3 +46,18 @@ class ShadowWidget extends StatelessWidget {
 }
 
 const kDegToRad = pi / 180.0;
+
+extension AnimationControllerEX on AnimationController {
+  void repeatEx(int times) {
+    var count = 0;
+    addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        if (++count < times) {
+          reverse();
+        }
+      } else if (status == AnimationStatus.dismissed) {
+        forward();
+      }
+    });
+  }
+}

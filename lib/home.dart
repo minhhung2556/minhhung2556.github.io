@@ -19,6 +19,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   late ScrollController _scrollController;
+
   late Size _screenSize;
   double _scrollOffset = 0.0;
   double _page1Value = 0;
@@ -33,8 +34,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   bool get _isPortrait => _screenW < _screenH;
 
-  late AnimationController _page1AC;
   late AnimationController _page6AC;
+
+  late ScrollController _workSC;
 
   @override
   void initState() {
@@ -48,8 +50,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       _page5Value = max(0.0, min(1.0, (o - _screenH * 6) / (_screenH)));
 
       /*print(
-          '_MyHomePageState.initState: _scrolledPageCount=$_scrolledPageCount');
-      print(
           '_MyHomePageState.initState: _page1Value=${_page1Value.toStringAsFixed(2)}');
       print(
           '_MyHomePageState.initState: _page2Value=${_page2Value.toStringAsFixed(2)}');
@@ -66,6 +66,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         });
       }
 
+      if (_page4Value > 0.0) {
+        var m = _workSC.position.maxScrollExtent;
+        var v = min(1.0, max(0, o - _screenH * 4.7) / (_screenH * 0.3));
+        _workSC.jumpTo(v * m);
+      }
+
       setState(() {});
     });
 
@@ -74,20 +80,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     //   _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
     // });
 
-    _page1AC =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
-    _page1AC.addListener(() {
-      setState(() {});
-    });
-    Future.delayed(Duration(seconds: 1), () {
-      _page1AC.forward(from: 0.0);
-    });
-
     _page6AC =
         AnimationController(vsync: this, duration: Duration(milliseconds: 600));
     _page6AC.addListener(() {
       setState(() {});
     });
+
+    _workSC = ScrollController();
 
     super.initState();
   }
@@ -432,28 +431,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       const SizedBox(width: kScreenPadding, height: kScreenPadding),
       Transform.translate(
         offset: Offset(dx, 0),
-        child: RotationTransition(
-          turns: TweenSequence<double>([
-            TweenSequenceItem(
-                tween: Tween<double>(
-                    begin: kDegToRad * 5.0, end: kDegToRad * -5.0),
-                weight: 0.5),
-            TweenSequenceItem(
-                tween: Tween<double>(begin: kDegToRad * -5, end: 0.0),
-                weight: 0.5),
-          ]).chain(CurveTween(curve: Curves.bounceInOut)).animate(_page1AC),
-          alignment: Alignment.topCenter,
-          child: ShadowWidget(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(kBorderRadius),
-              child: Opacity(
-                opacity: max(0.0, 1 - _page1Value * 2),
-                child: Container(
-                  constraints: BoxConstraints(maxHeight: contentH),
-                  child: Image.asset(
-                    Assets.assetAvatar,
-                    fit: BoxFit.fitWidth,
-                  ),
+        child: ShadowWidget(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(kBorderRadius),
+            child: Opacity(
+              opacity: max(0.0, 1 - _page1Value * 2),
+              child: Container(
+                constraints: BoxConstraints(maxHeight: contentH),
+                child: Image.asset(
+                  Assets.assetAvatar,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
             ),
@@ -741,6 +728,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   SizedBox(
                     height: itemH,
                     child: ListView.builder(
+                      controller: _workSC,
                       scrollDirection: Axis.horizontal,
                       itemCount: kWorksData.length,
                       itemBuilder: (context, index) => Padding(
