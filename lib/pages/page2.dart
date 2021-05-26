@@ -14,100 +14,94 @@ class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var design = Design(MediaQuery.of(context).size);
-    double fasterValue = min(1, value * 3);
-    var dy = fasterValue * design.screenSize.height;
+    var dx = 0.0;
+    var dy = design.screenSize.height * value;
 
     return Transform.translate(
-      offset: Offset(0, dy),
+      offset: Offset(dx, dy),
       child: PageEx(
         color: Colors.transparent,
-        child: Transform.scale(
-          scale: fasterValue,
-          origin: Offset(0, 0),
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Opacity(
+              opacity: min(1.0, page1Value),
+              child: Text(
                 "Skills",
                 style: design.header2Style,
               ),
-              SizedBox(height: design.screenPadding),
-              Expanded(
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    childAspectRatio: 1.7777777,
-                    mainAxisSpacing: design.screenPadding,
-                    crossAxisSpacing: design.screenPadding,
-                  ),
-                  itemBuilder: (context, index) =>
-                      _buildPage3Item(design, index, kSkillData[index]),
-                  itemCount: kSkillData.length,
-                  clipBehavior: Clip.none,
+            ),
+            SizedBox(height: design.screenPadding),
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 1.7777778,
+                  mainAxisSpacing: design.screenPadding,
+                  crossAxisSpacing: design.screenPadding,
                 ),
+                itemBuilder: (context, index) {
+                  var scale = min(1.0, value * 1.5);
+                  var origin = design.screenSize
+                      .center(Offset(-design.screenSize.width * 0.5, 0.0));
+
+                  return Transform.scale(
+                    scale: scale,
+                    origin: origin,
+                    child: _buildPage3Item(design, index, kSkillData[index]),
+                  );
+                },
+                itemCount: kSkillData.length,
+                clipBehavior: Clip.none,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
   Widget _buildPage3Item(Design design, int index, Map<String, dynamic> data) {
-    var dx = 0.0;
-    var dy = 0.0;
-    var gap = design.screenSize.width;
-
-    if (index < 3) {
-      dx = (1.0 - value) * gap;
-    } else {
-      dx = (value - 1.0) * gap;
-    }
-
-    return Transform.translate(
-      offset: Offset(dx, dy),
-      child: Container(
-        decoration: ShapeDecoration(
-          color: kItemColor,
-          shape: design.borderShape,
-        ),
-        padding: EdgeInsets.symmetric(
-            horizontal: design.itemPadding, vertical: design.itemPadding * 2),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            data['i'] is String
-                ? Image.asset(
-                    data['i'],
-                    width: design.iconSize,
-                    height: design.iconSize,
-                    color: kGreyColor,
-                    colorBlendMode: BlendMode.srcATop,
-                  )
-                : Icon(
-                    data['i'],
-                    color: kGreyColor,
-                    size: design.iconSize,
-                  ),
-            SizedBox(height: design.itemPadding * 1.5),
-            Text(
-              data['t'],
-              style: design.titleDescStyle.copyWith(
-                color: kAccentColor,
-              ),
-              maxLines: 1,
+    return Container(
+      decoration: ShapeDecoration(
+        color: kItemColor,
+        shape: design.borderShape,
+      ),
+      padding: EdgeInsets.symmetric(
+          horizontal: design.itemPadding, vertical: design.itemPadding * 2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          data['i'] is String
+              ? Image.asset(
+                  data['i'],
+                  width: design.iconSize,
+                  height: design.iconSize,
+                  color: kGreyColor,
+                  colorBlendMode: BlendMode.srcATop,
+                )
+              : Icon(
+                  data['i'],
+                  color: kGreyColor,
+                  size: design.iconSize,
+                ),
+          SizedBox(height: design.itemPadding * 1.5),
+          Text(
+            data['t'],
+            style: design.titleDescStyle.copyWith(
+              color: kAccentColor,
             ),
-            SizedBox(height: design.itemPadding * 1.5),
-            Expanded(
-              child: Text(
-                data['d'],
-                style: design.bodyDescStyle,
-                // overflow: TextOverflow.ellipsis,
-              ),
+            maxLines: 1,
+          ),
+          SizedBox(height: design.itemPadding * 1.5),
+          Expanded(
+            child: Text(
+              data['d'],
+              style: design.bodyDescStyle,
+              // overflow: TextOverflow.ellipsis,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -14,9 +14,11 @@ class Page1 extends StatelessWidget {
   Widget build(BuildContext context) {
     var design = Design(MediaQuery.of(context).size);
     var deltaX = design.screenSize.width / 2;
+    var dx = 0.0;
+    var dy = value * design.screenSize.height;
 
     return Transform.translate(
-      offset: Offset(0, -value * design.screenSize.height),
+      offset: Offset(dx, dy),
       child: PageEx(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,75 +67,69 @@ class Page1 extends StatelessWidget {
                   offset: Offset(value * deltaX, 0),
                   child: CardEx(
                     child: Padding(
-                      padding:
-                          EdgeInsets.only(top: design.screenPlusItemPadding),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: AspectRatio(
-                              aspectRatio: 1,
-                              child: Stack(
-                                fit: StackFit.expand,
-                                children: [
-                                  Transform.translate(
-                                    offset: Offset(0, -design.itemPadding * 3),
-                                    child: Container(
-                                      color: Colors.white10,
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: design.itemPadding * 2),
+                      padding: EdgeInsets.only(top: design.itemPadding),
+                      child: AspectRatio(
+                        aspectRatio: 3,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: Image.asset(
+                                      Assets.assetDigital1,
+                                    ).image,
+                                    fit: BoxFit.cover,
+                                    alignment: Alignment.topCenter,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: design.itemPadding * 3),
+                                  child: AspectRatio(
+                                    aspectRatio: 1,
+                                    child: Image.asset(
+                                      Assets.assetAvatar,
+                                      fit: BoxFit.fitWidth,
                                     ),
                                   ),
-                                  Transform.translate(
-                                    offset:
-                                        Offset(0, -design.itemPadding * 1.5),
-                                    child: Container(
-                                      color:
-                                          Colors.cyan.shade100.withOpacity(0.3),
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: design.itemPadding),
-                                    ),
-                                  ),
-                                  Image.asset(
-                                    Assets.assetAvatar,
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Padding(
-                              padding:
-                                  EdgeInsets.only(left: design.itemPadding * 2),
-                              child: RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: kSummaryData[0],
-                                      style: design.header3Style,
-                                    ),
-                                    WidgetSpan(
-                                      child: Icon(
-                                        Icons.wifi_tethering,
-                                        color: kAccentColor,
-                                        size: design.iconSize,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: kSummaryData[1],
-                                      style: design.titleDescStyle,
-                                    ),
-                                    TextSpan(
-                                      text: kSummaryData[2],
-                                      style: design.bodyDescStyle,
-                                    ),
-                                  ],
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              flex: 2,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: design.itemPadding * 2),
+                                child: RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: kSummaryData[0],
+                                        style: design.header3Style,
+                                      ),
+                                      WidgetSpan(
+                                        child: Icon(
+                                          Icons.wifi_tethering,
+                                          color: kAccentColor,
+                                          size: design.iconSize,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: kSummaryData[1],
+                                        style: design.titleDescStyle,
+                                      ),
+                                      TextSpan(
+                                        text: kSummaryData[2],
+                                        style: design.bodyDescStyle,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
