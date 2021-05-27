@@ -1,15 +1,15 @@
 // ignore: avoid_web_libraries_in_flutter
-import 'dart:html' as html;
 import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
-import 'package:minhhung2556/common/flat_elevated_button.dart';
 import 'package:minhhung2556/common/res.dart';
-import 'package:minhhung2556/data.dart';
-import 'package:minhhung2556/generated/assets.dart';
+import 'package:minhhung2556/pages/page1.dart';
+import 'package:minhhung2556/pages/page2.dart';
+import 'package:minhhung2556/pages/page3.dart';
+import 'package:minhhung2556/pages/page4.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -19,36 +19,33 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   late ScrollController _scrollController;
 
-  late Size _screenSize;
-  double _scrollOffset = 0.0;
-  double _page1Value = 0;
-  double _page2Value = 0;
-  double _page3Value = 0;
-  double _page4Value = 0;
-  double _page5Value = 0;
+  late Size screenSize;
+  double scrollOffset = 0.0;
+  double page1Value = 0;
+  double page2Value = 0;
+  double page3Value = 0;
+  double page4Value = 0;
 
-  double get _screenH => _screenSize.height;
+  double get screenH => screenSize.height;
 
-  double get _screenW => _screenSize.width;
+  double get screenW => screenSize.width;
 
-  bool get _isPortrait => _screenW < _screenH;
-
-  late AnimationController _page6AC;
+  late AnimationController goToTopAnimationController;
 
   late ScrollController _workSC;
 
   @override
   void initState() {
-    _scrollController = ScrollController(initialScrollOffset: _scrollOffset);
+    _scrollController = ScrollController(initialScrollOffset: scrollOffset);
     _scrollController.addListener(() {
-      var o = _scrollOffset = _scrollController.offset;
-      _page1Value = max(0.0, min(1.0, o / _screenH));
-      _page2Value = max(0.0, min(1.0, (o - _screenH) / _screenH));
-      _page3Value = max(0.0, min(1.0, (o - _screenH * 2) / (_screenH)));
-      _page4Value = max(0.0, min(1.0, (o - _screenH * 4) / (_screenH)));
-      _page5Value = max(0.0, min(1.0, (o - _screenH * 6) / (_screenH)));
+      var o = scrollOffset = _scrollController.offset;
+      page1Value = max(0.0, min(1.0, o / screenH));
+      page2Value = max(0.0, min(1.0, (o - screenH) / screenH));
+      page3Value = max(0.0, min(1.0, (o - screenH * 2) / screenH));
+      page4Value = max(0.0, min(1.0, (o - screenH * 3) / (screenH)));
 
-      /*print(
+      /*
+      print(
           '_MyHomePageState.initState: _page1Value=${_page1Value.toStringAsFixed(2)}');
       print(
           '_MyHomePageState.initState: _page2Value=${_page2Value.toStringAsFixed(2)}');
@@ -56,32 +53,29 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           '_MyHomePageState.initState: _page3Value=${_page3Value.toStringAsFixed(2)}');
       print(
           '_MyHomePageState.initState: _page4Value=${_page4Value.toStringAsFixed(2)}');
-      print(
-          '_MyHomePageState.initState: _page5Value=${_page5Value.toStringAsFixed(2)}');*/
+      */
 
-      if (_page5Value == 1.0) {
+      if (page4Value == 1.0) {
         Future.delayed(Duration(milliseconds: 100), () {
-          _page6AC.repeat();
+          goToTopAnimationController.repeat();
         });
       }
 
-      if (_page4Value > 0.0) {
-        var m = _workSC.position.maxScrollExtent;
-        var v = min(1.0, max(0, o - _screenH * 4.7) / (_screenH * 0.3));
-        _workSC.jumpTo(v * m);
+      if (page3Value >= 1.0) {
+        _workSC.jumpTo(page4Value * _workSC.position.maxScrollExtent);
       }
 
       setState(() {});
     });
 
     //FIXME test
-    // Future.delayed(Duration(milliseconds: 500), () {
-    //   _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-    // });
+    Future.delayed(Duration(milliseconds: 500), () {
+      _scrollController.jumpTo(screenH * 5);
+    });
 
-    _page6AC =
+    goToTopAnimationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 600));
-    _page6AC.addListener(() {
+    goToTopAnimationController.addListener(() {
       setState(() {});
     });
 
@@ -98,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    _screenSize = MediaQuery.of(context).size;
+    screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: kDarkestColor,
@@ -107,760 +101,31 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         controller: _scrollController,
         child: Column(
           children: [
-            _buildPage1(),
-            _buildPage2(),
-            _buildPage3(),
-            _buildPage4(),
-            _buildPage5(),
-            _buildPage6(),
+            Page1(
+              value: page1Value,
+            ),
+            Page2(
+              value: page2Value,
+              page1Value: page1Value,
+            ),
+            Page3(
+              value: page3Value,
+              page1Value: page1Value,
+              page2Value: page2Value,
+              page4Value: page4Value,
+              controller: _workSC,
+            ),
+            Page4(
+              value: page4Value,
+              page1Value: page1Value,
+              page2Value: page2Value,
+              page3Value: page3Value,
+              animationController: goToTopAnimationController,
+            ),
             SizedBox(
-              height: _screenH * 3,
+              height: screenH * 2,
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPage6() {
-    var av = min(1.0, _page5Value + 0.7);
-    var dy = _page5Value * _screenH +
-        _screenH * 3 +
-        -(1 - av) * _screenH -
-        av * _screenH;
-
-    return Transform.translate(
-      offset: Offset(0, dy),
-      child: Container(
-        constraints: BoxConstraints(minHeight: _screenH / 5),
-        child: Column(
-          verticalDirection: VerticalDirection.up,
-          children: [
-            Card(
-              color: kCardColor,
-              elevation: 0.0,
-              margin: const EdgeInsets.all(kScreenPadding),
-              shape: RoundedRectangleBorder(
-                borderRadius: kBorder,
-              ),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(kScreenPadding),
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: kCopyrightData[0],
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white38,
-                          ),
-                        ),
-                        TextSpan(
-                          text: kCopyrightData[1],
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: kLightestColor,
-                          ),
-                        ),
-                        TextSpan(
-                          text: kCopyrightData[2],
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white38,
-                          ),
-                        ),
-                        TextSpan(
-                          text: kCopyrightData[3],
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.white38,
-                          ),
-                        ),
-                        WidgetSpan(
-                          alignment: PlaceholderAlignment.middle,
-                          child: buildFlatButton(
-                            child: Text(
-                              kCopyrightData[4],
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: kLightestColor,
-                              ),
-                            ),
-                            onPressed: () {
-                              html.window.open(kCopyrightData[5], '');
-                            },
-                          ),
-                        ),
-                        TextSpan(
-                          text: kCopyrightData[6],
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.white38,
-                          ),
-                        ),
-                        TextSpan(
-                          text: kCopyrightData[7],
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.white38,
-                          ),
-                        ),
-                        WidgetSpan(
-                          alignment: PlaceholderAlignment.middle,
-                          child: buildFlatButton(
-                              child: Text(
-                            kCopyrightData[8],
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: kLightestColor,
-                            ),
-                          )),
-                        ),
-                        TextSpan(
-                          text: kCopyrightData[9],
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.white38,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Transform.translate(
-              offset: Offset(0, kScreenPadding * 1.5),
-              child: Container(
-                color: kAccentColor,
-                padding: const EdgeInsets.symmetric(
-                    vertical: kItemPadding * 1.5, horizontal: kItemPadding / 2),
-                child: SlideTransition(
-                  position: Tween<Offset>(
-                    begin: Offset(
-                      0.0,
-                      -0.1,
-                    ),
-                    end: Offset(
-                      0.0,
-                      0.1,
-                    ),
-                  ).animate(_page6AC),
-                  child: Icon(
-                    Icons.upgrade,
-                    size: 36,
-                    color: kLightestColor,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPage5() {
-    var av = min(1.0, _page5Value + 0.7);
-    var dy = _page5Value * _screenH +
-        _screenH * 3 +
-        -(1 - av) * _screenH -
-        av * _screenH;
-
-    var dx = _screenW * (1 - _page5Value);
-    var avaDx = _screenW * (_page5Value - 1) - dx;
-    var socialDy = _screenH * (1 - _page5Value);
-
-    return Transform.translate(
-      offset: Offset(0, dy),
-      child: Container(
-        color: kDarkestColor,
-        width: _screenW,
-        height: _screenH,
-        child: Column(
-          children: [
-            Expanded(child: Container()),
-            Transform.translate(
-              offset: Offset(dx, 0),
-              child: Card(
-                color: kCardColor,
-                elevation: 0.0,
-                margin: const EdgeInsets.all(kScreenPadding * 2),
-                shape: RoundedRectangleBorder(
-                  borderRadius: kBorder,
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(width: kScreenPadding * 2),
-                    Expanded(
-                      child: Transform.translate(
-                        offset: Offset(avaDx, 0),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: kScreenPadding * 2),
-                          child: Image.asset(
-                            Assets.assetAvatar1,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: kScreenPadding),
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: kScreenPadding * 2),
-                          Text(
-                            "Drop A Line",
-                            style: TextStyle(fontSize: 26, color: Colors.white),
-                          ),
-                          const SizedBox(height: kScreenPadding / 2),
-                          Icon(
-                            Icons.stacked_line_chart,
-                            size: 24,
-                            color: kAccentColor,
-                          ),
-                          const SizedBox(height: kScreenPadding),
-                          Transform.translate(
-                            offset: Offset(-kScreenPadding / 2 - dx,
-                                kSocialIconSize / 2 + socialDy),
-                            child: Container(
-                              color: Colors.black45,
-                              child: Transform.translate(
-                                offset: Offset(
-                                    kScreenPadding, -kSocialIconSize / 2),
-                                child: Container(
-                                  color: Colors.white30,
-                                  child: Wrap(
-                                    alignment: WrapAlignment.center,
-                                    children: kSocialData
-                                        .map<Widget>((e) => buildCircleButton(
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(
-                                                    kItemPadding),
-                                                child: Image.asset(
-                                                  e['i'],
-                                                  width: kSocialIconSize,
-                                                  height: kSocialIconSize,
-                                                ),
-                                              ),
-                                              onPressed: () {
-                                                html.window.open(e['l'], '');
-                                              },
-                                            ))
-                                        .toList(),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: kScreenPadding * 2),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: kScreenPadding * 2),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(child: Container()),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPage1() {
-    var contentH = min(_screenW, _screenH) / 2;
-    var av = _page1Value * 3;
-    var dx = av * _screenW / 2;
-
-    var children = [
-      Expanded(
-        child: Transform.translate(
-          offset: Offset(-dx, 0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FittedBox(
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "Hi! I'm ",
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: kLightestColor,
-                        ),
-                      ),
-                      TextSpan(
-                        text: kMyName,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: kLightestColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Text(
-                kMyTitle,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                  color: kLightestColor,
-                ),
-              ),
-              const SizedBox(height: kScreenPadding),
-              Divider(
-                color: Colors.white60,
-              ),
-            ],
-          ),
-        ),
-      ),
-      const SizedBox(width: kScreenPadding, height: kScreenPadding),
-      Transform.translate(
-        offset: Offset(dx, 0),
-        child: ClipRRect(
-          borderRadius: kBorder,
-          child: Opacity(
-            opacity: max(0.0, 1 - _page1Value * 2),
-            child: Container(
-              constraints: BoxConstraints(maxHeight: contentH),
-              child: Image.asset(
-                Assets.assetAvatar,
-                fit: BoxFit.fitWidth,
-              ),
-            ),
-          ),
-        ),
-      ),
-    ];
-
-    return Transform.translate(
-      offset: Offset(0, _page1Value * _screenH),
-      child: Container(
-        width: _screenW,
-        height: _screenH,
-        color: kDarkestColor,
-        padding: EdgeInsets.symmetric(
-          horizontal: kScreenPadding * 2,
-          vertical: max(
-              kScreenPadding * 2,
-              (_screenH -
-                      contentH * (_isPortrait ? 2 : 1) -
-                      kScreenPadding * 2) *
-                  0.5),
-        ),
-        child: Card(
-          color: kColorTween12.transform(min(1.0, _page1Value * 1.5)),
-          shape: RoundedRectangleBorder(
-            borderRadius: kBorder,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(kScreenPadding * 2),
-            child: _isPortrait
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: children,
-                  )
-                : Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: children,
-                  ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPage2() {
-    var contentH = _screenH / 2;
-    var av = min(1.0, _page1Value * 2 - 1);
-    return Transform.translate(
-      offset: Offset(
-          0, -_screenH + _page1Value * _screenH + _page2Value * _screenH),
-      child: Transform.scale(
-        scale: 1 + _page2Value * 2,
-        child: Opacity(
-          opacity: 1 - _page2Value,
-          child: Container(
-            height: _screenH,
-            padding: EdgeInsets.symmetric(horizontal: kScreenPadding * 2),
-            alignment: Alignment.center,
-            child: Container(
-              height: contentH,
-              child: Opacity(
-                opacity: max(0.0, min(1.0, av)),
-                child: Card(
-                  color: kCardColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: kBorder,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(kScreenPadding * 2),
-                    child: Center(
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: kSummaryData[0],
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 30,
-                                color: kLightestColor,
-                              ),
-                            ),
-                            WidgetSpan(
-                              child: Icon(
-                                Icons.wifi_tethering,
-                                color: kAccentColor,
-                              ),
-                            ),
-                            TextSpan(
-                              text: kSummaryData[1],
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 22,
-                                color: kLightestColor,
-                              ),
-                            ),
-                            TextSpan(
-                              text: kSummaryData[2],
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Colors.white70,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPage3() {
-    var dy = _page3Value * _screenH -
-        _page1Value * _screenH +
-        _page2Value * _screenH;
-
-    return Transform.translate(
-      offset: Offset(0, dy),
-      child: Opacity(
-        opacity: min(1.0, _page3Value),
-        child: Container(
-          color: kDarkestColor,
-          height: _screenH,
-          width: _screenW,
-          child: Transform.scale(
-            scale: min(1.0, 0.5 + _page3Value),
-            origin: Offset(0, dy / 2),
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: kScreenPadding),
-                Text(
-                  "Skills",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 32,
-                    color: kLightestColor,
-                  ),
-                ),
-                const SizedBox(height: kScreenPadding),
-                Wrap(
-                  children: List.generate(kSkillData.length,
-                      (index) => _buildPage3Item(index, kSkillData[index])),
-                  spacing: kItemPadding,
-                  runSpacing: kItemPadding,
-                  alignment: WrapAlignment.spaceBetween,
-                  runAlignment: WrapAlignment.spaceBetween,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPage3Item(int index, Map<String, dynamic> data) {
-    var av = min(1.0, _page3Value + 0.1);
-
-    var itemW = (_screenW - kScreenPadding * 4) / 3;
-    var itemH = (_screenH - kScreenPadding * 4 - kItemPadding * 3) / 2;
-
-    var dx = 0.0;
-    var dy = 0.0;
-    var del = 2;
-
-    if (index == 0) {
-      var gap = _screenW;
-      dx = -gap + min(1.0, av) * gap;
-    } else if (index == 1) {
-      var gap = _screenW;
-      dx = -gap + min(1.0, av * del) * gap;
-    } else if (index == 2) {
-      var gap = _screenW;
-      dx = -gap + min(1.0, av * del * del) * gap;
-    } else if (index == 5) {
-      var gap = _screenH;
-      dy = gap - av * gap;
-    } else if (index == 4) {
-      var gap = _screenH;
-      dy = gap - min(1.0, av * del) * gap;
-    } else if (index == 3) {
-      var gap = _screenH;
-      dy = gap - min(1.0, av * del * del) * gap;
-    }
-
-    return Transform.translate(
-      offset: Offset(dx, dy),
-      child: Container(
-        width: itemW,
-        height: itemH,
-        decoration: ShapeDecoration(
-          color: kItemColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: kBorder,
-            side: BorderSide(
-              color: Colors.white10,
-              width: 2,
-            ),
-          ),
-        ),
-        padding: EdgeInsets.all(kItemPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            data['i'] is String
-                ? Image.asset(
-                    data['i'],
-                    width: kIconSize,
-                    height: kIconSize,
-                    color: kLightestColor,
-                    colorBlendMode: BlendMode.srcATop,
-                  )
-                : Icon(
-                    data['i'],
-                    color: kLightestColor,
-                    size: kIconSize,
-                  ),
-            const SizedBox(height: kItemPadding),
-            Text(
-              data['t'],
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 18,
-                color: kAccentColor,
-              ),
-              maxLines: 1,
-            ),
-            const SizedBox(height: kItemPadding),
-            Expanded(
-              child: Text(
-                data['d'],
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 13,
-                  color: Colors.white70,
-                ),
-                // overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPage4() {
-    var av = min(1.0, _page4Value * 3);
-    var dy = _page4Value * _screenH +
-        _page1Value * _screenH +
-        _page2Value * _screenH +
-        -(1 - av) * _screenH -
-        av * _screenH;
-
-    var itemW =
-        ((min(_screenW, _screenH) - kScreenPadding * 2) / 2.5).roundToDouble();
-    var itemH = (itemW * 1.7).roundToDouble();
-
-    return Transform.translate(
-      offset: Offset(0, dy),
-      child: Opacity(
-        opacity: max(0.0, min(1.0, av)),
-        child: Container(
-          color: kDarkestColor,
-          height: _screenH,
-          width: _screenW,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Works",
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 32,
-                  color: kLightestColor,
-                ),
-              ),
-              const SizedBox(height: kScreenPadding),
-              SizedBox(
-                height: itemH,
-                child: ListView.builder(
-                  controller: _workSC,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: kWorksData.length,
-                  itemBuilder: (context, index) => Padding(
-                    padding: EdgeInsets.only(
-                        left: index == 0 ? kItemPadding : 0,
-                        right: kItemPadding),
-                    child: _buildPage4Item(
-                        itemW - kItemPadding, itemH, index, kWorksData[index]),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPage4Item(
-      double itemW, double itemH, int index, Map<String, dynamic> data) {
-    var dx = 0.0;
-    var dy = 0.0;
-    var del = 1.5;
-
-    var gap = _screenH;
-    dy = gap -
-        max(
-                0.0,
-                min(1.0,
-                    _page4Value * pow(del, kWorksData.length - index - 1))) *
-            gap;
-
-    return Transform.translate(
-      offset: Offset(dx, dy),
-      child: Container(
-        width: itemW,
-        height: itemH,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            alignment: Alignment.topCenter,
-            image: Image.asset(
-              data['i'],
-              width: itemW,
-            ).image,
-          ),
-        ),
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            color: kLightestColor,
-            padding: EdgeInsets.symmetric(horizontal: kScreenPadding),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(height: kItemPadding / 2),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: kItemPadding * 0.5, right: kItemPadding * 0.5),
-                  child: Text(
-                    data['c'],
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.black87,
-                    ),
-                    maxLines: 1,
-                  ),
-                ),
-                const SizedBox(height: kItemPadding / 2),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: kItemPadding * 0.5, right: kItemPadding * 0.5),
-                  child: Text(
-                    '----- ${data['d']}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12,
-                      color: Colors.black45,
-                    ),
-                    // overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                const SizedBox(height: kItemPadding / 2),
-                const Divider(height: 0.5),
-                const SizedBox(height: kItemPadding / 2),
-                FittedBox(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: data['ls'].map<Widget>((e) {
-                      Widget c;
-                      var iconSize = 24.0;
-                      switch (e['n'].toString().toLowerCase()) {
-                        case 'android':
-                          c = Icon(
-                            Icons.android_rounded,
-                            size: iconSize,
-                            color: Colors.black45,
-                          );
-                          break;
-                        case 'ios':
-                          c = Image.asset(
-                            Assets.assetLogoapple,
-                            width: iconSize,
-                            height: iconSize,
-                            color: Colors.black45,
-                          );
-                          break;
-                        case 'website':
-                        default:
-                          c = Icon(
-                            Icons.forward,
-                            size: iconSize,
-                            color: Colors.black45,
-                          );
-                          break;
-                      }
-                      return buildCircleButton(
-                        child: c,
-                        onPressed: () {
-                          html.window.open(e['l'], e['n']);
-                        },
-                      );
-                    }).toList(),
-                  ),
-                ),
-                const SizedBox(height: kItemPadding / 2),
-              ],
-            ),
-          ),
         ),
       ),
     );

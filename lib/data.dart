@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:minhhung2556/generated/assets.dart';
 
+const kSayHi = "Hi There! I'm ";
 const kMyName = "Lương Đỗ Minh Hưng";
 const kMyTitle =
-    "\nA Romantic Mobile Application/Game developer, a friendly daddy, a motivating leader, a funny friend, and a handsome husband. :D";
+    "A Romantic Mobile Application/Game developer, a friendly daddy, a motivational leader, a funny friend, and a handsome husband. :D";
 const kSummaryData = <String>[
   "Making The Mobile Application Development be more romantic is my passion.\n\n",
   "\n\nBased in Ho Chi Minh City, I code and design things for Mobile.\n\n",

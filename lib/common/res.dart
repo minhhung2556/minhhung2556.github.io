@@ -11,4 +11,9 @@ const kSocialIconSize = 30.0;
 const kAccentColor = Colors.cyan;
 const kCardColor = const Color(0xff111111);
 const kLightestColor = Colors.white;
+const kGreyColor = Colors.grey;
 const kDarkestColor = Colors.black;
+
+double designFactor(Size screenSize) {
+  return screenSize.width / 375.0;
+}

@@ -14,6 +14,7 @@ Widget buildFlatButton({Widget? child, Function()? onPressed}) {
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
       overlayColor: MaterialStateProperty.all<Color>(_kAccentColor),
+      minimumSize: MaterialStateProperty.all<Size>(Size.zero),
     ),
   );
 }
@@ -30,6 +31,7 @@ Widget buildCircleButton({Widget? child, Function()? onPressed}) {
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
       overlayColor: MaterialStateProperty.all<Color>(_kAccentColor),
+      minimumSize: MaterialStateProperty.all<Size>(Size.zero),
     ),
   );
 }
