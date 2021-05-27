@@ -11,7 +11,7 @@ class Design {
     // print('Design: $screenSize');
   }
 
-  bool get isPortrait => screenSize.width / screenSize.height < 0.7;
+  bool get isPortrait => screenSize.width / screenSize.height < 1.6;
 
   double get factor => min(screenSize.width / 1280, screenSize.height / 720);
   double get screenPadding => 48.0 * factor;

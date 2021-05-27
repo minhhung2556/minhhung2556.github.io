@@ -55,6 +55,7 @@ class Page4 extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             flex: 10,
@@ -97,32 +98,39 @@ class Page4 extends StatelessWidget {
                             ),
                           ),
                           Expanded(
-                            child: FittedBox(
-                              child: Container(
-                                color: Colors.black45,
-                                child: Transform.translate(
-                                  offset: Offset(design.screenPadding, -deltaY),
-                                  child: Container(
-                                    color: Colors.white30,
-                                    child: Wrap(
-                                      alignment: WrapAlignment.center,
-                                      children: kSocialData
-                                          .map<Widget>((e) => buildCircleButton(
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(
-                                                      design.itemPadding),
-                                                  child: Image.asset(
-                                                    e['i'],
-                                                    width: design.largeIconSize,
-                                                    height:
-                                                        design.largeIconSize,
+                            child: Align(
+                              alignment: Alignment.topCenter,
+                              child: FittedBox(
+                                child: Container(
+                                  color: Colors.black45,
+                                  child: Transform.translate(
+                                    offset:
+                                        Offset(design.screenPadding, -deltaY),
+                                    child: Container(
+                                      color: Colors.white30,
+                                      child: Wrap(
+                                        alignment: WrapAlignment.center,
+                                        children: kSocialData
+                                            .map<Widget>((e) =>
+                                                buildCircleButton(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.all(
+                                                        design.itemPadding),
+                                                    child: Image.asset(
+                                                      e['i'],
+                                                      width:
+                                                          design.largeIconSize,
+                                                      height:
+                                                          design.largeIconSize,
+                                                    ),
                                                   ),
-                                                ),
-                                                onPressed: () {
-                                                  html.window.open(e['l'], '');
-                                                },
-                                              ))
-                                          .toList(),
+                                                  onPressed: () {
+                                                    html.window
+                                                        .open(e['l'], '');
+                                                  },
+                                                ))
+                                            .toList(),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -154,65 +162,65 @@ class Page4 extends StatelessWidget {
                         left: design.screenPadding,
                         right: design.screenPadding,
                       ),
-                      child: FittedBox(
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: kCopyrightData[0],
-                                style: design.bodyDescStyle,
-                              ),
-                              TextSpan(
-                                text: kCopyrightData[1],
-                                style: design.bodyStyle,
-                              ),
-                              TextSpan(
-                                text: kCopyrightData[2],
-                                style: design.bodyDescStyle,
-                              ),
-                              TextSpan(
-                                text: kCopyrightData[3],
-                                style: design.bodySubDescStyle,
-                              ),
-                              WidgetSpan(
-                                alignment: PlaceholderAlignment.middle,
-                                child: buildFlatButton(
-                                  child: Text(
-                                    kCopyrightData[4],
-                                    style: design.bodySubDescStyle.copyWith(
-                                      color: kLightestColor,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    html.window.open(kCopyrightData[5], '');
-                                  },
-                                ),
-                              ),
-                              TextSpan(
-                                text: kCopyrightData[6],
-                                style: design.bodySubDescStyle,
-                              ),
-                              TextSpan(
-                                text: kCopyrightData[7],
-                                style: design.bodySubDescStyle,
-                              ),
-                              WidgetSpan(
-                                alignment: PlaceholderAlignment.middle,
-                                child: buildFlatButton(
-                                    child: Text(
-                                  kCopyrightData[8],
+                      child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: kCopyrightData[0],
+                              style: design.bodyDescStyle,
+                            ),
+                            TextSpan(
+                              text: kCopyrightData[1],
+                              style: design.bodyStyle,
+                            ),
+                            TextSpan(
+                              text: kCopyrightData[2],
+                              style: design.bodyDescStyle,
+                            ),
+                            TextSpan(
+                              text: kCopyrightData[3],
+                              style: design.bodySubDescStyle,
+                            ),
+                            WidgetSpan(
+                              alignment: PlaceholderAlignment.middle,
+                              style: design.bodySubDescStyle,
+                              child: buildFlatButton(
+                                child: Text(
+                                  kCopyrightData[4],
                                   style: design.bodySubDescStyle.copyWith(
                                     color: kLightestColor,
                                   ),
-                                )),
+                                ),
+                                onPressed: () {
+                                  html.window.open(kCopyrightData[5], '');
+                                },
                               ),
-                              TextSpan(
-                                text: kCopyrightData[9],
-                                style: design.bodySubDescStyle,
-                              ),
-                            ],
-                          ),
+                            ),
+                            TextSpan(
+                              text: kCopyrightData[6],
+                              style: design.bodySubDescStyle,
+                            ),
+                            TextSpan(
+                              text: kCopyrightData[7],
+                              style: design.bodySubDescStyle,
+                            ),
+                            WidgetSpan(
+                              alignment: PlaceholderAlignment.middle,
+                              style: design.bodySubDescStyle,
+                              child: buildFlatButton(
+                                  child: Text(
+                                kCopyrightData[8],
+                                style: design.bodySubDescStyle.copyWith(
+                                  color: kLightestColor,
+                                ),
+                              )),
+                            ),
+                            TextSpan(
+                              text: kCopyrightData[9],
+                              style: design.bodySubDescStyle,
+                            ),
+                          ],
                         ),
                       ),
                     ),

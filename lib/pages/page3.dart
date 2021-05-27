@@ -47,6 +47,7 @@ class Page3 extends StatelessWidget {
               ),
               SizedBox(height: design.screenPadding),
               Expanded(
+                flex: design.isPortrait ? 1 : 9,
                 child: ListView.builder(
                   controller: controller,
                   scrollDirection: Axis.horizontal,
@@ -76,6 +77,7 @@ class Page3 extends StatelessWidget {
                   },
                 ),
               ),
+              Expanded(child: Container()),
             ],
           ),
         ),

@@ -88,7 +88,10 @@ class Page2 extends StatelessWidget {
           SizedBox(height: design.itemPadding * 1.5),
           Text(
             data['t'],
-            style: design.titleDescStyle.copyWith(
+            style: (design.isPortrait
+                    ? design.header2Style
+                    : design.titleDescStyle)
+                .copyWith(
               color: kAccentColor,
             ),
             maxLines: 1,
