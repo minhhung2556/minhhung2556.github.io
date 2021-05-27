@@ -4,9 +4,9 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "version.json": "67f3aa081b4fa6fa8e12ee3466b4d7f4",
-"index.html": "b09ba4c1b70c5ba9e0eaf5cc845dcbf4",
-"/": "b09ba4c1b70c5ba9e0eaf5cc845dcbf4",
-"main.dart.js": "9b580978d48edea91474e224fbe9b04e",
+"index.html": "7b05a728f471f31278f9f352b87cb3fc",
+"/": "7b05a728f471f31278f9f352b87cb3fc",
+"main.dart.js": "a6a40287f3d8ee58a96e94e8fc3d29fa",
 "favicon.png": "1febf57da596ee5e57bab0f2c232d5df",
 "icons/Icon-192.png": "2044a82c479c3cbf19829b6ce646540e",
 "icons/Icon-512.png": "d6c3a21dd684231969dbe686ca415a50",
@@ -27,8 +27,9 @@ const RESOURCES = {
 "assets/asset/ic_medium.png": "6b6688b952a6dded6ea1318587778762",
 "assets/asset/ic_gmail.png": "360e04a14359127804ef640fe1cacf2a",
 "assets/asset/avatar1.jpg": "5b6fe373bfd9e434010118b915a2e103",
+"assets/asset/digital1.png": "2dd63c1a3062daec02ee3c99190ef96c",
 "assets/asset/logoflutter.png": "efa5e8370c235bd0e4df4ccaece43457",
-"assets/AssetManifest.json": "83735334b7b84a66743a4b7b4aa72c01",
+"assets/AssetManifest.json": "ade4f0031507cd1839b0d4b31105643d",
 "assets/NOTICES": "d408711e07b7a1acf3c8434b1c115f3b",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "assets/fonts/MaterialIcons-Regular.otf": "1288c9e28052e028aba623321f7826ac"
