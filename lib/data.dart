@@ -4,7 +4,7 @@ import 'package:minhhung2556/generated/assets.dart';
 const kSayHi = "Hi There! I'm ";
 const kMyName = "Lương Đỗ Minh Hưng";
 const kMyTitle =
-    "A Romantic Mobile Application/Game developer, a friendly daddy, a motivational leader, a funny friend, and a handsome husband. :D";
+    "I'm a romantic developer, a mobile team leader, a responsible employee, a motivated person, a friendly daddy, an honest friend, and a handsome husband.";
 const kSummaryData = <String>[
   "Making Mobile Application Development be more romantic is my passion.\n\n",
   "\n\nBased in Ho Chi Minh City, I code and design things for Mobile.\n\n",
