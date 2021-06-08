@@ -159,8 +159,8 @@ class Page4 extends StatelessWidget {
                       padding: EdgeInsets.only(
                         bottom: design.itemPadding * 2,
                         top: design.screenPadding,
-                        left: design.screenPadding,
-                        right: design.screenPadding,
+                        // left: design.screenPadding,
+                        // right: design.screenPadding,
                       ),
                       child: RichText(
                         textAlign: TextAlign.center,
