@@ -1,11 +1,11 @@
 import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
-import 'package:minhhung2556/common/design.dart';
-import 'package:minhhung2556/common/flat_elevated_button.dart';
-import 'package:minhhung2556/common/res.dart';
 import 'package:minhhung2556/data.dart';
 import 'package:minhhung2556/generated/assets.dart';
+import 'package:minhhung2556/v1/common/design.dart';
+import 'package:minhhung2556/v1/common/flat_elevated_button.dart';
+import 'package:minhhung2556/v1/common/res.dart';
 
 class Page4 extends StatelessWidget {
   final double page1Value;

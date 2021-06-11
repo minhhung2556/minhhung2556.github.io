@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:minhhung2556/common/res.dart';
-import 'package:minhhung2556/home.dart';
+import 'package:minhhung2556/data.dart';
+import 'package:minhhung2556/v1/common/res.dart' as v1Common;
+import 'package:minhhung2556/v2/home.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,12 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Lương Đỗ Minh Hưng',
+      title: kMyName,
       theme: ThemeData(
-        primarySwatch: kAccentColor,
+        primarySwatch: v1Common.kAccentColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      home: HomePageV2(),
     );
   }
 }
