@@ -95,6 +95,7 @@ class Page1 extends StatelessWidget {
       child: PageEx(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: design.screenPadding),
             Opacity(

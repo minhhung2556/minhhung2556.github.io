@@ -150,77 +150,87 @@ class Page4 extends StatelessWidget {
                 flex: 2,
               ),
             Expanded(
+              flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 verticalDirection: VerticalDirection.up,
                 children: [
                   Expanded(
                     child: CardEx(
-                      padding: EdgeInsets.only(
-                        bottom: design.itemPadding * 2,
-                        top: design.screenPadding,
-                        // left: design.screenPadding,
-                        // right: design.screenPadding,
-                      ),
-                      child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: kCopyrightData[0],
-                              style: design.bodyDescStyle,
-                            ),
-                            TextSpan(
-                              text: kCopyrightData[1],
-                              style: design.bodyStyle,
-                            ),
-                            TextSpan(
-                              text: kCopyrightData[2],
-                              style: design.bodyDescStyle,
-                            ),
-                            TextSpan(
-                              text: kCopyrightData[3],
-                              style: design.bodySubDescStyle,
-                            ),
-                            WidgetSpan(
-                              alignment: PlaceholderAlignment.middle,
-                              style: design.bodySubDescStyle,
-                              child: buildFlatButton(
-                                child: Text(
-                                  kCopyrightData[4],
-                                  style: design.bodySubDescStyle.copyWith(
-                                    color: kLightestColor,
+                      /*padding: EdgeInsets.only(
+                          bottom: design.itemPadding * 2,
+                          top: design.screenPadding,
+                          left: design.screenPadding,
+                          right: design.screenPadding,
+                          ),*/
+                      padding: EdgeInsets.zero,
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: design.screenPadding,
+                            bottom: design.itemPadding * 2,
+                          ),
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: kCopyrightData[0],
+                                  style: design.bodyDescStyle,
+                                ),
+                                TextSpan(
+                                  text: kCopyrightData[1],
+                                  style: design.bodyStyle,
+                                ),
+                                TextSpan(
+                                  text: kCopyrightData[2],
+                                  style: design.bodyDescStyle,
+                                ),
+                                TextSpan(
+                                  text: kCopyrightData[3],
+                                  style: design.bodySubDescStyle,
+                                ),
+                                WidgetSpan(
+                                  alignment: PlaceholderAlignment.middle,
+                                  style: design.bodySubDescStyle,
+                                  child: buildFlatButton(
+                                    child: Text(
+                                      kCopyrightData[4],
+                                      style: design.bodySubDescStyle.copyWith(
+                                        color: kLightestColor,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      html.window.open(kCopyrightData[5], '');
+                                    },
                                   ),
                                 ),
-                                onPressed: () {
-                                  html.window.open(kCopyrightData[5], '');
-                                },
-                              ),
-                            ),
-                            TextSpan(
-                              text: kCopyrightData[6],
-                              style: design.bodySubDescStyle,
-                            ),
-                            TextSpan(
-                              text: kCopyrightData[7],
-                              style: design.bodySubDescStyle,
-                            ),
-                            WidgetSpan(
-                              alignment: PlaceholderAlignment.middle,
-                              style: design.bodySubDescStyle,
-                              child: buildFlatButton(
-                                  child: Text(
-                                kCopyrightData[8],
-                                style: design.bodySubDescStyle.copyWith(
-                                  color: kLightestColor,
+                                TextSpan(
+                                  text: kCopyrightData[6],
+                                  style: design.bodySubDescStyle,
                                 ),
-                              )),
+                                TextSpan(
+                                  text: kCopyrightData[7],
+                                  style: design.bodySubDescStyle,
+                                ),
+                                WidgetSpan(
+                                  alignment: PlaceholderAlignment.middle,
+                                  style: design.bodySubDescStyle,
+                                  child: buildFlatButton(
+                                      child: Text(
+                                    kCopyrightData[8],
+                                    style: design.bodySubDescStyle.copyWith(
+                                      color: kLightestColor,
+                                    ),
+                                  )),
+                                ),
+                                TextSpan(
+                                  text: kCopyrightData[9],
+                                  style: design.bodySubDescStyle,
+                                ),
+                              ],
                             ),
-                            TextSpan(
-                              text: kCopyrightData[9],
-                              style: design.bodySubDescStyle,
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                     ),

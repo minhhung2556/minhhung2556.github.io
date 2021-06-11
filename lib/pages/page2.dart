@@ -32,28 +32,27 @@ class Page2 extends StatelessWidget {
               ),
             ),
             SizedBox(height: design.screenPadding),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 1.7777778,
-                  mainAxisSpacing: design.screenPadding,
-                  crossAxisSpacing: design.screenPadding,
-                ),
-                itemBuilder: (context, index) {
-                  var scale = min(1.0, value * 1.5);
-                  var origin = design.screenSize
-                      .center(Offset(-design.screenSize.width * 0.5, 0.0));
-
-                  return Transform.scale(
-                    scale: scale,
-                    origin: origin,
-                    child: _buildPage3Item(design, index, kSkillData[index]),
-                  );
-                },
-                itemCount: kSkillData.length,
-                clipBehavior: Clip.none,
+            GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                childAspectRatio: 1.6,
+                mainAxisSpacing: design.screenPadding,
+                crossAxisSpacing: design.screenPadding,
               ),
+              itemBuilder: (context, index) {
+                var scale = min(1.0, value * 1.5);
+                var origin = design.screenSize
+                    .center(Offset(-design.screenSize.width * 0.5, 0.0));
+
+                return Transform.scale(
+                  scale: scale,
+                  origin: origin,
+                  child: _buildPage3Item(design, index, kSkillData[index]),
+                );
+              },
+              itemCount: kSkillData.length,
+              clipBehavior: Clip.none,
+              shrinkWrap: true,
             ),
           ],
         ),
