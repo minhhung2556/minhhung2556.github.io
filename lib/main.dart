@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minhhung2556/data.dart';
 import 'package:minhhung2556/v1/common/res.dart' as v1Common;
-import 'package:minhhung2556/v2/home.dart';
+import 'package:minhhung2556/v1/home.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: v1Common.kAccentColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomePageV2(),
+      home: HomePageV1(),
     );
   }
 }
