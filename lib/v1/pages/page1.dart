@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:minhhung2556/common/design.dart';
-import 'package:minhhung2556/common/res.dart';
 import 'package:minhhung2556/data.dart';
 import 'package:minhhung2556/generated/assets.dart';
+import 'package:minhhung2556/v1/common/design.dart';
+import 'package:minhhung2556/v1/common/res.dart';
 
 class Page1 extends StatelessWidget {
   final double value;
@@ -95,6 +95,7 @@ class Page1 extends StatelessWidget {
       child: PageEx(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: design.screenPadding),
             Opacity(

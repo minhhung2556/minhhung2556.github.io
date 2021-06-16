@@ -5,18 +5,18 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
-import 'package:minhhung2556/common/res.dart';
-import 'package:minhhung2556/pages/page1.dart';
-import 'package:minhhung2556/pages/page2.dart';
-import 'package:minhhung2556/pages/page3.dart';
-import 'package:minhhung2556/pages/page4.dart';
+import 'package:minhhung2556/v1/common/res.dart';
+import 'package:minhhung2556/v1/pages/page1.dart';
+import 'package:minhhung2556/v1/pages/page2.dart';
+import 'package:minhhung2556/v1/pages/page3.dart';
+import 'package:minhhung2556/v1/pages/page4.dart';
 
-class MyHomePage extends StatefulWidget {
+class HomePageV1 extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageV1State createState() => _HomePageV1State();
 }
 
-class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+class _HomePageV1State extends State<HomePageV1> with TickerProviderStateMixin {
   late ScrollController _scrollController;
 
   late Size screenSize;

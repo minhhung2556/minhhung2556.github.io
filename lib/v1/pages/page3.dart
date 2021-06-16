@@ -2,11 +2,11 @@ import 'dart:html' as html;
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:minhhung2556/common/design.dart';
-import 'package:minhhung2556/common/flat_elevated_button.dart';
-import 'package:minhhung2556/common/res.dart';
 import 'package:minhhung2556/data.dart';
 import 'package:minhhung2556/generated/assets.dart';
+import 'package:minhhung2556/v1/common/design.dart';
+import 'package:minhhung2556/v1/common/flat_elevated_button.dart';
+import 'package:minhhung2556/v1/common/res.dart';
 
 class Page3 extends StatelessWidget {
   final double page1Value;
@@ -46,8 +46,8 @@ class Page3 extends StatelessWidget {
                 style: design.header2Style,
               ),
               SizedBox(height: design.screenPadding),
-              Expanded(
-                flex: design.isPortrait ? 1 : 9,
+              SizedBox(
+                height: itemH,
                 child: ListView.builder(
                   controller: controller,
                   scrollDirection: Axis.horizontal,
@@ -77,7 +77,6 @@ class Page3 extends StatelessWidget {
                   },
                 ),
               ),
-              Expanded(child: Container()),
             ],
           ),
         ),

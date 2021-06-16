@@ -2,7 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:minhhung2556/common/res.dart';
+import 'package:minhhung2556/v1/common/res.dart';
 
 class Design {
   final Size screenSize;
