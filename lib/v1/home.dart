@@ -69,9 +69,9 @@ class _HomePageV1State extends State<HomePageV1> with TickerProviderStateMixin {
     });
 
     //FIXME test
-    // Future.delayed(Duration(milliseconds: 500), () {
-    //   _scrollController.jumpTo(screenH * 5);
-    // });
+    Future.delayed(Duration(milliseconds: 500), () {
+      _scrollController.jumpTo(screenH * 5);
+    });
 
     goToTopAnimationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 600));

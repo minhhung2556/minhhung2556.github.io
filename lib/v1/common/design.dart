@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ class Design {
 
   bool get isPortrait => screenSize.width / screenSize.height < 1.6;
 
-  double get factor => min(screenSize.width / 1280, screenSize.height / 720);
+  double get factor => 1.2;
   double get screenPadding => 48.0 * factor;
   double get screenPaddingX2 => screenPadding * 2;
   double get screenPlusItemPadding => screenPadding + itemPadding;

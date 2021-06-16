@@ -1,5 +1,5 @@
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:minhhung2556/data.dart';
@@ -26,8 +26,6 @@ class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var design = Design(MediaQuery.of(context).size);
-    var itemW = (design.screenSize.width - design.screenPadding * 4) / 3.5;
-    var itemH = (itemW * 1.7777).roundToDouble();
     var dx = 0.0;
     var dy = design.screenSize.height * (value + page4Value);
 
@@ -41,42 +39,46 @@ class Page3 extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Works",
-                style: design.header2Style,
+              Expanded(
+                flex: 2,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: kScreenPadding),
+                    child: Text(
+                      "Works",
+                      style: design.header2Style,
+                    ),
+                  ),
+                ),
               ),
-              SizedBox(height: design.screenPadding),
-              SizedBox(
-                height: itemH,
+              Expanded(
+                flex: 2,
                 child: ListView.builder(
                   controller: controller,
                   scrollDirection: Axis.horizontal,
                   itemCount: kWorksData.length,
                   itemBuilder: (context, index) {
-                    var dy = itemH -
-                        max(
-                                0.0,
-                                min(
-                                    1.0,
-                                    value *
-                                        pow(1.5,
-                                            kWorksData.length - index - 1))) *
-                            itemH;
-                    var offset = Offset(0.0, dy);
-                    return Transform.translate(
-                      offset: offset,
+                    return SlideTransition(
+                      position: AlwaysStoppedAnimation(
+                          Tween<Offset>(begin: Offset(0, 1), end: Offset.zero)
+                              .transform(value)),
                       child: Padding(
                         padding: EdgeInsets.only(
                           left: index == 0 ? design.screenPadding : 0,
                           right: design.screenPadding,
                         ),
-                        child: _buildPage4Item(
-                            design, itemW, itemH, index, kWorksData[index]),
+                        child: AspectRatio(
+                          aspectRatio: 0.75,
+                          child:
+                              _buildPage4Item(design, index, kWorksData[index]),
+                        ),
                       ),
                     );
                   },
                 ),
               ),
+              Expanded(child: Container()),
             ],
           ),
         ),
@@ -84,18 +86,14 @@ class Page3 extends StatelessWidget {
     );
   }
 
-  Widget _buildPage4Item(Design design, double itemW, double itemH, int index,
-      Map<String, dynamic> data) {
+  Widget _buildPage4Item(Design design, int index, Map<String, dynamic> data) {
     return Container(
-      width: itemW,
-      height: itemH,
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
           alignment: Alignment.topCenter,
           image: Image.asset(
             data['i'],
-            width: itemW,
           ).image,
         ),
       ),
@@ -118,8 +116,7 @@ class Page3 extends StatelessWidget {
               SizedBox(height: design.itemPadding),
               Padding(
                 padding: EdgeInsets.only(
-                    left: design.itemPadding * 0.5,
-                    right: design.itemPadding * 0.5),
+                    left: design.itemPadding, right: design.itemPadding),
                 child: Text(
                   '----- ${data['d']}',
                   style: design.bodyDescStyle,

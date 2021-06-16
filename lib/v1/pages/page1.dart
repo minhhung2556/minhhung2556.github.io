@@ -17,6 +17,41 @@ class Page1 extends StatelessWidget {
     var dx = 0.0;
     var dy = value * design.screenSize.height;
 
+    var top = Opacity(
+      opacity: max(0.0, 1 - value),
+      child: Transform.translate(
+        offset: Offset(-value * deltaX, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              kSayHi,
+              style: design.bodyDescStyle,
+            ),
+            SizedBox(height: design.itemPadding),
+            Text(
+              kMyName,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: design.header1TextSize,
+                color: kLightestColor,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: design.itemPadding),
+            SizedBox(
+              width: design.screenSize.width / 3,
+              child: Text(
+                kMyTitle,
+                textAlign: TextAlign.center,
+                style: design.titleDescStyle,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
     var bottom = Opacity(
       opacity: max(0.0, 1 - value),
       child: Transform.translate(
@@ -24,66 +59,63 @@ class Page1 extends StatelessWidget {
         child: CardEx(
           child: Padding(
             padding: EdgeInsets.only(top: design.itemPadding),
-            child: AspectRatio(
-              aspectRatio: 3,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: Image.asset(
-                            Assets.assetDigital1,
-                          ).image,
-                          fit: BoxFit.cover,
-                          alignment: Alignment.topCenter,
-                        ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.only(top: design.itemPadding * 3),
-                        child: AspectRatio(
-                          aspectRatio: 1,
-                          child: Image.asset(
-                            Assets.assetAvatar,
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: Image.asset(
+                          Assets.assetDigital1,
+                        ).image,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
                       ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 2,
                     child: Padding(
-                      padding: EdgeInsets.only(left: design.itemPadding * 2),
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: kSummaryData[0],
-                              style: design.header3Style,
-                            ),
-                            WidgetSpan(
-                              child: Icon(
-                                Icons.wifi_tethering,
-                                color: kAccentColor,
-                                size: design.iconSize,
-                              ),
-                            ),
-                            TextSpan(
-                              text: kSummaryData[1],
-                              style: design.titleDescStyle,
-                            ),
-                            TextSpan(
-                              text: kSummaryData[2],
-                              style: design.bodyDescStyle,
-                            ),
-                          ],
+                      padding: EdgeInsets.only(top: design.itemPadding * 3),
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Image.asset(
+                          Assets.assetAvatar,
+                          fit: BoxFit.fitWidth,
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: design.itemPadding * 2),
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: kSummaryData[0],
+                            style: design.header3Style,
+                          ),
+                          WidgetSpan(
+                            child: Icon(
+                              Icons.wifi_tethering,
+                              color: kAccentColor,
+                              size: design.iconSize,
+                            ),
+                          ),
+                          TextSpan(
+                            text: kSummaryData[1],
+                            style: design.titleDescStyle,
+                          ),
+                          TextSpan(
+                            text: kSummaryData[2],
+                            style: design.bodyDescStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -94,48 +126,19 @@ class Page1 extends StatelessWidget {
       offset: Offset(dx, dy),
       child: PageEx(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: design.screenPadding),
-            Opacity(
-              opacity: max(0.0, 1 - value),
-              child: Transform.translate(
-                offset: Offset(-value * deltaX, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      kSayHi,
-                      style: design.bodyDescStyle,
-                    ),
-                    SizedBox(height: design.itemPadding),
-                    Text(
-                      kMyName,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: design.header1TextSize,
-                        color: kLightestColor,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: design.itemPadding),
-                    SizedBox(
-                      width: design.screenSize.width / 3,
-                      child: Text(
-                        kMyTitle,
-                        textAlign: TextAlign.center,
-                        style: design.titleDescStyle,
-                      ),
-                    ),
-                  ],
-                ),
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: kScreenPadding),
+                child: top,
               ),
             ),
-            SizedBox(
-                width: design.screenPlusItemPadding,
-                height: design.screenPlusItemPadding),
-            if (design.isPortrait) bottom else Expanded(child: bottom),
+            Expanded(
+              child: bottom,
+            ),
+            Expanded(child: Container()),
           ],
         ),
       ),
