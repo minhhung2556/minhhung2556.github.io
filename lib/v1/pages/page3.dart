@@ -1,12 +1,10 @@
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html' as html;
-
 import 'package:flutter/material.dart';
 import 'package:minhhung2556/data.dart';
 import 'package:minhhung2556/generated/assets.dart';
 import 'package:minhhung2556/v1/common/design.dart';
 import 'package:minhhung2556/v1/common/flat_elevated_button.dart';
 import 'package:minhhung2556/v1/common/res.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Page3 extends StatelessWidget {
   final double page1Value;
@@ -164,7 +162,8 @@ class Page3 extends StatelessWidget {
                       child: buildCircleButton(
                         child: c,
                         onPressed: () {
-                          html.window.open(e['l'], e['n']);
+                          // html.window.open(e['l'], e['n']);
+                          launch(e['l'], webOnlyWindowName: e['n']);
                         },
                       ),
                     );

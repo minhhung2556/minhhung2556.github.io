@@ -1,11 +1,10 @@
-import 'dart:html' as html;
-
 import 'package:flutter/material.dart';
 import 'package:minhhung2556/data.dart';
 import 'package:minhhung2556/generated/assets.dart';
 import 'package:minhhung2556/v1/common/design.dart';
 import 'package:minhhung2556/v1/common/flat_elevated_button.dart';
 import 'package:minhhung2556/v1/common/res.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Page4 extends StatelessWidget {
   final double page1Value;
@@ -111,7 +110,8 @@ class Page4 extends StatelessWidget {
                                             ),
                                           ),
                                           onPressed: () {
-                                            html.window.open(e['l'], '');
+                                            launch(e['l'],
+                                                webOnlyWindowName: e['n']);
                                           },
                                         ))
                                     .toList(),
@@ -162,7 +162,7 @@ class Page4 extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    html.window.open(kCopyrightData[5], '');
+                    launch(kCopyrightData[5]);
                   },
                 ),
               ),
