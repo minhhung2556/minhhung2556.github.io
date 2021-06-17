@@ -22,3 +22,9 @@ flutter:
 
   assets:
     - asset/
+
+  fonts:
+    - family: BebasNeue
+      fonts:
+        - asset: asset/bebas_neue_regular.ttf
+          style: normal
