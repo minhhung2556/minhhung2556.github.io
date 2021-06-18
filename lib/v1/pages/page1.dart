@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:minhhung2556/data.dart';
 import 'package:minhhung2556/generated/assets.dart';
 import 'package:minhhung2556/v1/common/design.dart';
-import 'package:minhhung2556/v1/common/res.dart';
 
 class Page1 extends StatelessWidget {
   final double value;
@@ -27,26 +26,19 @@ class Page1 extends StatelessWidget {
           children: [
             Text(
               kSayHi,
-              style: design.bodyDescStyle,
+              style: design.bodyTextStyle,
             ),
             SizedBox(height: design.itemPadding),
             Text(
               kMyName,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: design.header1TextSize,
-                color: kLightestColor,
-              ),
+              style: design.header2Style,
               textAlign: TextAlign.center,
             ),
             SizedBox(height: design.itemPadding),
-            SizedBox(
-              width: design.screenSize.width / 3,
-              child: Text(
-                kMyTitle,
-                textAlign: TextAlign.center,
-                style: design.titleDescStyle,
-              ),
+            Text(
+              kMyTitle,
+              textAlign: TextAlign.center,
+              style: design.bodyTextStyle,
             ),
           ],
         ),
@@ -57,66 +49,59 @@ class Page1 extends StatelessWidget {
       child: Transform.translate(
         offset: Offset(value * deltaX, 0),
         child: CardEx(
-          child: Padding(
-            padding: EdgeInsets.only(top: design.itemPadding),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: Image.asset(
-                          Assets.assetDigital1,
-                        ).image,
-                        fit: BoxFit.cover,
-                        alignment: Alignment.topCenter,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(top: design.itemPadding * 3),
-                      child: AspectRatio(
-                        aspectRatio: 1,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: Stack(
+                    children: [
+                      Transform.translate(
+                        offset: Offset(0.0, -design.itemPadding),
                         child: Image.asset(
-                          Assets.assetAvatar,
-                          fit: BoxFit.fitWidth,
+                          Assets.assetDigital1,
+                          fit: BoxFit.fitHeight,
                         ),
                       ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: design.itemPadding * 2),
-                    child: RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: kSummaryData[0],
-                            style: design.header3Style,
-                          ),
-                          WidgetSpan(
-                            child: Icon(
-                              Icons.wifi_tethering,
-                              color: kAccentColor,
-                              size: design.iconSize,
-                            ),
-                          ),
-                          TextSpan(
-                            text: kSummaryData[1],
-                            style: design.titleDescStyle,
-                          ),
-                          TextSpan(
-                            text: kSummaryData[2],
-                            style: design.bodyDescStyle,
-                          ),
-                        ],
+                      Image.asset(
+                        Assets.assetAvatar,
+                        fit: BoxFit.fitHeight,
                       ),
-                    ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: EdgeInsets.only(left: design.itemPadding),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        kSummaryData[0],
+                        style: design.titleTextStyle
+                            .copyWith(color: kLightestColor),
+                      ),
+                      Icon(
+                        Icons.wifi_tethering,
+                        color: kAccentColor,
+                        size: design.iconSize,
+                      ),
+                      Text(
+                        kSummaryData[1],
+                        style: design.bodyDescTextStyle,
+                      ),
+                      Text(
+                        kSummaryData[2],
+                        style: design.bodyDescTextStyle,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -127,18 +112,13 @@ class Page1 extends StatelessWidget {
       child: PageEx(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: kScreenPadding),
-                child: top,
-              ),
+            Padding(
+              padding: EdgeInsets.only(bottom: design.screenPadding),
+              child: top,
             ),
-            Expanded(
-              child: bottom,
-            ),
-            Expanded(child: Container()),
+            bottom,
           ],
         ),
       ),

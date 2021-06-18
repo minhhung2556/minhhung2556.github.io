@@ -3,7 +3,6 @@ import 'package:minhhung2556/data.dart';
 import 'package:minhhung2556/generated/assets.dart';
 import 'package:minhhung2556/v1/common/design.dart';
 import 'package:minhhung2556/v1/common/flat_elevated_button.dart';
-import 'package:minhhung2556/v1/common/res.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Page4 extends StatelessWidget {
@@ -137,7 +136,7 @@ class Page4 extends StatelessWidget {
             children: [
               TextSpan(
                 text: kCopyrightData[0],
-                style: design.bodyDescStyle,
+                style: design.bodyTextStyle,
               ),
               TextSpan(
                 text: kCopyrightData[1],
@@ -145,19 +144,19 @@ class Page4 extends StatelessWidget {
               ),
               TextSpan(
                 text: kCopyrightData[2],
-                style: design.bodyDescStyle,
+                style: design.bodyTextStyle,
               ),
               TextSpan(
                 text: kCopyrightData[3],
-                style: design.bodySubDescStyle,
+                style: design.bodyDescTextStyle,
               ),
               WidgetSpan(
                 alignment: PlaceholderAlignment.middle,
-                style: design.bodySubDescStyle,
+                style: design.bodyDescTextStyle,
                 child: buildFlatButton(
                   child: Text(
                     kCopyrightData[4],
-                    style: design.bodySubDescStyle.copyWith(
+                    style: design.bodyDescTextStyle.copyWith(
                       color: kLightestColor,
                     ),
                   ),
@@ -168,26 +167,26 @@ class Page4 extends StatelessWidget {
               ),
               TextSpan(
                 text: kCopyrightData[6],
-                style: design.bodySubDescStyle,
+                style: design.bodyDescTextStyle,
               ),
               TextSpan(
                 text: kCopyrightData[7],
-                style: design.bodySubDescStyle,
+                style: design.bodyDescTextStyle,
               ),
               WidgetSpan(
                 alignment: PlaceholderAlignment.middle,
-                style: design.bodySubDescStyle,
+                style: design.bodyDescTextStyle,
                 child: buildFlatButton(
                     child: Text(
                   kCopyrightData[8],
-                  style: design.bodySubDescStyle.copyWith(
+                  style: design.bodyDescTextStyle.copyWith(
                     color: kLightestColor,
                   ),
                 )),
               ),
               TextSpan(
                 text: kCopyrightData[9],
-                style: design.bodySubDescStyle,
+                style: design.bodyDescTextStyle,
               ),
             ],
           ),

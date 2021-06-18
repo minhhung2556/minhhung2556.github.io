@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:minhhung2556/data.dart';
 import 'package:minhhung2556/v1/common/design.dart';
-import 'package:minhhung2556/v1/common/res.dart';
 
 class Page2 extends StatelessWidget {
   final double page1Value;
@@ -32,27 +31,28 @@ class Page2 extends StatelessWidget {
               ),
             ),
             SizedBox(height: design.screenPadding),
-            GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 1.6,
-                mainAxisSpacing: design.screenPadding,
-                crossAxisSpacing: design.screenPadding,
-              ),
-              itemBuilder: (context, index) {
-                var scale = min(1.0, value * 1.5);
-                var origin = design.screenSize
-                    .center(Offset(-design.screenSize.width * 0.5, 0.0));
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: design.screenPadding,
+                  crossAxisSpacing: design.screenPadding,
+                ),
+                itemBuilder: (context, index) {
+                  var scale = min(1.0, value * 1.5);
+                  var origin = design.screenSize
+                      .center(Offset(-design.screenSize.width * 0.5, 0.0));
 
-                return Transform.scale(
-                  scale: scale,
-                  origin: origin,
-                  child: _buildPage3Item(design, index, kSkillData[index]),
-                );
-              },
-              itemCount: kSkillData.length,
-              clipBehavior: Clip.none,
-              shrinkWrap: true,
+                  return Transform.scale(
+                    scale: scale,
+                    origin: origin,
+                    child: _buildPage3Item(design, index, kSkillData[index]),
+                  );
+                },
+                itemCount: kSkillData.length,
+                clipBehavior: Clip.none,
+                shrinkWrap: true,
+              ),
             ),
           ],
         ),
@@ -84,22 +84,19 @@ class Page2 extends StatelessWidget {
                   color: kGreyColor,
                   size: design.iconSize,
                 ),
-          SizedBox(height: design.itemPadding * 1.5),
+          SizedBox(height: design.itemPadding),
           Text(
             data['t'],
-            style: (design.isPortrait
-                    ? design.header2Style
-                    : design.titleDescStyle)
-                .copyWith(
+            style: design.titleTextStyle.copyWith(
               color: kAccentColor,
             ),
             maxLines: 1,
           ),
-          SizedBox(height: design.itemPadding * 1.5),
+          SizedBox(height: design.itemPadding),
           Expanded(
             child: Text(
               data['d'],
-              style: design.bodyDescStyle,
+              style: design.bodyTextStyle,
               // overflow: TextOverflow.ellipsis,
             ),
           ),

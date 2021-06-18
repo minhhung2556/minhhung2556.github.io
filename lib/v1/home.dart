@@ -5,7 +5,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
-import 'package:minhhung2556/v1/common/res.dart';
+import 'package:minhhung2556/v1/common/design.dart';
 import 'package:minhhung2556/v1/pages/page1.dart';
 import 'package:minhhung2556/v1/pages/page2.dart';
 import 'package:minhhung2556/v1/pages/page3.dart';
@@ -69,9 +69,9 @@ class _HomePageV1State extends State<HomePageV1> with TickerProviderStateMixin {
     });
 
     //FIXME test
-    Future.delayed(Duration(milliseconds: 500), () {
-      _scrollController.jumpTo(screenH * 5);
-    });
+    // Future.delayed(Duration(milliseconds: 500), () {
+    //   _scrollController.jumpTo(screenH * 5);
+    // });
 
     goToTopAnimationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 600));

@@ -1,7 +1,24 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:minhhung2556/v1/common/res.dart';
+
+const kScreenPadding = 24.0;
+const kItemPadding = 16.0;
+const kBorderRadius = 4.0;
+final kBorder = BorderRadius.circular(kBorderRadius);
+const kIconSize = 32.0;
+const kItemColor = const Color(0x08ffffff);
+final kColorTween12 = ColorTween(begin: kCardColor, end: Colors.black);
+const kSocialIconSize = 30.0;
+const kAccentColor = Colors.cyan;
+const kCardColor = const Color(0xff111111);
+const kLightestColor = Colors.white;
+const kGreyColor = Colors.grey;
+const kDarkestColor = Colors.black;
+
+double designFactor(Size screenSize) {
+  return screenSize.width / 375.0;
+}
 
 class Design {
   final Size screenSize;
@@ -12,19 +29,19 @@ class Design {
 
   bool get isPortrait => screenSize.width / screenSize.height < 1.6;
 
-  double get factor => 1.2;
-  double get screenPadding => 48.0 * factor;
+  double get factor => 1.0;
+  double get screenPadding => kScreenPadding * factor;
   double get screenPaddingX2 => screenPadding * 2;
   double get screenPlusItemPadding => screenPadding + itemPadding;
-  double get itemPadding => 12.0 * factor;
-  double get bodySubTextSize => 12.0 * factor;
-  double get bodyTextSize => 14.0 * factor;
-  double get header1TextSize => 32.0 * factor;
-  double get header2TextSize => 26.0 * factor;
-  double get header3TextSize => 20.0 * factor;
-  double get titleTextSize => 16.0 * factor;
+  double get itemPadding => kItemPadding * factor;
+  double get bodyDescTextSize => 10.0 * factor;
+  double get bodyTextSize => 12.0 * factor;
+  double get header1TextSize => 24.0 * factor;
+  double get header2TextSize => 20.0 * factor;
+  double get header3TextSize => 16.0 * factor;
+  double get titleTextSize => 14.0 * factor;
   double get borderRadius => 6.0 * factor;
-  double get iconSize => 32.0 * factor;
+  double get iconSize => 24.0 * factor;
   double get largeIconSize => iconSize * 1.5;
 
   TextStyle get bodyStyle => TextStyle(
@@ -32,17 +49,17 @@ class Design {
         color: kLightestColor,
       );
 
-  TextStyle get bodyDescStyle => TextStyle(
+  TextStyle get bodyTextStyle => TextStyle(
         fontSize: bodyTextSize,
         color: kGreyColor,
       );
 
-  TextStyle get bodySubDescStyle => TextStyle(
-        fontSize: bodySubTextSize,
+  TextStyle get bodyDescTextStyle => TextStyle(
+        fontSize: bodyDescTextSize,
         color: kGreyColor,
       );
 
-  TextStyle get titleDescStyle => TextStyle(
+  TextStyle get titleTextStyle => TextStyle(
         fontSize: titleTextSize,
         color: kGreyColor,
         fontWeight: FontWeight.w500,
@@ -115,7 +132,7 @@ class CardEx extends StatelessWidget {
       color: kCardColor,
       elevation: 0.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(kBorderRadius),
+        borderRadius: BorderRadius.circular(design.borderRadius),
       ),
       child: Padding(
         padding: padding ?? EdgeInsets.all(design.screenPadding),

@@ -3,7 +3,6 @@ import 'package:minhhung2556/data.dart';
 import 'package:minhhung2556/generated/assets.dart';
 import 'package:minhhung2556/v1/common/design.dart';
 import 'package:minhhung2556/v1/common/flat_elevated_button.dart';
-import 'package:minhhung2556/v1/common/res.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Page3 extends StatelessWidget {
@@ -108,7 +107,7 @@ class Page3 extends StatelessWidget {
             children: [
               Text(
                 data['c'],
-                style: design.titleDescStyle.copyWith(color: kDarkestColor),
+                style: design.titleTextStyle.copyWith(color: kDarkestColor),
                 maxLines: 1,
               ),
               SizedBox(height: design.itemPadding),
@@ -117,7 +116,7 @@ class Page3 extends StatelessWidget {
                     left: design.itemPadding, right: design.itemPadding),
                 child: Text(
                   '----- ${data['d']}',
-                  style: design.bodyDescStyle,
+                  style: design.bodyTextStyle,
                   // overflow: TextOverflow.ellipsis,
                 ),
               ),

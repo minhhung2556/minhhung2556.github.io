@@ -6,8 +6,8 @@ const kMyName = "Lương Đỗ Minh Hưng";
 const kMyTitle =
     "I'm a romantic developer, a mobile team leader, a responsible employee, a motivated person, a friendly daddy, an honest friend, and a handsome husband.";
 const kSummaryData = <String>[
-  "Making Mobile Application Development be more romantic is my passion.\n\n",
-  "\n\nBased in Ho Chi Minh City, I code and design things for Mobile.\n\n",
+  "Making Mobile Application Development more romantic is my passion.\nKeep everything simple in mind. Unidirectional workflow for code and life.​\n",
+  "\nBased in Ho Chi Minh City, I code and design things for Mobile.\n",
   "I have a demonstrated history of working in Mobile Development. With more than 8 years of working experience and deep knowledge in mobile as well as team management skills, I believe I will contribute my best to my next great product.",
 ];
 const kSkillData = <Map<String, dynamic>>[

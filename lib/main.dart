@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:minhhung2556/data.dart';
-import 'package:minhhung2556/v1/common/res.dart' as v1Common;
+import 'package:minhhung2556/v1/common/design.dart' as v1Common;
 import 'package:minhhung2556/v1/home.dart';
 
 void main() {
