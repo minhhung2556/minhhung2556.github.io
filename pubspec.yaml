@@ -13,6 +13,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  url_launcher: ^6.0.6
+  device_preview: ^0.7.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -22,3 +25,9 @@ flutter:
 
   assets:
     - asset/
+
+  fonts:
+    - family: MyFontFamily
+      fonts:
+        - asset: asset/nunito_regular.ttf
+          style: normal
