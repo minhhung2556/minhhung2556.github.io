@@ -16,6 +16,7 @@ class Assets {
   static const String assetIcSkype = 'asset/ic_skype.png';
   static const String assetLogoapple = 'asset/logoapple.png';
   static const String assetLogoflutter = 'asset/logoflutter.png';
+  static const String assetNunitoRegular = 'asset/nunito_regular.ttf';
   static const String assetWorkHomecredit = 'asset/work_homecredit.jpg';
   static const String assetWorkIcarebenefits = 'asset/work_icarebenefits.jpeg';
   static const String assetWorkMecorp = 'asset/work_mecorp.jpg';

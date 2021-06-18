@@ -14,6 +14,7 @@ dependencies:
     sdk: flutter
 
   url_launcher: ^6.0.6
+  device_preview: ^0.7.3
 
 dev_dependencies:
   flutter_test:
@@ -26,7 +27,7 @@ flutter:
     - asset/
 
   fonts:
-    - family: BebasNeue
+    - family: MyFontFamily
       fonts:
-        - asset: asset/bebas_neue_regular.ttf
+        - asset: asset/nunito_regular.ttf
           style: normal

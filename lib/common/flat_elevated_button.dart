@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 
 const _kAccentColor = Color(0x9080DEEA);
 
-Widget buildFlatButton({Widget? child, Function()? onPressed}) {
+Widget buildFlatButton({
+  Widget? child,
+  Function()? onPressed,
+  Color? accentColor,
+}) {
   return ElevatedButton(
     onPressed: onPressed,
     child: child,
@@ -13,13 +17,18 @@ Widget buildFlatButton({Widget? child, Function()? onPressed}) {
       elevation: MaterialStateProperty.all<double>(0.0),
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-      overlayColor: MaterialStateProperty.all<Color>(_kAccentColor),
+      overlayColor:
+          MaterialStateProperty.all<Color>(accentColor ?? _kAccentColor),
       minimumSize: MaterialStateProperty.all<Size>(Size.zero),
     ),
   );
 }
 
-Widget buildCircleButton({Widget? child, Function()? onPressed}) {
+Widget buildCircleButton({
+  Widget? child,
+  Function()? onPressed,
+  Color? accentColor,
+}) {
   return ElevatedButton(
     onPressed: onPressed,
     child: child,
@@ -30,7 +39,8 @@ Widget buildCircleButton({Widget? child, Function()? onPressed}) {
       elevation: MaterialStateProperty.all<double>(0.0),
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-      overlayColor: MaterialStateProperty.all<Color>(_kAccentColor),
+      overlayColor:
+          MaterialStateProperty.all<Color>(accentColor ?? _kAccentColor),
       minimumSize: MaterialStateProperty.all<Size>(Size.zero),
     ),
   );

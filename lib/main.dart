@@ -1,22 +1,35 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:minhhung2556/data.dart';
-import 'package:minhhung2556/v1/common/design.dart' as v1Common;
-import 'package:minhhung2556/v1/home.dart';
+import 'package:minhhung2556/home.dart';
 
 void main() {
-  runApp(MyApp());
+  if (kIsWeb) {
+    runApp(DevicePreview(
+      isToolbarVisible: false,
+      data: DevicePreviewData(
+        settings: DevicePreviewSettingsData(
+          backgroundTheme: DevicePreviewBackgroundThemeData.dark,
+        ),
+        isDarkMode: true,
+      ),
+      builder: (BuildContext context) => MyApp(),
+    ));
+  } else {
+    runApp(MyApp());
+  }
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: kMyName,
+      title: kInformationData['name'],
       theme: ThemeData(
-        primarySwatch: v1Common.kAccentColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomePageV1(),
+      home: HomePage(),
     );
   }
 }
