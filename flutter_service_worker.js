@@ -4,9 +4,9 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "version.json": "67f3aa081b4fa6fa8e12ee3466b4d7f4",
-"index.html": "18207e4853f10c5972808307175a0170",
-"/": "18207e4853f10c5972808307175a0170",
-"main.dart.js": "03ade8699762c70079c6a90468bf039b",
+"index.html": "757e3de91be048167497c9b5b3b05030",
+"/": "757e3de91be048167497c9b5b3b05030",
+"main.dart.js": "d7bebfbcde9de34b3825eb967bcc4dcd",
 "favicon.png": "1febf57da596ee5e57bab0f2c232d5df",
 "icons/Icon-192.png": "2044a82c479c3cbf19829b6ce646540e",
 "icons/Icon-512.png": "d6c3a21dd684231969dbe686ca415a50",
@@ -15,7 +15,7 @@ const RESOURCES = {
 "assets/asset/ic_dartpub.png": "d0fb8a38321aebff9d9be19b7d47a468",
 "assets/asset/work_sendo.jpg": "a8b74151b3cf434713db6a401e30f422",
 "assets/asset/work_icarebenefits.jpeg": "284d16b92f3c5f2b872c484f99baa09e",
-"assets/asset/work_senpay.jpg": "600442cf5d008428f87c58d2fa0db9b4",
+"assets/asset/work_senpay.jpg": "eada960c479f959a59dcc8371ce44316",
 "assets/asset/work_mecorp.jpg": "0c50e6fc3e4a041a77d3c88fe0752323",
 "assets/asset/logoapple.png": "0cea61654d604a311091b38912a03797",
 "assets/asset/ic_skype.png": "6e8372dd1d02bb07e3b645deef2f5b6a",
@@ -31,12 +31,9 @@ const RESOURCES = {
 "assets/asset/digital1.png": "2dd63c1a3062daec02ee3c99190ef96c",
 "assets/asset/logoflutter.png": "efa5e8370c235bd0e4df4ccaece43457",
 "assets/asset/bebas_neue_regular.ttf": "4290ea77f18e51028fc4eb0b77136e7e",
-"assets/AssetManifest.json": "6f0d00132d4791ff2f2ba6be6bbda7a8",
-"assets/NOTICES": "66d55bb9c35785d9cfb3abb10ccc9ec4",
-"assets/FontManifest.json": "e5e792ef02b781a5f888971a663036da",
-"assets/packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf": "ffed6899ceb84c60a1efa51c809a57e4",
-"assets/packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf": "eaed33dc9678381a55cb5c13edaf241d",
-"assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf": "3241d1d9c15448a4da96df05f3292ffe",
+"assets/AssetManifest.json": "71313c3c723eac36a128b257ec26d534",
+"assets/NOTICES": "72fc0c0817d5a2741f84bdfddbfe873a",
+"assets/FontManifest.json": "f1a42368ef427777f973a60b750e6c7f",
 "assets/fonts/MaterialIcons-Regular.otf": "1288c9e28052e028aba623321f7826ac"
 };
 
