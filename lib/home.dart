@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:minhhung2556/common/flat_elevated_button.dart';
 import 'package:minhhung2556/data.dart';
@@ -21,9 +20,6 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(
-                height: kIsWeb ? Design.topMenuBar : 0,
-              ),
               Container(
                 color: Design.colorPrimaryAccentDark,
                 child: Row(
@@ -58,11 +54,17 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Expanded(
-                      child: AspectRatio(
-                        aspectRatio: 0.75,
-                        child: Image.asset(
-                          Assets.assetAvatar,
-                          fit: BoxFit.fitHeight,
+                      child: Container(
+                        constraints: BoxConstraints(
+                          maxHeight: MediaQuery.of(context).size.height * 0.5,
+                        ),
+                        alignment: Alignment.bottomRight,
+                        child: AspectRatio(
+                          aspectRatio: 0.7,
+                          child: Image.asset(
+                            Assets.assetAvatar,
+                            fit: BoxFit.fitHeight,
+                          ),
                         ),
                       ),
                     ),
@@ -197,9 +199,19 @@ class _HomePageState extends State<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
-                              child: Image.asset(
-                                data['i'],
-                                fit: BoxFit.fitWidth,
+                              child: Container(
+                                constraints: BoxConstraints(
+                                  maxHeight:
+                                      MediaQuery.of(context).size.height * 0.5,
+                                ),
+                                alignment: Alignment.bottomLeft,
+                                child: AspectRatio(
+                                  aspectRatio: 0.5625,
+                                  child: Image.asset(
+                                    data['i'],
+                                    fit: BoxFit.fitHeight,
+                                  ),
+                                ),
                               ),
                             ),
                             Expanded(
@@ -348,11 +360,18 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Expanded(
-                          child: AspectRatio(
-                            aspectRatio: 0.75,
-                            child: Image.asset(
-                              Assets.assetAvatar1,
-                              fit: BoxFit.fitHeight,
+                          child: Container(
+                            constraints: BoxConstraints(
+                              maxHeight:
+                                  MediaQuery.of(context).size.height * 0.5,
+                            ),
+                            alignment: Alignment.bottomRight,
+                            child: AspectRatio(
+                              aspectRatio: 0.7,
+                              child: Image.asset(
+                                Assets.assetAvatar1,
+                                fit: BoxFit.fitHeight,
+                              ),
                             ),
                           ),
                         ),
