@@ -18,7 +18,7 @@ const kInformationData = <String, dynamic>{
       "i": Assets.assetLogoflutter,
       "t": "Flutter",
       "d":
-          "Explored Flutter since May 2018, released a lot of big features in one of biggest E-commerce in Viet Nam, at Sendo. Leaded and trained a strong Flutter Dev Team at that company."
+          "Explored Flutter since May 2018, released a lot of big features in one of biggest E-commerce in Viet Nam, at Sendo. Led and trained a strong Flutter Dev Team at that company."
     },
     {
       "i": Icons.android,
@@ -30,19 +30,19 @@ const kInformationData = <String, dynamic>{
       "i": Assets.assetLogoapple,
       "t": "iOS",
       "d":
-          "Learned since 2014, but until 2019 I've released my first iOS application. I'm not have many experiences, but know how to work with it."
+          "Learned since 2014, but until 2019 I've released my first iOS application."
     },
     {
       "i": Icons.mobile_friendly,
       "t": "Mobile",
       "d":
-          "The first time I owned a smartphone in 2008. By self learning in J2ME development, I got the first job with my Dictionary App and Pikachu Kawai game in 2012."
+          "The first time I owned a smartphone was in 2008. By self-learning in J2ME development, I got the first job with my Dictionary App and Pikachu Kawai game in 2012."
     },
     {
       "i": Icons.people,
       "t": "Leadership",
       "d":
-          "Leading people is one of my best. Every group I'm in to play or work, everything go on by my orders."
+          "Leading people is one of my best. Every group I'm in to play or work, everything goes on by my orders."
     },
     {
       "i": Icons.model_training,
