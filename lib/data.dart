@@ -10,7 +10,7 @@ const kInformationData = <String, dynamic>{
   "summary": <String>[
     "Making Mobile Application Development more romantic is my passion.\nKeep everything simple in mind. Unidirectional workflow for code and life.​",
     "\nBased in Ho Chi Minh City, I code and design things for Mobile.\n",
-    "I have a demonstrated history of working in Mobile Development. With more than 8 years of working experience and deep knowledge in mobile as well as team management skills, I believe I will contribute my best to my next great product.",
+    "I have a demonstrated history of working in Mobile Development. With more than 8 years of working experience and deep knowledge in mobile as well as team management skills.",
   ],
   "findMe": "Find me at",
   "skills": <Map<String, dynamic>>[
@@ -42,13 +42,13 @@ const kInformationData = <String, dynamic>{
       "i": Icons.people,
       "t": "Leadership",
       "d":
-          "Leading people is one of my best. Every group I'm in to play or work, everything goes on by my orders."
+          "By actually result after my work and feedback about me, I'm good at leading and training people. Every group I'm in to play or work, everything usually goes on by my suggestions and orders."
     },
     {
       "i": Icons.model_training,
       "t": "Others",
       "d":
-          "Many of my team members and friends are a key member/leader/trainer who got high performance in work. That is my happiness."
+          "Many of my team members and friends become key members, leaders, and trainers who got high performance in work. That is my happiness."
     },
   ],
   "works": <Map<String, dynamic>>[
