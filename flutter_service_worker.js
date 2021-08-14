@@ -4,9 +4,9 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "version.json": "67f3aa081b4fa6fa8e12ee3466b4d7f4",
-"index.html": "757e3de91be048167497c9b5b3b05030",
-"/": "757e3de91be048167497c9b5b3b05030",
-"main.dart.js": "d7bebfbcde9de34b3825eb967bcc4dcd",
+"index.html": "321e1ea59f3dcc45599ecf37464b37db",
+"/": "321e1ea59f3dcc45599ecf37464b37db",
+"main.dart.js": "9284607cd5dca3c16c892dd4bda00c10",
 "favicon.png": "1febf57da596ee5e57bab0f2c232d5df",
 "icons/Icon-192.png": "2044a82c479c3cbf19829b6ce646540e",
 "icons/Icon-512.png": "d6c3a21dd684231969dbe686ca415a50",
@@ -31,10 +31,10 @@ const RESOURCES = {
 "assets/asset/digital1.png": "2dd63c1a3062daec02ee3c99190ef96c",
 "assets/asset/logoflutter.png": "efa5e8370c235bd0e4df4ccaece43457",
 "assets/asset/bebas_neue_regular.ttf": "4290ea77f18e51028fc4eb0b77136e7e",
-"assets/AssetManifest.json": "71313c3c723eac36a128b257ec26d534",
-"assets/NOTICES": "72fc0c0817d5a2741f84bdfddbfe873a",
+"assets/AssetManifest.json": "75a6a3f9ea50683aa2791c17a10583bc",
+"assets/NOTICES": "d55c63b98abd040d01cb3ce582bb2ef2",
 "assets/FontManifest.json": "f1a42368ef427777f973a60b750e6c7f",
-"assets/fonts/MaterialIcons-Regular.otf": "1288c9e28052e028aba623321f7826ac"
+"assets/fonts/MaterialIcons-Regular.otf": "4e6447691c9509f7acdbf8a931a85ca1"
 };
 
 // The application shell files that are downloaded before a service worker can
@@ -52,7 +52,7 @@ self.addEventListener("install", (event) => {
   return event.waitUntil(
     caches.open(TEMP).then((cache) => {
       return cache.addAll(
-        CORE.map((value) => new Request(value + '?revision=' + RESOURCES[value], {'cache': 'reload'})));
+        CORE.map((value) => new Request(value, {'cache': 'reload'})));
     })
   );
 });
