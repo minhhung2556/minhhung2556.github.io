@@ -10,7 +10,7 @@ const kInformationData = <String, dynamic>{
   "summary": <String>[
     "Making Mobile Application Development more romantic is my passion.\nKeep everything simple in mind. Unidirectional workflow for code and life.​",
     "\nBased in Ho Chi Minh City, I code and design things for Mobile.\n",
-    "I have a demonstrated history of working in Mobile Development. With more than 8 years of working experience and deep knowledge in mobile as well as team management skills, I believe I will contribute my best to my next great product.",
+    "I have a demonstrated history of working in Mobile Development. With more than 8 years of working experience and deep knowledge in mobile as well as team management skills.",
   ],
   "findMe": "Find me at",
   "skills": <Map<String, dynamic>>[
@@ -18,7 +18,7 @@ const kInformationData = <String, dynamic>{
       "i": Assets.assetLogoflutter,
       "t": "Flutter",
       "d":
-          "Explored Flutter since May 2018, released a lot of big features in one of biggest E-commerce in Viet Nam, at Sendo. Leaded and trained a strong Flutter Dev Team at that company."
+          "Explored Flutter since May 2018, released a lot of big features in one of biggest E-commerce in Viet Nam, at Sendo. Led and trained a strong Flutter Dev Team at that company."
     },
     {
       "i": Icons.android,
@@ -30,25 +30,25 @@ const kInformationData = <String, dynamic>{
       "i": Assets.assetLogoapple,
       "t": "iOS",
       "d":
-          "Learned since 2014, but until 2019 I've released my first iOS application. I'm not have many experiences, but know how to work with it."
+          "Learned since 2014, but until 2019 I've released my first iOS application."
     },
     {
       "i": Icons.mobile_friendly,
       "t": "Mobile",
       "d":
-          "The first time I owned a smartphone in 2008. By self learning in J2ME development, I got the first job with my Dictionary App and Pikachu Kawai game in 2012."
+          "The first time I owned a smartphone was in 2008. By self-learning in J2ME development, I got the first job with my Dictionary App and Pikachu Kawai game in 2012."
     },
     {
       "i": Icons.people,
       "t": "Leadership",
       "d":
-          "Leading people is one of my best. Every group I'm in to play or work, everything go on by my orders."
+          "By actually result after my work and feedback about me, I'm good at leading and training people. Every group I'm in to play or work, everything usually goes on by my suggestions and orders."
     },
     {
       "i": Icons.model_training,
       "t": "Others",
       "d":
-          "Many of my team members and friends are a key member/leader/trainer who got high performance in work. That is my happiness."
+          "Many of my team members and friends become key members, leaders, and trainers who got high performance in work. That is my happiness."
     },
   ],
   "works": <Map<String, dynamic>>[
