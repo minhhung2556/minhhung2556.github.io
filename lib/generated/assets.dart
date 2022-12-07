@@ -6,6 +6,9 @@ class Assets {
   static const String assetAvatar1 = 'asset/avatar1.jpg';
   static const String assetBebasNeueRegular = 'asset/bebas_neue_regular.ttf';
   static const String assetDigital1 = 'asset/digital1.png';
+  static const String assetHungldm = 'asset/hungldm.glb';
+  static const String assetHungldm1 = 'asset/hungldm1.glb';
+  static const String assetHungldmTalking = 'asset/hungldm_talking.fbx';
   static const String assetIcDartpub = 'asset/ic_dartpub.png';
   static const String assetIcFacebook = 'asset/ic_facebook.png';
   static const String assetIcGithub = 'asset/ic_github.png';
