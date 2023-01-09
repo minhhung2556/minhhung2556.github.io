@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:minhhung2556/common/flat_elevated_button.dart';
 import 'package:minhhung2556/data.dart';
@@ -13,6 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final db = FirebaseFirestore.instance;
     return Material(
       child: Container(
         color: Design.colorPrimaryDark,
@@ -36,10 +38,24 @@ class _HomePageState extends State<HomePage> {
                               kInformationData['hi'],
                               style: Design.textStyleRegularLight,
                             ),
-                            Text(
-                              kInformationData['name'],
-                              style: Design.textStyleTitleLight,
-                            ),
+                            FutureBuilder(
+                                future:
+                                    db.collection("profiles").doc("v1").get(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.data == null) {
+                                    return Text(
+                                      'loading...',
+                                      style: Design.textStyleTitleLight,
+                                    );
+                                  } else {
+                                    return Text(
+                                      ((snapshot.data as DocumentSnapshot)
+                                              .data()
+                                          as Map<String, dynamic>)['firstName'],
+                                      style: Design.textStyleTitleLight,
+                                    );
+                                  }
+                                }),
                             Padding(
                               padding:
                                   EdgeInsets.only(top: Design.screenPadding),
