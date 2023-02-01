@@ -1,0 +1,1 @@
+const kName = 'Romantic Developer';
