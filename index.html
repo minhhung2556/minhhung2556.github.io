@@ -27,10 +27,29 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
-        navigator.serviceWorker.register('flutter_service_worker.js?v=1599914512');
+        navigator.serviceWorker.register('flutter_service_worker.js?v=2418726789');
       });
     }
   </script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  // import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDosXyd0oyKulPXXX2-AWuFAcmlZGJehNE",
+    authDomain: "romanticdeveloper-bf7f5.firebaseapp.com",
+    projectId: "romanticdeveloper-bf7f5",
+    storageBucket: "romanticdeveloper-bf7f5.appspot.com",
+    messagingSenderId: "985224061343",
+    appId: "1:985224061343:web:386b1812e6a83df4539daa"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  </script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>
