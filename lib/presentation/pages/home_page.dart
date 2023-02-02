@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 import '../../index.dart';
 
@@ -123,6 +124,67 @@ PIZZA AND ART.''',
                       ),
                     ),
                   ],
+                ),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.5),
+            Stack(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 3,
+                  height: MediaQuery.of(context).size.height / 2,
+                  child: ModelViewer(
+                    src: Assets.assetHungldm1,
+                    autoPlay: true,
+                    autoRotate: true,
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 2,
+                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 4),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FittedBox(
+                        child: Text(
+                          'HELLO. I AM HUNG',
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 48,
+                            color: Colors.white,
+                            fontFamily: Fonts.fontFamilyBebasNeueRegular,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Text(
+                          'LUONG DO MINH',
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
+                            fontFamily: Fonts.fontFamilyBebasNeueRegular,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 2 / 3,
+                  margin: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 1 / 3,
+                    top: 120,
+                  ),
+                  child: Text(
+                    '''I USE MY PASSION AND SKILLS TO CREATE DIGITAL PRODUCTS AND EXPERIENCES. NATIONAL AND INTERNATIONAL CUSTOMERS RELY ON ME FOR DESIGN, IMPLEMENTATION, AND MANAGEMENT OF THEIR DIGITAL PRODUCTS. AS AN INDEPENDENT, I WORK ALSO WITH WEB AGENCIES, COMPANIES, STARTUPS AND INDIVIDUALS TO CREATE A BLUEPRINT FOR THE DIGITAL BUSINESS. ADVISOR AND PARTNER OF SOME DIGITAL AND FINTECH STARTUPS. ALSO, JUDGE AT CSSDA AND THE WEBBY.''',
+                    style: TextStyle(
+                      fontSize: 36,
+                      color: Colors.white,
+                      fontFamily: Fonts.fontFamilyBebasNeueRegular,
+                    ),
+                  ),
                 ),
               ],
             ),
