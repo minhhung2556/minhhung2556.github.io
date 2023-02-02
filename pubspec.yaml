@@ -22,6 +22,7 @@ dependencies:
       url: https://github.com/justkawal/animated_text.git
   model_viewer_plus: ^1.3.3
   fbx: ^0.2.0
+  flutter_bouncing_text: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -46,3 +47,9 @@ flutter:
     - family: lobster_regular
       fonts:
         - asset: asset/fonts/lobster_regular.ttf
+    - family: abril_fatface_regular
+      fonts:
+        - asset: asset/fonts/abril_fatface_regular.ttf
+    - family: righteous_regular
+      fonts:
+        - asset: asset/fonts/righteous_regular.ttf
