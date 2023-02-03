@@ -29,35 +29,11 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Part1(scrollController: _scrollController),
-            /*Stack(
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 3,
-                  height: MediaQuery.of(context).size.height / 2,
-                  child: ModelViewer(
-                    src: Assets.assetHungldm1,
-                    autoPlay: true,
-                    autoRotate: true,
-                    rotationPerSecond: '60deg',
-                    cameraControls: false,
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 2 / 3,
-                  margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 1 / 3,
-                    top: 120,
-                  ),
-                  child: Text(
-                    '''I USE MY PASSION AND SKILLS TO CREATE DIGITAL PRODUCTS AND EXPERIENCES. NATIONAL AND INTERNATIONAL CUSTOMERS RELY ON ME FOR DESIGN, IMPLEMENTATION, AND MANAGEMENT OF THEIR DIGITAL PRODUCTS. AS AN INDEPENDENT, I WORK ALSO WITH WEB AGENCIES, COMPANIES, STARTUPS AND INDIVIDUALS TO CREATE A BLUEPRINT FOR THE DIGITAL BUSINESS. ADVISOR AND PARTNER OF SOME DIGITAL AND FINTECH STARTUPS. ALSO, JUDGE AT CSSDA AND THE WEBBY.''',
-                    style: TextStyle(
-                      fontSize: 36,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            Part2(scrollController: _scrollController),
+            Part3(scrollController: _scrollController),
+            Part5(scrollController: _scrollController),
+            Part4(scrollController: _scrollController),
+            /*
             // showcases
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

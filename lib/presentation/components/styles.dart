@@ -21,6 +21,7 @@ extension MyColors on Colors {
   static const mainBackgroundColor = const Color(0xff141414);
   static const buttonOverlayColor = const Color(0x66CDB070);
   static const accentColor = const Color(0xffE2AF9B);
+  static const primaryColor = const Color(0xffe1cda8);
   static const mainBackgroundBlurColor = Colors.black54;
 }
 
@@ -47,7 +48,7 @@ class MyStyles {
   static final nameTextStyle = const TextStyle(
     fontSize: 18,
     color: Colors.white,
-    fontFamily: Fonts.fontFamilyComponentText,
+    fontFamily: Fonts.fontFamilyTitle,
     fontWeight: FontWeight.bold,
   );
   static final labelTextStyle = const TextStyle(
@@ -59,7 +60,6 @@ class MyStyles {
     fontSize: 30,
     color: Colors.white,
     fontFamily: Fonts.fontFamilyComponentText,
-    fontWeight: FontWeight.bold,
   );
   static final hugeNickNameTextStyle = const TextStyle(
     fontSize: 256,
@@ -67,5 +67,25 @@ class MyStyles {
     fontFamily: Fonts.fontFamilyMostFocus,
     height: 1,
     letterSpacing: -10,
+  );
+  static final heading1TextStyle = const TextStyle(
+    fontSize: 54,
+    color: MyColors.primaryColor,
+    fontFamily: Fonts.fontFamilyTitle,
+  );
+  static final heading2TextStyle = const TextStyle(
+    fontSize: 48,
+    color: Colors.white,
+    fontFamily: Fonts.fontFamilyTitle,
+  );
+  static final jobTitleTextStyle = const TextStyle(
+    fontSize: 96,
+    color: Colors.white,
+    fontFamily: Fonts.fontFamilyMostFocus,
+  );
+  static final contactMeTextStyle = const TextStyle(
+    fontSize: 30,
+    color: MyColors.primaryColor,
+    fontFamily: Fonts.fontFamilyMostFocus,
   );
 }
