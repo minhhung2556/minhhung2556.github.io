@@ -1,21 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 import '../../../index.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Styles.mainBackgroundColor,
+      color: MyColors.mainBackgroundColor,
       child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        controller: _scrollController,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Part1(),
-            Stack(
+            Part1(scrollController: _scrollController),
+            /*Stack(
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 3,
@@ -39,7 +53,6 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 36,
                       color: Colors.white,
-                      fontFamily: Fonts.fontFamilyBebasNeueRegular,
                     ),
                   ),
                 ),
@@ -55,7 +68,6 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 48,
                     color: Colors.white,
-                    fontFamily: Fonts.fontFamilyBebasNeueRegular,
                   ),
                 ),
                 Row(
@@ -70,7 +82,6 @@ class HomePage extends StatelessWidget {
                               maxLines: 1,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontFamily: Fonts.fontFamilyBebasNeueRegular,
                               ),
                             ),
                           ),
@@ -81,7 +92,6 @@ class HomePage extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 24,
                                 color: Colors.white,
-                                fontFamily: Fonts.fontFamilyBebasNeueRegular,
                               ),
                             ),
                           ),
@@ -98,7 +108,7 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ],
-            ),
+            ),*/
           ],
         ),
       ),
