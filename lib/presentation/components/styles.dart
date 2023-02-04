@@ -31,8 +31,8 @@ class MyStyles {
   static final menuButtonStyle = ButtonStyle(
     shape: MaterialStateProperty.all<OutlinedBorder>(const RoundedRectangleBorder(
       borderRadius: const BorderRadius.only(
-        topLeft: const Radius.circular(8),
-        bottomRight: const Radius.circular(8),
+        topLeft: const Radius.circular(16),
+        bottomRight: const Radius.circular(16),
       ),
     )),
     padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.symmetric(vertical: 16, horizontal: 8)),
@@ -43,12 +43,12 @@ class MyStyles {
     minimumSize: MaterialStateProperty.all<Size>(Size.zero),
   );
   static final menuButtonTextStyle = const TextStyle(
-    fontSize: 14,
+    fontSize: 18,
     color: Colors.white,
     fontFamily: Fonts.fontFamilyComponentText,
   );
   static final nameTextStyle = const TextStyle(
-    fontSize: 18,
+    fontSize: 24,
     color: Colors.white,
     fontFamily: Fonts.fontFamilyTitle,
     fontWeight: FontWeight.bold,

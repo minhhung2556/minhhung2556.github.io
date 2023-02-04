@@ -45,85 +45,104 @@ class _Part1State extends State<Part1> {
         : backgroundH;
     final backgroundDy = parentScrollOffset * 0.7;
     final backgroundOpacity = min(1.0, max(0.0, parentScrollOffset / parentMaxScrollExtend));
-    return Column(
+    final avatarW = screenSize.width / 3;
+    final avatarH = avatarW;
+    final avatarX = MyDimensions.screenPadding.left;
+    final avatarY = screenSize.height - avatarH;
+    final aboutX = avatarX + avatarW + MyDimensions.screenPadding.left;
+    final aboutW = screenSize.width - aboutX - MyDimensions.screenPadding.right;
+    return Stack(
       children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Stack(
-              children: [
-                Transform.translate(
-                  offset: Offset(0, backgroundDy),
-                  child: Opacity(
-                    opacity: backgroundOpacityTween
-                        .chain(CurveTween(curve: Curves.fastLinearToSlowEaseIn))
-                        .transform(backgroundOpacity),
-                    child: Image.asset(
-                      Assets.assetHomepageBackground,
-                      width: backgroundW,
-                      height: backgroundH,
-                      fit: BoxFit.cover,
-                      colorBlendMode: BlendMode.darken,
-                      color: Colors.black38,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: MyDimensions.screenPadding,
-                  child: Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text('${widget.data.lastName} ${widget.data.surName} ${widget.data.firstName}',
-                              style: MyStyles.nameTextStyle),
-                          MyWidgets.invisibleExpandedBox,
-                          TextButton(
-                            child: Text(
-                              'works',
-                              style: MyStyles.menuButtonTextStyle,
-                            ),
-                            style: MyStyles.menuButtonStyle,
-                            onPressed: () {
-                              //TODO
-                            },
-                          ),
-                          Text(',', style: MyStyles.menuButtonTextStyle),
-                          TextButton(
-                            child: Text(
-                              'contact',
-                              style: MyStyles.menuButtonTextStyle,
-                            ),
-                            style: MyStyles.menuButtonStyle,
-                            onPressed: () {
-                              //TODO
-                            },
-                          ),
-                        ],
-                      ),
-                      MyWidgets.componentMarginBox,
-                      MyWidgets.divider,
-                    ],
-                  ),
-                ),
-              ],
+        Transform.translate(
+          offset: Offset(0, backgroundDy),
+          child: Opacity(
+            opacity: backgroundOpacityTween
+                .chain(CurveTween(curve: Curves.fastLinearToSlowEaseIn))
+                .transform(backgroundOpacity),
+            child: Image.asset(
+              Assets.assetHomepageBackground,
+              width: backgroundW,
+              height: backgroundH,
+              fit: BoxFit.cover,
+              colorBlendMode: BlendMode.darken,
+              color: Colors.black38,
             ),
+          ),
+        ),
+        Row(
+          children: [
+            Transform.translate(
+              offset: Offset(avatarX, avatarY),
+              child: SizedBox(
+                width: avatarW,
+                height: avatarH,
+                child: Stack(
+                  alignment: Alignment.center,
+                  fit: StackFit.expand,
+                  children: [
+                    Image.asset(
+                      Assets.assetAvatar1,
+                      fit: BoxFit.cover,
+                    ),
+                    FittedBox(
+                      child: Text(
+                        '${widget.data.nickName!.replaceAll(' ', '\n').toUpperCase()}',
+                        style: MyStyles.hugeNickNameTextStyle,
+                        textAlign: TextAlign.start,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: MyDimensions.screenPadding.copyWith(top: avatarY / 2),
+                child: Text(
+                  widget.data.about!.replaceAll('\\n', '\n'),
+                  style: MyStyles.headlineTextStyle,
+                ),
+              ),
+            ),
+          ],
+        ),
+        Column(
+          children: [
             Padding(
               padding: MyDimensions.screenPadding,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
                 children: [
-                  Text(
-                    '${widget.data.nickName!.replaceAll(' ', '\n')} ',
-                    style: MyStyles.hugeNickNameTextStyle,
-                    textAlign: TextAlign.start,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('${widget.data.lastName} ${widget.data.surName} ${widget.data.firstName}',
+                          style: MyStyles.nameTextStyle),
+                      MyWidgets.invisibleExpandedBox,
+                      TextButton(
+                        child: Text(
+                          'works',
+                          style: MyStyles.menuButtonTextStyle,
+                        ),
+                        style: MyStyles.menuButtonStyle,
+                        onPressed: () {
+                          //TODO
+                        },
+                      ),
+                      Text(',', style: MyStyles.menuButtonTextStyle),
+                      TextButton(
+                        child: Text(
+                          'contact',
+                          style: MyStyles.menuButtonTextStyle,
+                        ),
+                        style: MyStyles.menuButtonStyle,
+                        onPressed: () {
+                          //TODO
+                        },
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Text(
-                      widget.data.about!.replaceAll('\\n', '\n'),
-                      style: MyStyles.headlineTextStyle,
-                    ),
-                  ),
+                  MyWidgets.componentMarginBox,
+                  MyWidgets.divider,
                 ],
               ),
             ),
