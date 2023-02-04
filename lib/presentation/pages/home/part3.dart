@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 
 import '../../../index.dart';
 
@@ -43,20 +44,31 @@ class _Part3State extends State<Part3> {
             style: MyStyles.heading1TextStyle,
           ),
           ...widget.data.works!.map(
-            (e) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            (e) => Row(
               children: [
-                Text(
-                  e.jobTitle!.toUpperCase(),
-                  style: MyStyles.jobTitleTextStyle,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      e.jobTitle!.toUpperCase(),
+                      style: MyStyles.jobTitleTextStyle,
+                    ),
+                    Text(
+                      e.companyName!.toUpperCase(),
+                      style: MyStyles.headlineTextStyle,
+                    ),
+                    Text(
+                      '${_workingDateFormat.format(e.startDate.toDate())} - ${e.endDate != null ? _workingDateFormat.format(e.endDate!.toDate()) : 'now'}',
+                      style: MyStyles.headlineTextStyle,
+                    ),
+                  ],
                 ),
-                Text(
-                  e.companyName!.toUpperCase(),
-                  style: MyStyles.headlineTextStyle,
-                ),
-                Text(
-                  '${_workingDateFormat.format(e.startDate.toDate())} - ${e.endDate != null ? _workingDateFormat.format(e.endDate!.toDate()) : 'now'}',
-                  style: MyStyles.headlineTextStyle,
+                WebViewX(
+                  initialContent: e.companyWebsite,
+                  initialSourceType: SourceType.url,
+                  onWebViewCreated: (controller) {},
+                  width: screenSize.width / 2,
+                  height: (screenSize.width / 2) * 3 / 4,
                 ),
               ],
             ),

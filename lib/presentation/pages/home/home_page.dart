@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minhhung2556/index.dart';
+import 'package:minhhung2556/presentation/pages/home/keys.dart';
 
 class HomePage extends StatefulWidget {
   static Widget newInstance() => BlocProvider(
@@ -47,8 +48,8 @@ class _HomePageState extends State<HomePage> {
           children: [
             Part1(scrollController: _scrollController, data: data),
             Part2(scrollController: _scrollController, data: data),
-            Part3(scrollController: _scrollController, data: data),
-            Part4(scrollController: _scrollController, data: data),
+            Part3(key: kPart3Key, scrollController: _scrollController, data: data),
+            Part4(key: kPart4Key, scrollController: _scrollController, data: data),
           ],
         ),
       ),

@@ -18,12 +18,22 @@ class Part2 extends StatefulWidget {
 }
 
 class _Part2State extends State<Part2> {
+  final modelTween = TweenSequence([
+    TweenSequenceItem(
+        tween: FractionalOffsetTween(begin: FractionalOffset(1, 0), end: FractionalOffset(0, 0)), weight: 0.25),
+    TweenSequenceItem(
+        tween: FractionalOffsetTween(begin: FractionalOffset(0, 0), end: FractionalOffset(0, 0)), weight: 0.25),
+    TweenSequenceItem(
+        tween: FractionalOffsetTween(begin: FractionalOffset(0, 0), end: FractionalOffset(1, 0)), weight: 0.25),
+    TweenSequenceItem(
+        tween: FractionalOffsetTween(begin: FractionalOffset(1, 0), end: FractionalOffset(1, 0)), weight: 0.25),
+  ]);
   @override
   void initState() {
     widget.scrollController.addListener(() {
       if (!mounted || !widget.scrollController.hasClients) return;
 
-      // setState(() {});
+      setState(() {});
     });
     super.initState();
   }
@@ -32,6 +42,7 @@ class _Part2State extends State<Part2> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final parentScrollOffset = widget.scrollController.offset;
+    final parentMaxScrollExtent = widget.scrollController.position.maxScrollExtent;
     final modelW = screenSize.width / 3;
     final modelH = modelW;
     return Column(
@@ -41,15 +52,20 @@ class _Part2State extends State<Part2> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              width: modelW,
-              height: modelH,
-              child: ModelViewer(
-                src: Assets.assetHungldm1,
-                autoPlay: true,
-                autoRotate: true,
-                rotationPerSecond: '120deg',
-                cameraControls: false,
+            Transform.translate(
+              offset: Offset(
+                  modelTween.transform(parentScrollOffset / parentMaxScrollExtent)!.dx * screenSize.width / 2 - modelW,
+                  -screenSize.height - modelH / 2 + parentScrollOffset),
+              child: SizedBox(
+                width: modelW,
+                height: modelH,
+                child: ModelViewer(
+                  src: Assets.assetHungldm1,
+                  autoPlay: true,
+                  autoRotate: true,
+                  rotationPerSecond: '120deg',
+                  cameraControls: false,
+                ),
               ),
             ),
             SizedBox(

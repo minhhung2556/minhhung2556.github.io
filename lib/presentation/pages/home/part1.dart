@@ -18,17 +18,22 @@ class Part1 extends StatefulWidget {
   State<Part1> createState() => _Part1State();
 }
 
-class _Part1State extends State<Part1> {
+class _Part1State extends State<Part1> with TickerProviderStateMixin {
   final backgroundOpacityTween = TweenSequence([
     TweenSequenceItem(tween: Tween<double>(begin: 1, end: 1), weight: 0.9),
     TweenSequenceItem(tween: Tween<double>(begin: 1, end: 0), weight: 0.1),
   ]);
+  late final AnimationController _avatarController;
 
   @override
   void initState() {
     widget.scrollController.addListener(() {
       if (!mounted || !widget.scrollController.hasClients) return;
 
+      setState(() {});
+    });
+    _avatarController = AnimationController(vsync: this, duration: Duration(seconds: 1));
+    _avatarController.addListener(() {
       setState(() {});
     });
     super.initState();
@@ -48,7 +53,7 @@ class _Part1State extends State<Part1> {
     final avatarW = screenSize.width / 3;
     final avatarH = avatarW;
     final avatarX = MyDimensions.screenPadding.left;
-    final avatarY = screenSize.height - avatarH;
+    final avatarY = (screenSize.height - avatarH) * 0.5;
     final aboutX = avatarX + avatarW + MyDimensions.screenPadding.left;
     final aboutW = screenSize.width - aboutX - MyDimensions.screenPadding.right;
     return Stack(
@@ -80,15 +85,29 @@ class _Part1State extends State<Part1> {
                   alignment: Alignment.center,
                   fit: StackFit.expand,
                   children: [
-                    Image.asset(
-                      Assets.assetAvatar1,
-                      fit: BoxFit.cover,
+                    Opacity(
+                      opacity: _avatarController.value,
+                      child: Image.asset(
+                        Assets.assetAvatar1,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     FittedBox(
-                      child: Text(
-                        '${widget.data.nickName!.replaceAll(' ', '\n').toUpperCase()}',
-                        style: MyStyles.hugeNickNameTextStyle,
-                        textAlign: TextAlign.start,
+                      child: MouseRegion(
+                        onEnter: (e) {
+                          _avatarController.forward(from: 0);
+                        },
+                        onExit: (e) {
+                          _avatarController.reverse();
+                        },
+                        child: Opacity(
+                          opacity: 1 - _avatarController.value,
+                          child: Text(
+                            '${widget.data.nickName!.replaceAll(' ', '\n').toUpperCase()}',
+                            style: MyStyles.hugeNickNameTextStyle,
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
                       ),
                     )
                   ],
@@ -134,7 +153,8 @@ class _Part1State extends State<Part1> {
                         ),
                         style: MyStyles.menuButtonStyle,
                         onPressed: () {
-                          //TODO
+                          Scrollable.ensureVisible(kPart3Key.currentContext!,
+                              curve: Curves.easeInOut, duration: Duration(seconds: 1));
                         },
                       ),
                       Text(',', style: MyStyles.menuButtonTextStyle),
@@ -145,7 +165,8 @@ class _Part1State extends State<Part1> {
                         ),
                         style: MyStyles.menuButtonStyle,
                         onPressed: () {
-                          //TODO
+                          Scrollable.ensureVisible(kPart4Key.currentContext!,
+                              curve: Curves.easeInOut, duration: Duration(seconds: 1));
                         },
                       ),
                     ],
