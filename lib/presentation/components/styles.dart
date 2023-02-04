@@ -10,6 +10,8 @@ class MyDimensions {
 
 class MyWidgets {
   static const invisibleExpandedBox = const Expanded(child: const SizedBox());
+  static const loadingIndicator = const CircularProgressIndicator();
+  static const empty = const SizedBox();
   static const divider = const Divider(height: 1, thickness: 0.5, color: Colors.white);
   static final componentMarginHorizontal = SizedBox(width: MyDimensions.mainComponentMargin.horizontal);
   static final componentMarginVertical = SizedBox(height: MyDimensions.mainComponentMargin.vertical);

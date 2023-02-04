@@ -18,8 +18,22 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
+  final IDataApi _repository = DataRepository();
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder<Profile?>(
+      future: _repository.getLatestProfile(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return buildBody(context, snapshot.data!);
+        } else {
+          return MyWidgets.loadingIndicator;
+        }
+      },
+    );
+  }
+
+  Widget buildBody(BuildContext context, Profile data) {
     return Material(
       color: MyColors.mainBackgroundColor,
       child: SingleChildScrollView(
@@ -28,11 +42,10 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Part1(scrollController: _scrollController),
-            Part2(scrollController: _scrollController),
-            Part3(scrollController: _scrollController),
-            Part5(scrollController: _scrollController),
-            Part4(scrollController: _scrollController),
+            Part1(scrollController: _scrollController, data: data),
+            Part2(scrollController: _scrollController, data: data),
+            Part3(scrollController: _scrollController, data: data),
+            Part4(scrollController: _scrollController, data: data),
             /*
             // showcases
             Column(

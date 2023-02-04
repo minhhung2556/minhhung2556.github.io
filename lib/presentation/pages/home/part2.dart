@@ -5,9 +5,12 @@ import '../../../index.dart';
 
 class Part2 extends StatefulWidget {
   final ScrollController scrollController;
+  final Profile data;
+
   const Part2({
     Key? key,
     required this.scrollController,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -61,9 +64,7 @@ class _Part2State extends State<Part2> {
             SizedBox(
               width: modelW,
               child: Text(
-                '''I'm romantic developer, mobile team leader, motivational mentor, friendly daddy, truthful partner.
-
-I use my passion and skills to create mobile application and experiences. National and international partners rely on me for mobile application, implementation, and management of their digital products. as an independent, i work also with web agencies, companies, startups and individuals to create a blueprint for the digital business. advisor and partner of some digital and fintech startups. also, judge at cssda and the webby.''',
+                widget.data.headline!.replaceAll('\\n', '\n'),
                 style: MyStyles.headlineTextStyle,
               ),
             ),

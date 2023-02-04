@@ -4,9 +4,11 @@ import '../../../index.dart';
 
 class Part4 extends StatefulWidget {
   final ScrollController scrollController;
+  final Profile data;
   const Part4({
     Key? key,
     required this.scrollController,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -62,37 +64,26 @@ class _Part4State extends State<Part4> {
                             },
                           ),
                           MyWidgets.invisibleExpandedBox,
-                          TextButton(
-                            child: Text(
-                              'PubDev',
-                              style: MyStyles.menuButtonTextStyle,
+                          ...widget.data.contactInfo!.websites!.map(
+                            (e) => Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                TextButton(
+                                  child: Text(
+                                    e.name!,
+                                    style: MyStyles.menuButtonTextStyle,
+                                  ),
+                                  style: MyStyles.menuButtonStyle,
+                                  onPressed: () {
+                                    //TODO
+                                  },
+                                ),
+                                widget.data.contactInfo!.websites!.indexOf(e) <
+                                        widget.data.contactInfo!.websites!.length - 1
+                                    ? Text(',', style: MyStyles.menuButtonTextStyle)
+                                    : MyWidgets.empty,
+                              ],
                             ),
-                            style: MyStyles.menuButtonStyle,
-                            onPressed: () {
-                              //TODO
-                            },
-                          ),
-                          Text(',', style: MyStyles.menuButtonTextStyle),
-                          TextButton(
-                            child: Text(
-                              'Github',
-                              style: MyStyles.menuButtonTextStyle,
-                            ),
-                            style: MyStyles.menuButtonStyle,
-                            onPressed: () {
-                              //TODO
-                            },
-                          ),
-                          Text(',', style: MyStyles.menuButtonTextStyle),
-                          TextButton(
-                            child: Text(
-                              'Linkedin',
-                              style: MyStyles.menuButtonTextStyle,
-                            ),
-                            style: MyStyles.menuButtonStyle,
-                            onPressed: () {
-                              //TODO
-                            },
                           ),
                         ],
                       ),

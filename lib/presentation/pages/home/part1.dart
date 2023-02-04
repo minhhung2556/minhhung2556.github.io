@@ -6,9 +6,12 @@ import '../../../index.dart';
 
 class Part1 extends StatefulWidget {
   final ScrollController scrollController;
+  final Profile data;
+
   const Part1({
     Key? key,
     required this.scrollController,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -20,6 +23,7 @@ class _Part1State extends State<Part1> {
     TweenSequenceItem(tween: Tween<double>(begin: 1, end: 1), weight: 0.9),
     TweenSequenceItem(tween: Tween<double>(begin: 1, end: 0), weight: 0.1),
   ]);
+
   @override
   void initState() {
     widget.scrollController.addListener(() {
@@ -71,22 +75,12 @@ class _Part1State extends State<Part1> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text('Luong Do Minh Hung', style: MyStyles.nameTextStyle),
+                          Text('${widget.data.lastName} ${widget.data.surName} ${widget.data.firstName}',
+                              style: MyStyles.nameTextStyle),
                           MyWidgets.invisibleExpandedBox,
                           TextButton(
                             child: Text(
                               'works',
-                              style: MyStyles.menuButtonTextStyle,
-                            ),
-                            style: MyStyles.menuButtonStyle,
-                            onPressed: () {
-                              //TODO
-                            },
-                          ),
-                          Text(',', style: MyStyles.menuButtonTextStyle),
-                          TextButton(
-                            child: Text(
-                              'about',
                               style: MyStyles.menuButtonTextStyle,
                             ),
                             style: MyStyles.menuButtonStyle,
@@ -120,17 +114,13 @@ class _Part1State extends State<Part1> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'ROMANTIC\nDEVELOPER ',
+                    '${widget.data.nickName!.replaceAll(' ', '\n')} ',
                     style: MyStyles.hugeNickNameTextStyle,
                     textAlign: TextAlign.start,
                   ),
                   Expanded(
                     child: Text(
-                      '''The first time when I started using the computer, thank to the Windows 95 Introduction book, I was in 3rd grade. I realized that becoming a software developer was my lifelong dream.
-After more than 9 years of working, with perseverance, effort, and passion in mobile application development, I have contributed to building the success of the great products that I participate in and achieved many valuable achievements on my career path.
-Build super apps, develop core functionalities of great products, integrate with multiple partners, build infrastructure, train and develop teams, support community, and mentor many young developers who got many achievements on their career path.
-
-“Keep everything simple in mind. Unidirectional workflow for code and life”.''',
+                      widget.data.about!.replaceAll('\\n', '\n'),
                       style: MyStyles.headlineTextStyle,
                     ),
                   ),

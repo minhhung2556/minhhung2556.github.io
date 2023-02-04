@@ -1,3 +1,4 @@
+export 'domain/index.dart';
 export 'firebase_options.dart';
 export 'generated/index.dart';
 export 'generated_plugin_registrant.dart';

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../index.dart';
 
 class Part3 extends StatefulWidget {
   final ScrollController scrollController;
+  final Profile data;
+
   const Part3({
     Key? key,
     required this.scrollController,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -14,6 +18,7 @@ class Part3 extends StatefulWidget {
 }
 
 class _Part3State extends State<Part3> {
+  final _workingDateFormat = DateFormat('MMM yyyy');
   @override
   void initState() {
     widget.scrollController.addListener(() {
@@ -37,45 +42,24 @@ class _Part3State extends State<Part3> {
             'MY WORKS',
             style: MyStyles.heading1TextStyle,
           ),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Mobile Chapter Lead'.toUpperCase(),
-                      style: MyStyles.jobTitleTextStyle,
-                    ),
-                    Text(
-                      'Home Credit Viet Nam'.toUpperCase(),
-                      style: MyStyles.headlineTextStyle,
-                    ),
-                  ],
+          ...widget.data.works!.map(
+            (e) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  e.jobTitle!.toUpperCase(),
+                  style: MyStyles.jobTitleTextStyle,
                 ),
-              ),
-              Image.asset(Assets.assetWorkHomecredit),
-            ],
-          ),
-          Row(
-            children: [
-              Image.asset(Assets.assetWorkSendo),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Mobile Tech Lead'.toUpperCase(),
-                      style: MyStyles.jobTitleTextStyle,
-                    ),
-                    Text(
-                      'Sendo.vn'.toUpperCase(),
-                      style: MyStyles.headlineTextStyle,
-                    ),
-                  ],
+                Text(
+                  e.companyName!.toUpperCase(),
+                  style: MyStyles.headlineTextStyle,
                 ),
-              ),
-            ],
+                Text(
+                  '${_workingDateFormat.format(e.startDate.toDate())} - ${e.endDate != null ? _workingDateFormat.format(e.endDate!.toDate()) : 'now'}',
+                  style: MyStyles.headlineTextStyle,
+                ),
+              ],
+            ),
           ),
         ],
       ),
