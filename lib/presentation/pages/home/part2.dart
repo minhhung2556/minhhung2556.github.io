@@ -41,25 +41,16 @@ class _Part2State extends State<Part2> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Hello there!',
-                  style: MyStyles.heading2TextStyle,
-                ),
-                SizedBox(
-                  width: modelW,
-                  height: modelH,
-                  child: ModelViewer(
-                    src: Assets.assetHungldm1,
-                    autoPlay: true,
-                    autoRotate: true,
-                    rotationPerSecond: '120deg',
-                    cameraControls: false,
-                  ),
-                ),
-              ],
+            SizedBox(
+              width: modelW,
+              height: modelH,
+              child: ModelViewer(
+                src: Assets.assetHungldm1,
+                autoPlay: true,
+                autoRotate: true,
+                rotationPerSecond: '120deg',
+                cameraControls: false,
+              ),
             ),
             SizedBox(
               width: modelW,

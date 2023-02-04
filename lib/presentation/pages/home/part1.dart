@@ -98,9 +98,18 @@ class _Part1State extends State<Part1> {
             Expanded(
               child: Padding(
                 padding: MyDimensions.screenPadding.copyWith(top: avatarY / 2),
-                child: Text(
-                  widget.data.about!.replaceAll('\\n', '\n'),
-                  style: MyStyles.headlineTextStyle,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Hello there!',
+                      style: MyStyles.heading2TextStyle,
+                    ),
+                    Text(
+                      widget.data.about!.replaceAll('\\n', '\n'),
+                      style: MyStyles.headlineTextStyle,
+                    ),
+                  ],
                 ),
               ),
             ),
