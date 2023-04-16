@@ -16,6 +16,12 @@ final kThemeData = ThemeData(
     headline3: TextStyle(
       fontFamily: Fonts.fontFamilyMostFocus,
     ),
+    headline4: TextStyle(
+      fontFamily: Fonts.fontFamilyComponentText,
+    ),
+    headline5: TextStyle(
+      fontFamily: Fonts.fontFamilyComponentText,
+    ),
     headline6: TextStyle(
       fontFamily: Fonts.fontFamilyComponentText,
     ),
@@ -24,3 +30,5 @@ final kThemeData = ThemeData(
     ),
   ),
 );
+
+const kScreenPadding = const EdgeInsets.symmetric(horizontal: 48, vertical: 24);
