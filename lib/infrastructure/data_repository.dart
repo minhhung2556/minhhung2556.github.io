@@ -5,6 +5,11 @@ class DataRepository extends IDataApi {
 
   @override
   Future<Profile?> getLatestProfile() async {
-    return _provider.getLatestProfile();
+    var profile = await _provider.getLatestProfile();
+    if (profile != null) {
+      final sortedWorks = profile.works..sort((a, b) => a.order < b.order ? -1 : 1);
+      profile = profile.copyWith(works: sortedWorks);
+    }
+    return profile;
   }
 }

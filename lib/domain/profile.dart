@@ -52,4 +52,55 @@ class Profile {
     data['overlayAvatar'] = overlayAvatar;
     return data;
   }
+
+  Profile copyWith({
+    String? surName,
+    String? headline,
+    ContactInfo? contactInfo,
+    String? coverUrl,
+    String? lastName,
+    String? about,
+    String? firstName,
+    Timestamp? createdDate,
+    List<Works>? works,
+    String? nickName,
+    String? avatarUrl,
+    String? overlayAvatar,
+    String? skillSummary,
+    String? jobTitle,
+  }) {
+    return Profile(
+      surName: surName ?? this.surName,
+      headline: headline ?? this.headline,
+      contactInfo: contactInfo ?? this.contactInfo,
+      coverUrl: coverUrl ?? this.coverUrl,
+      lastName: lastName ?? this.lastName,
+      about: about ?? this.about,
+      firstName: firstName ?? this.firstName,
+      createdDate: createdDate ?? this.createdDate,
+      works: works ?? this.works,
+      nickName: nickName ?? this.nickName,
+      avatarUrl: avatarUrl ?? this.avatarUrl,
+      overlayAvatar: overlayAvatar ?? this.overlayAvatar,
+      skillSummary: skillSummary ?? this.skillSummary,
+      jobTitle: jobTitle ?? this.jobTitle,
+    );
+  }
+
+  const Profile({
+    required this.surName,
+    required this.headline,
+    required this.contactInfo,
+    required this.coverUrl,
+    required this.lastName,
+    required this.about,
+    required this.firstName,
+    required this.createdDate,
+    required this.works,
+    required this.nickName,
+    required this.avatarUrl,
+    required this.overlayAvatar,
+    required this.skillSummary,
+    required this.jobTitle,
+  });
 }
