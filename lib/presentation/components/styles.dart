@@ -19,5 +19,8 @@ final kThemeData = ThemeData(
     headline6: TextStyle(
       fontFamily: Fonts.fontFamilyComponentText,
     ),
+    bodyText1: TextStyle(
+      fontFamily: Fonts.fontFamilyComponentText,
+    ),
   ),
 );
