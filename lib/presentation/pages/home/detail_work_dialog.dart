@@ -20,7 +20,6 @@ class DetailWorkDialog extends StatelessWidget {
     return Padding(
       padding: kScreenPadding,
       child: SingleChildScrollView(
-        padding: kScreenPadding,
         child: Column(
           children: [
             Text(
@@ -32,14 +31,15 @@ class DetailWorkDialog extends StatelessWidget {
               crossAxisCount: 3,
               children: [
                 ...data.images.map((e) => ClipRRect(
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: BorderRadius.circular(12),
                       child: InnerShadow(
-                          shadowColor: Colors.white,
-                          shadowBlur: 24,
-                          child: Image.network(
-                            e,
-                            height: screenSize.height / 3,
-                          )),
+                        shadowColor: Colors.white,
+                        shadowBlur: 12,
+                        child: Image.network(
+                          e,
+                          height: screenSize.height / 3,
+                        ),
+                      ),
                     ))
               ],
               shrinkWrap: true,

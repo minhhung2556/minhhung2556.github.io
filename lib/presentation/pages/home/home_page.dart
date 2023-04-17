@@ -23,17 +23,14 @@ class _HomePageState extends State<HomePage> {
   var _opacity = 0.0;
   var _screenSize = Size.zero;
 
+  double get minDimension => min(_screenSize.width, _screenSize.height);
+  bool get isPortrait => _screenSize.width < _screenSize.height;
+
   @override
   void initState() {
     _scrollController.addListener(() {
       setState(() {});
     });
-    Future.delayed(
-      Duration(seconds: 2),
-      () {
-        if (_scrollController.hasClients) _scrollController.jumpTo(_screenSize.height * 10);
-      },
-    );
     super.initState();
   }
 
@@ -66,36 +63,6 @@ class _HomePageState extends State<HomePage> {
         (index) =>
             offset - screenH * index <= screenH ? max(0.0, min(1.0, (offset - screenH * index) / screenH)) : 1.0);
     int index = 0;
-    //
-    final bodyChildren = [
-      Container(
-        width: screenW,
-        height: screenH,
-        child: _page1(context, theme, offset, values[index++], _screenSize, screenW, screenH, data),
-      ),
-      Container(
-        width: screenW,
-        height: screenH,
-        child: _page2(context, theme, offset, values[index++], _screenSize, screenW, screenH, data),
-      ),
-      Container(
-        width: screenW,
-        height: screenH,
-        child: _page3(context, theme, offset, values[index++], _screenSize, screenW, screenH, data),
-      ),
-      Container(
-        width: screenW,
-        height: screenH,
-        child: _page4(context, theme, offset, values[index++], _screenSize, screenW, screenH, data),
-      ),
-      ...data.works.map(
-        (e) => Container(
-          width: screenW,
-          height: screenH,
-          child: _page5(context, theme, offset, values[index++], _screenSize, screenW, screenH, data, e),
-        ),
-      ),
-    ];
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -106,17 +73,33 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
-                height: screenH * bodyChildren.length,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: bodyChildren,
+              Container(
+                width: screenW,
+                height: screenH,
+                child: _page1(context, theme, offset, values[index++], data),
+              ),
+              Container(
+                width: screenW,
+                height: screenH,
+                child: _page2(context, theme, offset, values[index++], data),
+              ),
+              Container(
+                width: screenW,
+                height: screenH,
+                child: _page3(context, theme, offset, values[index++], data),
+              ),
+              SizedBox(width: screenW, height: screenH),
+              _page4(context, theme, offset, values[index++], data),
+              ...data.works.map(
+                (e) => Container(
+                  width: screenW,
+                  height: screenH,
+                  child: _page5(context, theme, offset, values[index++], data, e),
                 ),
               ),
-              // expandable children
-              _page6(context, theme, offset, values[index++], _screenSize, screenW, screenH, data),
-              _page7(context, theme, offset, values[index++], _screenSize, screenW, screenH, data),
-              _pageEnd(context, theme, offset, values[index++], _screenSize, screenW, screenH, data),
+              _page6(context, theme, offset, values[index++], data),
+              _page7(context, theme, offset, values[index++], data),
+              _pageEnd(context, theme, offset, values[index++], data),
             ],
           ),
         ),
@@ -124,11 +107,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _page1(BuildContext context, ThemeData theme, double offset, double value, Size screenSize, double screenW,
-      double screenH, Profile data) {
-    final mainTitleStrings =
-        '*${data.nickName}${DateFormat.y(kLocaleEn.toLanguageTag()).format(data.createdDate.toDate())}'.split(' ');
-    final avatarW = min(screenW, screenH) * 0.5;
+  Widget _page1(BuildContext context, ThemeData theme, double offset, double value, Profile data) {
+    final mainTitleStrings = '*${data.nickName} ${DateFormat.y().format(data.createdDate.toDate())}'.split(' ');
+    final avatarW = minDimension * 0.5;
     final avatarH = 1.7 * avatarW;
     final avatarBorder = BorderRadius.horizontal(left: Radius.circular(avatarH));
     return Column(
@@ -152,119 +133,130 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         Expanded(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Transform.translate(
-                offset: Offset(min(1, value * 5) * (screenW * 0.5 - avatarW * 0.5), 0),
-                child: ClipRRect(
-                  borderRadius: TweenSequence<BorderRadius>([
-                    TweenSequenceItem(tween: Tween(begin: BorderRadius.zero, end: avatarBorder), weight: 0.2),
-                    TweenSequenceItem(tween: ConstantTween(avatarBorder), weight: 0.8),
-                  ]).transform(value),
-                  child: Image.network(
-                    data.avatarUrl,
-                    fit: BoxFit.cover,
-                    width: avatarW,
-                    height: avatarH,
-                  ),
-                ),
-              ),
-              Column(
-                children: [
-                  const Expanded(child: SizedBox()),
-                  Expanded(
-                    flex: 4,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ...mainTitleStrings.map(
-                          (e) {
-                            final index = mainTitleStrings.indexOf(e);
-                            if (index == 0) {
-                              return Transform.scale(
-                                alignment: Alignment.topCenter,
-                                scale: 1 + 20 * value,
-                                child: Transform.translate(
-                                    offset: Offset(0.0, -offset),
-                                    child: SeoTextWrapper(e,
-                                        style: theme.textTheme.displayLarge, textAlign: TextAlign.center)),
-                              );
-                            } else {
-                              return Transform.rotate(
-                                // alignment: Alignment.topRight * (index % 2 == 0 ? -1.0 : 1.0),
-                                alignment: Alignment.bottomLeft,
-                                // angle: (index % 2 == 0 ? -1 : 1) * value * 90 * pi / 180.0,
-                                angle: -value * 90 * pi / 180.0,
-                                child: Transform.translate(
-                                  // offset: Offset((index % 2 == 0 ? -1 : 1) * offset, 0.0),
-                                  offset: Offset(-offset, 0.0),
-                                  child: Opacity(
-                                      opacity: 1 - value,
-                                      child: SeoTextWrapper(e,
-                                          style: theme.textTheme.displayLarge, textAlign: TextAlign.center)),
-                                ),
-                              );
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Transform.translate(
-                offset: Offset(min(1, value * 5) * (screenW * 0.5 - avatarW * 0.5), 0),
-                child: InkWell(
-                  focusColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  onTap: () {},
-                  onHover: (isHovered) {
-                    setState(() {
-                      _opacity = isHovered ? 1.0 : 0.0;
-                    });
-                  },
-                  child: AnimatedOpacity(
-                    duration: Duration(milliseconds: 600),
-                    opacity: _opacity,
+          child: Padding(
+            padding: kScreenPadding,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Transform.translate(
+                  offset: Offset(min(1, value * 5) * (minDimension - avatarW) * 0.5, 0),
+                  child: ClipRRect(
+                    borderRadius: TweenSequence<BorderRadius>([
+                      TweenSequenceItem(tween: Tween(begin: BorderRadius.zero, end: avatarBorder), weight: 0.2),
+                      TweenSequenceItem(tween: ConstantTween(avatarBorder), weight: 0.8),
+                    ]).transform(value),
                     child: Image.network(
-                      data.overlayAvatar,
+                      data.avatarUrl,
                       fit: BoxFit.cover,
                       width: avatarW,
                       height: avatarH,
                     ),
                   ),
                 ),
-              ),
-            ],
+                Column(
+                  children: [
+                    const Expanded(child: SizedBox()),
+                    Expanded(
+                      flex: 4,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ...mainTitleStrings.map(
+                            (e) {
+                              final index = mainTitleStrings.indexOf(e);
+                              if (index == 0) {
+                                return Transform.scale(
+                                  alignment: Alignment.topCenter,
+                                  scale: 1 + 20 * value,
+                                  child: Transform.translate(
+                                      offset: Offset(0.0, -offset),
+                                      child: FittedBox(
+                                        fit: BoxFit.fill,
+                                        child: SeoTextWrapper(e,
+                                            style: theme.textTheme.displayLarge, textAlign: TextAlign.center),
+                                      )),
+                                );
+                              } else {
+                                return Transform.rotate(
+                                  alignment: Alignment.bottomLeft,
+                                  angle: -value * 90 * pi / 180.0,
+                                  child: Transform.translate(
+                                    offset: Offset(-offset, 0.0),
+                                    child: Opacity(
+                                        opacity: 1 - value,
+                                        child: FittedBox(
+                                          fit: BoxFit.fill,
+                                          child: SeoTextWrapper(e,
+                                              style: theme.textTheme.displayLarge, textAlign: TextAlign.center),
+                                        )),
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Transform.translate(
+                  offset: Offset(min(1, value * 5) * (_screenSize.width * 0.5 - avatarW * 0.5), 0),
+                  child: InkWell(
+                    focusColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    onTap: () {},
+                    onHover: (isHovered) {
+                      setState(() {
+                        _opacity = isHovered ? 1.0 : 0.0;
+                      });
+                    },
+                    child: AnimatedOpacity(
+                      duration: Duration(milliseconds: 600),
+                      opacity: _opacity,
+                      child: Image.network(
+                        data.overlayAvatar,
+                        fit: BoxFit.cover,
+                        width: avatarW,
+                        height: avatarH,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget _page2(BuildContext context, ThemeData theme, double offset, double value, Size screenSize, double screenW,
-      double screenH, Profile data) {
-    return Center(
-      child: Transform.translate(
-        offset: TweenSequence([
-          TweenSequenceItem(tween: Tween(begin: Offset(0.0, -screenH * 0.3), end: Offset.zero), weight: 0.2),
-          TweenSequenceItem(tween: Tween(begin: Offset.zero, end: Offset(0.0, screenH)), weight: 0.8),
+  Widget _page2(BuildContext context, ThemeData theme, double offset, double value, Profile data) {
+    return Transform.translate(
+      offset: TweenSequence([
+        TweenSequenceItem(tween: Tween(begin: Offset(0.0, -_screenSize.height * 0.25), end: Offset.zero), weight: 0.2),
+        TweenSequenceItem(tween: Tween(begin: Offset.zero, end: Offset(0.0, _screenSize.height)), weight: 0.8),
+      ]).transform(value),
+      child: Transform.scale(
+        scale: TweenSequence([
+          TweenSequenceItem(tween: Tween(begin: 50.0, end: 1.0), weight: 0.3),
+          TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 0.7),
         ]).transform(value),
-        child: Transform.scale(
-          scale: TweenSequence([
-            TweenSequenceItem(tween: Tween(begin: 30.0, end: 1.0), weight: 0.3),
+        child: Opacity(
+          opacity: TweenSequence([
             TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 0.7),
+            TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 0.3),
           ]).transform(value),
-          child: Opacity(
-            opacity: 1 - value,
-            child: SeoTextWrapper(
-              'Who am I?',
-              style: theme.textTheme.displayMedium,
-              textAlign: TextAlign.center,
+          child: Center(
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: SeoTextWrapper(
+                'Who am I?',
+                style: theme.textTheme.displayMedium,
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),
@@ -272,12 +264,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _page3(BuildContext context, ThemeData theme, double offset, double value, Size screenSize, double screenW,
-      double screenH, Profile data) {
+  Widget _page3(BuildContext context, ThemeData theme, double offset, double value, Profile data) {
     return Transform.translate(
       offset: TweenSequence([
-        TweenSequenceItem(tween: Tween(begin: Offset(0.0, -screenH * 0.4), end: Offset.zero), weight: 0.3),
-        TweenSequenceItem(tween: Tween(begin: Offset.zero, end: Offset(0.0, screenH)), weight: 0.7),
+        TweenSequenceItem(tween: Tween(begin: Offset(0.0, -_screenSize.height * 0.25), end: Offset.zero), weight: 0.2),
+        TweenSequenceItem(tween: Tween(begin: Offset.zero, end: Offset(0.0, _screenSize.height)), weight: 0.8),
       ]).transform(value),
       child: Transform.scale(
         scale: TweenSequence([
@@ -299,68 +290,44 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _page4(BuildContext context, ThemeData theme, double offset, double value, Size screenSize, double screenW,
-      double screenH, Profile data) {
-    return Transform.translate(
-      offset: TweenSequence([
-        TweenSequenceItem(tween: Tween(begin: Offset(0.0, -screenH * 0.4), end: Offset.zero), weight: 0.3),
-        TweenSequenceItem(tween: Tween(begin: Offset.zero, end: Offset(0.0, screenH)), weight: 0.7),
-      ]).transform(value),
-      child: Opacity(
-        opacity: TweenSequence([
-          TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 0.1),
-          TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 0.5),
-          TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 0.4),
-        ]).transform(value),
-        child: Padding(
-          padding: kScreenPadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ...data.skillSummary.replaceAll('\\n', '\n').split('\n').map(
-                    (e) => SeoTextWrapper(e, style: theme.textTheme.titleLarge),
-                  ),
-            ],
-          ),
-        ),
+  Widget _page4(BuildContext context, ThemeData theme, double offset, double value, Profile data) {
+    return Container(
+      width: _screenSize.width,
+      padding: kScreenPadding,
+      child: SeoTextWrapper(
+        data.skillSummary.replaceAll('\\n', '\n'),
+        style: theme.textTheme.titleLarge,
+        textAlign: TextAlign.center,
       ),
     );
   }
 
-  Widget _page5(BuildContext context, ThemeData theme, double offset, double value, Size screenSize, double screenW,
-      double screenH, Profile data, Works e) {
-    final imageW = screenW / 3;
+  Widget _page5(BuildContext context, ThemeData theme, double offset, double value, Profile data, Works e) {
+    final imageW = minDimension / 3;
     final itemValue = TweenSequence([
-      TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 0.2),
-      TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 0.6),
-      TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 0.2),
+      TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 0.4),
+      TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 0.5),
+      TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 0.1),
     ]).transform(value);
-    // final translateValue = TweenSequence([
-    //   TweenSequenceItem(tween: Tween(begin: 2.0, end: 1.0), weight: 0.5),
-    //   TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 0.4),
-    //   TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 0.1),
-    // ]).transform(value);
 
-    return Transform.translate(
-      // offset: Offset(0.0, screenH * translateValue * value),
-      offset: Offset.zero,
-      child: Opacity(
-        // opacity: TweenSequence([
-        //   TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 0.2),
-        //   TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 0.6),
-        //   TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 0.2),
-        // ]).transform(value),
-        opacity: 1,
-        child: Padding(
-          padding: kScreenPadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SeoTextWrapper('My work experience'.toUpperCase(), style: theme.textTheme.bodyLarge),
-              SeoTextWrapper(e.jobTitle, style: theme.textTheme.displayMedium),
-              Row(
-                // crossAxisAlignment: CrossAxisAlignment.end,
+    return Padding(
+      padding: kScreenPadding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SeoTextWrapper('My work experience'.toUpperCase(), style: theme.textTheme.bodyLarge),
+          SizedBox(
+            width: _screenSize.width * 0.5,
+            child: FittedBox(
+              fit: BoxFit.fill,
+              child: SeoTextWrapper(e.jobTitle, style: theme.textTheme.displayMedium),
+            ),
+          ),
+          SizedBox(
+            width: _screenSize.width * 0.5,
+            child: FittedBox(
+              fit: BoxFit.fill,
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   TextButton(
@@ -377,34 +344,38 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Expanded(child: SizedBox()),
-                          SeoTextWrapper(
-                            e.description.replaceAll('\\n', '\n'),
-                            style: theme.textTheme.titleLarge,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 6,
-                          ),
-                          TextButton(
-                              onPressed: () => DetailWorkDialog.show(context, e),
-                              child: SeoTextWrapper(
-                                'Read more...',
-                                style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColor),
-                              )),
-                          const Expanded(child: SizedBox()),
-                        ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Expanded(child: SizedBox()),
+                      SeoTextWrapper(
+                        e.description.replaceAll('\\n', '\n'),
+                        style: theme.textTheme.titleLarge,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 6,
                       ),
-                    ),
-                    IgnorePointer(
-                      child: Padding(
-                        padding: kScreenPadding * 2,
+                      TextButton(
+                          onPressed: () => DetailWorkDialog.show(context, e),
+                          child: SeoTextWrapper(
+                            'Read more...',
+                            style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColor),
+                          )),
+                      const Expanded(child: SizedBox()),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Center(
+                    child: AspectRatio(
+                      aspectRatio: 0.5625,
+                      child: IgnorePointer(
                         child: Transform(
                           transform: Matrix4.skew(Tween(begin: 0.0, end: -0.4).transform(itemValue),
                               Tween(begin: 0.0, end: -0.1).transform(itemValue))
@@ -412,32 +383,30 @@ class _HomePageState extends State<HomePage> {
                                 Tween(begin: 1.0, end: 0.8).transform(itemValue), 1)
                             ..translate(Tween(begin: 0, end: imageW * 0.5).transform(itemValue)),
                           child: ClipRRect(
+                            borderRadius: BorderRadius.circular(24),
                             child: InnerShadow(
                               shadowColor: Colors.white,
                               shadowBlur: 24,
                               child: Image.network(
                                 e.images.first,
-                                fit: BoxFit.contain,
-                                width: imageW,
+                                fit: BoxFit.cover,
                               ),
                             ),
-                            borderRadius: BorderRadius.circular(24),
                           ),
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 
-  Widget _page6(BuildContext context, ThemeData theme, double offset, double value, Size screenSize, double screenW,
-      double screenH, Profile data) {
+  Widget _page6(BuildContext context, ThemeData theme, double offset, double value, Profile data) {
     return Padding(
       padding: kScreenPadding,
       child: Column(
@@ -469,8 +438,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _page7(BuildContext context, ThemeData theme, double offset, double value, Size screenSize, double screenW,
-      double screenH, Profile data) {
+  Widget _page7(BuildContext context, ThemeData theme, double offset, double value, Profile data) {
     return Padding(
       padding: kScreenPadding,
       child: Column(
@@ -480,18 +448,27 @@ class _HomePageState extends State<HomePage> {
           SizedBox(height: kScreenPadding.vertical),
           SeoTextWrapper('Contact me'.toUpperCase(), style: theme.textTheme.bodyLarge),
           SizedBox(height: kScreenPadding.vertical),
-          TextButton(
-            onPressed: () => launchUrl(Uri.parse('mailto:${data.contactInfo.email}')),
-            child: SeoTextWrapper('Email', style: theme.textTheme.displayLarge!.copyWith(color: theme.primaryColor)),
+          FittedBox(
+            fit: BoxFit.fill,
+            child: TextButton(
+              onPressed: () => launchUrl(Uri.parse('mailto:${data.contactInfo.email}')),
+              child: SeoTextWrapper('Email', style: theme.textTheme.displayLarge!.copyWith(color: theme.primaryColor)),
+            ),
           ),
-          TextButton(
-            onPressed: () => launchUrl(Uri.parse('tel:${data.contactInfo.phoneNumber}')),
-            child: SeoTextWrapper('Phone', style: theme.textTheme.displayLarge!.copyWith(color: theme.primaryColor)),
+          FittedBox(
+            fit: BoxFit.fill,
+            child: TextButton(
+              onPressed: () => launchUrl(Uri.parse('tel:${data.contactInfo.phoneNumber}')),
+              child: SeoTextWrapper('Phone', style: theme.textTheme.displayLarge!.copyWith(color: theme.primaryColor)),
+            ),
           ),
           ...data.contactInfo.websites.map(
-            (e) => TextButton(
-              onPressed: () => launchUrl(Uri.parse(e.url)),
-              child: SeoTextWrapper(e.name, style: theme.textTheme.displayLarge!.copyWith(color: theme.primaryColor)),
+            (e) => FittedBox(
+              fit: BoxFit.fill,
+              child: TextButton(
+                onPressed: () => launchUrl(Uri.parse(e.url)),
+                child: SeoTextWrapper(e.name, style: theme.textTheme.displayLarge!.copyWith(color: theme.primaryColor)),
+              ),
             ),
           ),
         ],
@@ -499,8 +476,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _pageEnd(BuildContext context, ThemeData theme, double offset, double value, Size screenSize, double screenW,
-      double screenH, Profile data) {
+  Widget _pageEnd(BuildContext context, ThemeData theme, double offset, double value, Profile data) {
     return Padding(
       padding: kScreenPadding,
       child: Column(
