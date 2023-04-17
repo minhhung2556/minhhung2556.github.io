@@ -3,7 +3,7 @@ description: This is all about a Romantic Developer
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.1
+version: 2.0.0
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
@@ -12,8 +12,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  url_launcher: ^6.0.6
+  cloud_firestore: ^4.3.1
+  firebase_core: ^2.4.1
+  url_launcher: ^6.1.8
+  intl: ^0.18.0
+  flutter_bloc: ^8.1.1
+  webviewx_plus: ^0.3.2
+  seo: ^0.0.4
 
 dev_dependencies:
   flutter_test:
@@ -26,7 +31,12 @@ flutter:
     - asset/
 
   fonts:
-    - family: MyFontFamily
+    - family: title
       fonts:
-        - asset: asset/nunito_regular.ttf
-          style: normal
+        - asset: fonts/title.ttf
+    - family: component_text
+      fonts:
+        - asset: fonts/component_text.ttf
+    - family: most_focus
+      fonts:
+        - asset: fonts/most_focus.ttf

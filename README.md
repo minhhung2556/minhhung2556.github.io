@@ -1,6 +1,6 @@
 ### 👋 &nbsp; Hi there, I'm Hưng - aka [Romantic Developer](https://romanticdeveloper.com)
 
-I'm a romantic mobile developer, a responsible employee, a motivated person, a friendly daddy, an honest friend, and a handsome husband.
+I'm mobile application engineer, mobile technical leader, motivational mentor, friendly daddy, truthful partner.
 
 - 🌈  &nbsp; Making Mobile Application Development more romantic is my passion.
 - ✨ &nbsp; Keep everything simple in mind. Unidirectional workflow for code and life.​
