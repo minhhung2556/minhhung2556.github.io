@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:seo/seo.dart';
 
 import 'index.dart';
 
@@ -14,10 +15,14 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: kName,
-      theme: kThemeData,
-      home: HomePage.newInstance(),
+    return SeoController(
+      enabled: true,
+      tree: WidgetTree(context: context),
+      child: MaterialApp(
+        title: kName,
+        theme: kThemeData,
+        home: HomePage.newInstance(),
+      ),
     );
   }
 }
