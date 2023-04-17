@@ -138,14 +138,15 @@ class _HomePageState extends State<HomePage> {
           padding: kScreenPadding,
           child: Row(
             children: [
-              Text('Hi there!', style: theme.textTheme.headline5),
+              SeoTextWrapper('Hi there!', style: theme.textTheme.headlineSmall),
               const Expanded(child: SizedBox()),
               TextButton(
                 onPressed: () {
                   _scrollController.animateTo(_scrollController.position.maxScrollExtent,
                       duration: Duration(seconds: 1), curve: Curves.linear);
                 },
-                child: Text('BUZZ!!! me', style: theme.textTheme.headline5!.copyWith(color: theme.primaryColor)),
+                child: SeoTextWrapper('BUZZ!!! me',
+                    style: theme.textTheme.headlineSmall!.copyWith(color: theme.primaryColor)),
               ),
             ],
           ),
@@ -187,7 +188,8 @@ class _HomePageState extends State<HomePage> {
                                 scale: 1 + 20 * value,
                                 child: Transform.translate(
                                     offset: Offset(0.0, -offset),
-                                    child: Text(e, style: theme.textTheme.headline1, textAlign: TextAlign.center)),
+                                    child: SeoTextWrapper(e,
+                                        style: theme.textTheme.displayLarge, textAlign: TextAlign.center)),
                               );
                             } else {
                               return Transform.rotate(
@@ -200,7 +202,8 @@ class _HomePageState extends State<HomePage> {
                                   offset: Offset(-offset, 0.0),
                                   child: Opacity(
                                       opacity: 1 - value,
-                                      child: Text(e, style: theme.textTheme.headline1, textAlign: TextAlign.center)),
+                                      child: SeoTextWrapper(e,
+                                          style: theme.textTheme.displayLarge, textAlign: TextAlign.center)),
                                 ),
                               );
                             }
@@ -258,9 +261,9 @@ class _HomePageState extends State<HomePage> {
           ]).transform(value),
           child: Opacity(
             opacity: 1 - value,
-            child: Text(
+            child: SeoTextWrapper(
               'Who am I?',
-              style: theme.textTheme.headline2,
+              style: theme.textTheme.displayMedium,
               textAlign: TextAlign.center,
             ),
           ),
@@ -289,7 +292,7 @@ class _HomePageState extends State<HomePage> {
           child: Container(
             padding: kScreenPadding,
             alignment: Alignment.center,
-            child: Text(data.headline, style: theme.textTheme.headline3, textAlign: TextAlign.center),
+            child: SeoTextWrapper(data.headline, style: theme.textTheme.displaySmall, textAlign: TextAlign.center),
           ),
         ),
       ),
@@ -316,7 +319,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ...data.skillSummary.replaceAll('\\n', '\n').split('\n').map(
-                    (e) => Text(e, style: theme.textTheme.headline6),
+                    (e) => SeoTextWrapper(e, style: theme.textTheme.titleLarge),
                   ),
             ],
           ),
@@ -333,11 +336,11 @@ class _HomePageState extends State<HomePage> {
       TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 0.6),
       TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 0.2),
     ]).transform(value);
-    final translateValue = TweenSequence([
-      TweenSequenceItem(tween: Tween(begin: 2.0, end: 1.0), weight: 0.5),
-      TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 0.4),
-      TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 0.1),
-    ]).transform(value);
+    // final translateValue = TweenSequence([
+    //   TweenSequenceItem(tween: Tween(begin: 2.0, end: 1.0), weight: 0.5),
+    //   TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 0.4),
+    //   TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 0.1),
+    // ]).transform(value);
 
     return Transform.translate(
       // offset: Offset(0.0, screenH * translateValue * value),
@@ -354,22 +357,23 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('My work experience'.toUpperCase(), style: theme.textTheme.bodyText1),
-              Text(e.jobTitle, style: theme.textTheme.headline2),
+              SeoTextWrapper('My work experience'.toUpperCase(), style: theme.textTheme.bodyLarge),
+              SeoTextWrapper(e.jobTitle, style: theme.textTheme.displayMedium),
               Row(
                 // crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   TextButton(
                     onPressed: () => launchUrl(Uri.parse(e.companyWebsite)),
-                    child: Text(e.companyName, style: theme.textTheme.headline3!.copyWith(color: theme.primaryColor)),
+                    child: SeoTextWrapper(e.companyName,
+                        style: theme.textTheme.displaySmall!.copyWith(color: theme.primaryColor)),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: kScreenPadding.left),
-                    child: Text(
+                    child: SeoTextWrapper(
                         (e.startDate == null ? '' : DateFormat.yM().format(e.startDate!.toDate()) + ' - ') +
                             (e.endDate == null ? 'now' : DateFormat.yM().format(e.endDate!.toDate())),
-                        style: theme.textTheme.headline3),
+                        style: theme.textTheme.displaySmall),
                   ),
                 ],
               ),
@@ -382,17 +386,17 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Expanded(child: SizedBox()),
-                          Text(
+                          SeoTextWrapper(
                             e.description.replaceAll('\\n', '\n'),
-                            style: theme.textTheme.headline6,
+                            style: theme.textTheme.titleLarge,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 6,
                           ),
                           TextButton(
                               onPressed: () => DetailWorkDialog.show(context, e),
-                              child: Text(
+                              child: SeoTextWrapper(
                                 'Read more...',
-                                style: theme.textTheme.bodyText1!.copyWith(color: theme.primaryColor),
+                                style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColor),
                               )),
                           const Expanded(child: SizedBox()),
                         ],
@@ -440,20 +444,21 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('My personal works'.toUpperCase(), style: theme.textTheme.bodyText1),
+          SeoTextWrapper('My personal works'.toUpperCase(), style: theme.textTheme.bodyLarge),
           SizedBox(height: kScreenPadding.vertical),
           ...data.personalWorks.map((e) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(e.jobTitle, style: theme.textTheme.headline2),
+                  SeoTextWrapper(e.jobTitle, style: theme.textTheme.displayMedium),
                   TextButton(
                     onPressed: () => launchUrl(Uri.parse(e.companyWebsite)),
-                    child: Text(e.companyName, style: theme.textTheme.headline3!.copyWith(color: theme.primaryColor)),
+                    child: SeoTextWrapper(e.companyName,
+                        style: theme.textTheme.displaySmall!.copyWith(color: theme.primaryColor)),
                   ),
-                  Text(
+                  SeoTextWrapper(
                     e.description.replaceAll('\\n', '\n'),
-                    style: theme.textTheme.headline6,
+                    style: theme.textTheme.titleLarge,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 6,
                   ),
@@ -473,20 +478,20 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SizedBox(height: kScreenPadding.vertical),
-          Text('Contact me'.toUpperCase(), style: theme.textTheme.bodyText1),
+          SeoTextWrapper('Contact me'.toUpperCase(), style: theme.textTheme.bodyLarge),
           SizedBox(height: kScreenPadding.vertical),
           TextButton(
             onPressed: () => launchUrl(Uri.parse('mailto:${data.contactInfo.email}')),
-            child: Text('Email', style: theme.textTheme.headline1!.copyWith(color: theme.primaryColor)),
+            child: SeoTextWrapper('Email', style: theme.textTheme.displayLarge!.copyWith(color: theme.primaryColor)),
           ),
           TextButton(
             onPressed: () => launchUrl(Uri.parse('tel:${data.contactInfo.phoneNumber}')),
-            child: Text('Phone', style: theme.textTheme.headline1!.copyWith(color: theme.primaryColor)),
+            child: SeoTextWrapper('Phone', style: theme.textTheme.displayLarge!.copyWith(color: theme.primaryColor)),
           ),
           ...data.contactInfo.websites.map(
             (e) => TextButton(
               onPressed: () => launchUrl(Uri.parse(e.url)),
-              child: Text(e.name, style: theme.textTheme.headline1!.copyWith(color: theme.primaryColor)),
+              child: SeoTextWrapper(e.name, style: theme.textTheme.displayLarge!.copyWith(color: theme.primaryColor)),
             ),
           ),
         ],
@@ -504,8 +509,8 @@ class _HomePageState extends State<HomePage> {
         children: [
           TextButton(
             onPressed: () => _scrollController.animateTo(0, duration: Duration(seconds: 1), curve: Curves.linear),
-            child: Text('Back to top'.toUpperCase(),
-                style: theme.textTheme.headline3!.copyWith(color: theme.primaryColor)),
+            child: SeoTextWrapper('Back to top'.toUpperCase(),
+                style: theme.textTheme.displaySmall!.copyWith(color: theme.primaryColor)),
           ),
         ],
       ),

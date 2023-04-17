@@ -25,7 +25,7 @@ class DetailWorkDialog extends StatelessWidget {
           children: [
             Text(
               data.description.replaceAll('\\n', '\n'),
-              style: theme.textTheme.headline6,
+              style: theme.textTheme.titleLarge,
             ),
             SizedBox(height: kScreenPadding.vertical),
             GridView.count(

@@ -8,25 +8,25 @@ final kThemeData = ThemeData(
   primaryColor: Color(0xFFb39ddb),
   colorScheme: ColorScheme.dark(),
   textTheme: TextTheme(
-    headline1: TextStyle(
+    displayLarge: TextStyle(
       fontFamily: Fonts.fontFamilyTitle,
     ),
-    headline2: TextStyle(
+    displayMedium: TextStyle(
       fontFamily: Fonts.fontFamilyTitle,
     ),
-    headline3: TextStyle(
+    displaySmall: TextStyle(
       fontFamily: Fonts.fontFamilyMostFocus,
     ),
-    headline4: TextStyle(
+    headlineMedium: TextStyle(
       fontFamily: Fonts.fontFamilyComponentText,
     ),
-    headline5: TextStyle(
+    headlineSmall: TextStyle(
       fontFamily: Fonts.fontFamilyComponentText,
     ),
-    headline6: TextStyle(
+    titleLarge: TextStyle(
       fontFamily: Fonts.fontFamilyComponentText,
     ),
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
       fontFamily: Fonts.fontFamilyComponentText,
     ),
   ),

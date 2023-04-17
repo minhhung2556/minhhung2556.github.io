@@ -6,9 +6,9 @@ import 'package:flutter/rendering.dart';
 class InnerShadow extends SingleChildRenderObjectWidget {
   const InnerShadow({
     Key? key,
-    this.shadowBlur: 6,
-    this.shadowColor: Colors.black,
-    this.shadowOffset: const Offset(6, 6),
+    this.shadowBlur = 6,
+    this.shadowColor = Colors.black,
+    this.shadowOffset = const Offset(6, 6),
     required Widget child,
   }) : super(key: key, child: child);
 
