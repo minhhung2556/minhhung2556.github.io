@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:minhhung2556/domain/index.dart';
 
 class Works {
   final String companyWebsite;
@@ -8,6 +9,7 @@ class Works {
   final String jobTitle;
   final String description;
   final List<String> images;
+  final List<Websites> relatedLinks;
   final num order;
 
   Works.fromJsonMap(Map<String, dynamic> map)
@@ -18,6 +20,9 @@ class Works {
         order = map["order"] ?? 0,
         description = map["description"],
         images = map["images"] == null ? [] : List<String>.from(map["images"]),
+        relatedLinks = map["relatedLinks"] == null
+            ? []
+            : List<Websites>.from(map["relatedLinks"].map((it) => Websites.fromJsonMap(it))),
         jobTitle = map["jobTitle"];
 
   Map<String, dynamic> toJson() {
@@ -30,6 +35,7 @@ class Works {
     data['order'] = order;
     data['description'] = description;
     data['images'] = images;
+    data['relatedLinks'] = relatedLinks;
     return data;
   }
 }

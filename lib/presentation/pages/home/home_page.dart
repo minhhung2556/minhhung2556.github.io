@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
 
   double get minDimension => min(_screenSize.width, _screenSize.height);
   bool get isPortrait => _screenSize.width < _screenSize.height;
+  final _contactMeKey = GlobalKey();
 
   @override
   void initState() {
@@ -101,6 +102,13 @@ class _HomePageState extends State<HomePage> {
                   child: _page5(context, theme, offset, values[index++], data, e),
                 ),
               ),
+              ...data.freelanceWorks.map(
+                (e) => Container(
+                  width: screenW,
+                  height: screenH,
+                  child: _page5(context, theme, offset, values[index++], data, e, 'My freelance works'),
+                ),
+              ),
               _page6(context, theme, offset, values[index++], data),
               _page7(context, theme, offset, values[index++], data),
               _pageEnd(context, theme, offset, values[index++], data),
@@ -127,8 +135,10 @@ class _HomePageState extends State<HomePage> {
               const Expanded(child: SizedBox()),
               TextButton(
                 onPressed: () {
-                  _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+                  Scrollable.ensureVisible(_contactMeKey.currentContext!,
                       duration: Duration(seconds: 1), curve: Curves.linear);
+                  // _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+                  //     duration: Duration(seconds: 1), curve: Curves.linear);
                 },
                 child: SeoTextWrapper('BUZZ!!! me',
                     style: theme.textTheme.headlineSmall!.copyWith(color: theme.primaryColor)),
@@ -306,7 +316,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _page5(BuildContext context, ThemeData theme, double offset, double value, Profile data, Works e) {
+  Widget _page5(BuildContext context, ThemeData theme, double offset, double value, Profile data, Works e,
+      [String title = 'My work experience']) {
     final imageW = minDimension / 3;
     final itemValue = TweenSequence([
       TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 0.4),
@@ -319,7 +330,7 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SeoTextWrapper('My work experience'.toUpperCase(), style: theme.textTheme.bodyLarge),
+          SeoTextWrapper(title.toUpperCase(), style: theme.textTheme.bodyLarge),
           SizedBox(
             width: _screenSize.width * 0.5,
             child: FittedBox(
@@ -350,6 +361,20 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          if (e.relatedLinks.isNotEmpty == true)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ...e.relatedLinks.map(
+                  (link) => TextButton(
+                    onPressed: () => launchUrl(Uri.parse(link.url)),
+                    child: SeoTextWrapper(link.name,
+                        style: theme.textTheme.displaySmall!.copyWith(color: theme.primaryColor)),
+                  ),
+                )
+              ],
+            ),
           Expanded(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -420,20 +445,28 @@ class _HomePageState extends State<HomePage> {
           SeoTextWrapper('My personal works'.toUpperCase(), style: theme.textTheme.bodyLarge),
           SizedBox(height: kScreenPadding.vertical),
           ...data.personalWorks.map((e) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SeoTextWrapper(e.jobTitle, style: theme.textTheme.displayMedium),
+                  SeoTextWrapper(
+                    e.jobTitle,
+                    style: theme.textTheme.displayMedium,
+                    textAlign: TextAlign.center,
+                  ),
                   TextButton(
                     onPressed: () => launchUrl(Uri.parse(e.companyWebsite)),
-                    child: SeoTextWrapper(e.companyName,
-                        style: theme.textTheme.displaySmall!.copyWith(color: theme.primaryColor)),
+                    child: SeoTextWrapper(
+                      e.companyName,
+                      style: theme.textTheme.displaySmall!.copyWith(color: theme.primaryColor),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                   SeoTextWrapper(
                     e.description.replaceAll('\\n', '\n'),
                     style: theme.textTheme.titleLarge,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 6,
+                    textAlign: TextAlign.center,
                   ),
                 ],
               )),
@@ -444,6 +477,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _page7(BuildContext context, ThemeData theme, double offset, double value, Profile data) {
     return Padding(
+      key: _contactMeKey,
       padding: kScreenPadding,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

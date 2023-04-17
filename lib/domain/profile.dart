@@ -13,6 +13,7 @@ class Profile {
   final Timestamp createdDate;
   final List<Works> works;
   final List<Works> personalWorks;
+  final List<Works> freelanceWorks;
   final String nickName;
   final String avatarUrl;
   final String overlayAvatar;
@@ -31,6 +32,7 @@ class Profile {
         createdDate = map["createdDate"],
         works = List<Works>.from(map["works"].map((it) => Works.fromJsonMap(it))),
         personalWorks = List<Works>.from(map["personalWorks"].map((it) => Works.fromJsonMap(it))),
+        freelanceWorks = List<Works>.from(map["freelanceWorks"].map((it) => Works.fromJsonMap(it))),
         nickName = map["nickName"],
         skillSummary = map["skillSummary"],
         jobTitle = map["jobTitle"],
@@ -48,6 +50,7 @@ class Profile {
     data['createdDate'] = createdDate;
     data['works'] = this.works.map((v) => v.toJson()).toList();
     data['personalWorks'] = this.personalWorks.map((v) => v.toJson()).toList();
+    data['freelanceWorks'] = this.freelanceWorks.map((v) => v.toJson()).toList();
     data['nickName'] = nickName;
     data['avatarUrl'] = avatarUrl;
     data['skillSummary'] = skillSummary;
@@ -67,6 +70,7 @@ class Profile {
     Timestamp? createdDate,
     List<Works>? works,
     List<Works>? personalWorks,
+    List<Works>? freelanceWorks,
     String? nickName,
     String? avatarUrl,
     String? overlayAvatar,
@@ -89,6 +93,7 @@ class Profile {
       skillSummary: skillSummary ?? this.skillSummary,
       jobTitle: jobTitle ?? this.jobTitle,
       personalWorks: personalWorks ?? this.personalWorks,
+      freelanceWorks: freelanceWorks ?? this.freelanceWorks,
     );
   }
 
@@ -108,5 +113,6 @@ class Profile {
     required this.skillSummary,
     required this.jobTitle,
     required this.personalWorks,
+    required this.freelanceWorks,
   });
 }

@@ -17,7 +17,8 @@ class DetailWorkDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final screenSize = MediaQuery.of(context).size;
-    return Padding(
+    return Container(
+      height: screenSize.height * 0.75,
       padding: kScreenPadding,
       child: SingleChildScrollView(
         child: Column(
