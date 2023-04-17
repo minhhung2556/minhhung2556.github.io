@@ -90,6 +90,10 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(width: screenW, height: screenH),
               _page4(context, theme, offset, values[index++], data),
+              (() {
+                index++;
+                return SizedBox(width: screenW, height: screenH);
+              }).call(),
               ...data.works.map(
                 (e) => Container(
                   width: screenW,
@@ -139,7 +143,7 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.center,
               children: [
                 Transform.translate(
-                  offset: Offset(min(1, value * 5) * (minDimension - avatarW) * 0.5, 0),
+                  offset: Offset(min(1, value * 5) * (_screenSize.width - avatarW) * 0.5, 0),
                   child: ClipRRect(
                     borderRadius: TweenSequence<BorderRadius>([
                       TweenSequenceItem(tween: Tween(begin: BorderRadius.zero, end: avatarBorder), weight: 0.2),
@@ -236,7 +240,7 @@ class _HomePageState extends State<HomePage> {
   Widget _page2(BuildContext context, ThemeData theme, double offset, double value, Profile data) {
     return Transform.translate(
       offset: TweenSequence([
-        TweenSequenceItem(tween: Tween(begin: Offset(0.0, -_screenSize.height * 0.25), end: Offset.zero), weight: 0.2),
+        TweenSequenceItem(tween: Tween(begin: Offset(0.0, _screenSize.height * 0.25), end: Offset.zero), weight: 0.2),
         TweenSequenceItem(tween: Tween(begin: Offset.zero, end: Offset(0.0, _screenSize.height)), weight: 0.8),
       ]).transform(value),
       child: Transform.scale(
@@ -267,7 +271,7 @@ class _HomePageState extends State<HomePage> {
   Widget _page3(BuildContext context, ThemeData theme, double offset, double value, Profile data) {
     return Transform.translate(
       offset: TweenSequence([
-        TweenSequenceItem(tween: Tween(begin: Offset(0.0, -_screenSize.height * 0.25), end: Offset.zero), weight: 0.2),
+        TweenSequenceItem(tween: Tween(begin: Offset(0.0, _screenSize.height * 0.25), end: Offset.zero), weight: 0.2),
         TweenSequenceItem(tween: Tween(begin: Offset.zero, end: Offset(0.0, _screenSize.height)), weight: 0.8),
       ]).transform(value),
       child: Transform.scale(
@@ -448,6 +452,15 @@ class _HomePageState extends State<HomePage> {
           SizedBox(height: kScreenPadding.vertical),
           SeoTextWrapper('Contact me'.toUpperCase(), style: theme.textTheme.bodyLarge),
           SizedBox(height: kScreenPadding.vertical),
+          ...data.contactInfo.websites.map(
+            (e) => FittedBox(
+              fit: BoxFit.fill,
+              child: TextButton(
+                onPressed: () => launchUrl(Uri.parse(e.url)),
+                child: SeoTextWrapper(e.name, style: theme.textTheme.displayLarge!.copyWith(color: theme.primaryColor)),
+              ),
+            ),
+          ),
           FittedBox(
             fit: BoxFit.fill,
             child: TextButton(
@@ -460,15 +473,6 @@ class _HomePageState extends State<HomePage> {
             child: TextButton(
               onPressed: () => launchUrl(Uri.parse('tel:${data.contactInfo.phoneNumber}')),
               child: SeoTextWrapper('Phone', style: theme.textTheme.displayLarge!.copyWith(color: theme.primaryColor)),
-            ),
-          ),
-          ...data.contactInfo.websites.map(
-            (e) => FittedBox(
-              fit: BoxFit.fill,
-              child: TextButton(
-                onPressed: () => launchUrl(Uri.parse(e.url)),
-                child: SeoTextWrapper(e.name, style: theme.textTheme.displayLarge!.copyWith(color: theme.primaryColor)),
-              ),
             ),
           ),
         ],
