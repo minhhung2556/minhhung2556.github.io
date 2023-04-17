@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:minhhung2556/index.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   static Widget newInstance() => BlocProvider(
@@ -27,6 +28,12 @@ class _HomePageState extends State<HomePage> {
     _scrollController.addListener(() {
       setState(() {});
     });
+    Future.delayed(
+      Duration(seconds: 2),
+      () {
+        if (_scrollController.hasClients) _scrollController.jumpTo(_screenSize.height * 10);
+      },
+    );
     super.initState();
   }
 
@@ -38,12 +45,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
-        return Scaffold(
-          body: state is HomeDoneLoadingState ? buildBody(context, state.data) : const SizedBox(),
-        );
-      },
+    return Scaffold(
+      body: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          return state is HomeDoneLoadingState ? buildBody(context, state.data) : const SizedBox();
+        },
+      ),
     );
   }
 
@@ -88,7 +95,6 @@ class _HomePageState extends State<HomePage> {
           child: _page5(context, theme, offset, values[index++], _screenSize, screenW, screenH, data, e),
         ),
       ),
-      Container(width: screenW, height: screenH),
     ];
     return Stack(
       fit: StackFit.expand,
@@ -96,12 +102,22 @@ class _HomePageState extends State<HomePage> {
         SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           controller: _scrollController,
-          child: SizedBox(
-            height: screenH * bodyChildren.length,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: bodyChildren,
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: screenH * bodyChildren.length,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: bodyChildren,
+                ),
+              ),
+              // expandable children
+              _page6(context, theme, offset, values[index++], _screenSize, screenW, screenH, data),
+              _page7(context, theme, offset, values[index++], _screenSize, screenW, screenH, data),
+              _pageEnd(context, theme, offset, values[index++], _screenSize, screenW, screenH, data),
+            ],
           ),
         ),
       ],
@@ -111,7 +127,7 @@ class _HomePageState extends State<HomePage> {
   Widget _page1(BuildContext context, ThemeData theme, double offset, double value, Size screenSize, double screenW,
       double screenH, Profile data) {
     final mainTitleStrings =
-        '${data.nickName} *${DateFormat.y(kLocaleEn.toLanguageTag()).format(data.createdDate.toDate())}'.split(' ');
+        '*${data.nickName}${DateFormat.y(kLocaleEn.toLanguageTag()).format(data.createdDate.toDate())}'.split(' ');
     final avatarW = min(screenW, screenH) * 0.5;
     final avatarH = 1.7 * avatarW;
     final avatarBorder = BorderRadius.horizontal(left: Radius.circular(avatarH));
@@ -123,6 +139,14 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             children: [
               Text('Hi there!', style: theme.textTheme.headline5),
+              const Expanded(child: SizedBox()),
+              TextButton(
+                onPressed: () {
+                  _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+                      duration: Duration(seconds: 1), curve: Curves.linear);
+                },
+                child: Text('BUZZ!!! me', style: theme.textTheme.headline5!.copyWith(color: theme.primaryColor)),
+              ),
             ],
           ),
         ),
@@ -316,19 +340,39 @@ class _HomePageState extends State<HomePage> {
     ]).transform(value);
 
     return Transform.translate(
-      offset: Offset(0.0, screenH * translateValue * value),
+      // offset: Offset(0.0, screenH * translateValue * value),
+      offset: Offset.zero,
       child: Opacity(
-        opacity: TweenSequence([
-          TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 0.2),
-          TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 0.6),
-          TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 0.2),
-        ]).transform(value),
+        // opacity: TweenSequence([
+        //   TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 0.2),
+        //   TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.0), weight: 0.6),
+        //   TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 0.2),
+        // ]).transform(value),
+        opacity: 1,
         child: Padding(
           padding: kScreenPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Text('My work experience'.toUpperCase(), style: theme.textTheme.bodyText1),
               Text(e.jobTitle, style: theme.textTheme.headline2),
+              Row(
+                // crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  TextButton(
+                    onPressed: () => launchUrl(Uri.parse(e.companyWebsite)),
+                    child: Text(e.companyName, style: theme.textTheme.headline3!.copyWith(color: theme.primaryColor)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: kScreenPadding.left),
+                    child: Text(
+                        (e.startDate == null ? '' : DateFormat.yM().format(e.startDate!.toDate()) + ' - ') +
+                            (e.endDate == null ? 'now' : DateFormat.yM().format(e.endDate!.toDate())),
+                        style: theme.textTheme.headline3),
+                  ),
+                ],
+              ),
               Expanded(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -337,7 +381,6 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(e.companyName, style: theme.textTheme.headline3),
                           const Expanded(child: SizedBox()),
                           Text(
                             e.description.replaceAll('\\n', '\n'),
@@ -345,29 +388,37 @@ class _HomePageState extends State<HomePage> {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 6,
                           ),
+                          TextButton(
+                              onPressed: () => DetailWorkDialog.show(context, e),
+                              child: Text(
+                                'Read more...',
+                                style: theme.textTheme.bodyText1!.copyWith(color: theme.primaryColor),
+                              )),
                           const Expanded(child: SizedBox()),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: kScreenPadding * 2,
-                      child: Transform(
-                        transform: Matrix4.skew(Tween(begin: 0.0, end: -0.4).transform(itemValue),
-                            Tween(begin: 0.0, end: -0.1).transform(itemValue))
-                          ..scale(Tween(begin: 1.0, end: 0.8).transform(itemValue),
-                              Tween(begin: 1.0, end: 0.8).transform(itemValue), 1)
-                          ..translate(Tween(begin: 0, end: imageW * 0.5).transform(itemValue)),
-                        child: ClipRRect(
-                          child: InnerShadow(
-                            shadowColor: Colors.white,
-                            shadowBlur: 24,
-                            child: Image.network(
-                              e.images.first,
-                              fit: BoxFit.contain,
-                              width: imageW,
+                    IgnorePointer(
+                      child: Padding(
+                        padding: kScreenPadding * 2,
+                        child: Transform(
+                          transform: Matrix4.skew(Tween(begin: 0.0, end: -0.4).transform(itemValue),
+                              Tween(begin: 0.0, end: -0.1).transform(itemValue))
+                            ..scale(Tween(begin: 1.0, end: 0.8).transform(itemValue),
+                                Tween(begin: 1.0, end: 0.8).transform(itemValue), 1)
+                            ..translate(Tween(begin: 0, end: imageW * 0.5).transform(itemValue)),
+                          child: ClipRRect(
+                            child: InnerShadow(
+                              shadowColor: Colors.white,
+                              shadowBlur: 24,
+                              child: Image.network(
+                                e.images.first,
+                                fit: BoxFit.contain,
+                                width: imageW,
+                              ),
                             ),
+                            borderRadius: BorderRadius.circular(24),
                           ),
-                          borderRadius: BorderRadius.circular(24),
                         ),
                       ),
                     ),
@@ -377,6 +428,86 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _page6(BuildContext context, ThemeData theme, double offset, double value, Size screenSize, double screenW,
+      double screenH, Profile data) {
+    return Padding(
+      padding: kScreenPadding,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('My personal works'.toUpperCase(), style: theme.textTheme.bodyText1),
+          SizedBox(height: kScreenPadding.vertical),
+          ...data.personalWorks.map((e) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(e.jobTitle, style: theme.textTheme.headline2),
+                  TextButton(
+                    onPressed: () => launchUrl(Uri.parse(e.companyWebsite)),
+                    child: Text(e.companyName, style: theme.textTheme.headline3!.copyWith(color: theme.primaryColor)),
+                  ),
+                  Text(
+                    e.description.replaceAll('\\n', '\n'),
+                    style: theme.textTheme.headline6,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 6,
+                  ),
+                ],
+              )),
+        ],
+      ),
+    );
+  }
+
+  Widget _page7(BuildContext context, ThemeData theme, double offset, double value, Size screenSize, double screenW,
+      double screenH, Profile data) {
+    return Padding(
+      padding: kScreenPadding,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(height: kScreenPadding.vertical),
+          Text('Contact me'.toUpperCase(), style: theme.textTheme.bodyText1),
+          SizedBox(height: kScreenPadding.vertical),
+          TextButton(
+            onPressed: () => launchUrl(Uri.parse('mailto:${data.contactInfo.email}')),
+            child: Text('Email', style: theme.textTheme.headline1!.copyWith(color: theme.primaryColor)),
+          ),
+          TextButton(
+            onPressed: () => launchUrl(Uri.parse('tel:${data.contactInfo.phoneNumber}')),
+            child: Text('Phone', style: theme.textTheme.headline1!.copyWith(color: theme.primaryColor)),
+          ),
+          ...data.contactInfo.websites.map(
+            (e) => TextButton(
+              onPressed: () => launchUrl(Uri.parse(e.url)),
+              child: Text(e.name, style: theme.textTheme.headline1!.copyWith(color: theme.primaryColor)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _pageEnd(BuildContext context, ThemeData theme, double offset, double value, Size screenSize, double screenW,
+      double screenH, Profile data) {
+    return Padding(
+      padding: kScreenPadding,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          TextButton(
+            onPressed: () => _scrollController.animateTo(0, duration: Duration(seconds: 1), curve: Curves.linear),
+            child: Text('Back to top'.toUpperCase(),
+                style: theme.textTheme.headline3!.copyWith(color: theme.primaryColor)),
+          ),
+        ],
       ),
     );
   }

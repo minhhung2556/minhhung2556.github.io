@@ -12,6 +12,7 @@ class Profile {
   final String firstName;
   final Timestamp createdDate;
   final List<Works> works;
+  final List<Works> personalWorks;
   final String nickName;
   final String avatarUrl;
   final String overlayAvatar;
@@ -29,6 +30,7 @@ class Profile {
         firstName = map["firstName"],
         createdDate = map["createdDate"],
         works = List<Works>.from(map["works"].map((it) => Works.fromJsonMap(it))),
+        personalWorks = List<Works>.from(map["personalWorks"].map((it) => Works.fromJsonMap(it))),
         nickName = map["nickName"],
         skillSummary = map["skillSummary"],
         jobTitle = map["jobTitle"],
@@ -45,6 +47,7 @@ class Profile {
     data['firstName'] = firstName;
     data['createdDate'] = createdDate;
     data['works'] = this.works.map((v) => v.toJson()).toList();
+    data['personalWorks'] = this.personalWorks.map((v) => v.toJson()).toList();
     data['nickName'] = nickName;
     data['avatarUrl'] = avatarUrl;
     data['skillSummary'] = skillSummary;
@@ -63,6 +66,7 @@ class Profile {
     String? firstName,
     Timestamp? createdDate,
     List<Works>? works,
+    List<Works>? personalWorks,
     String? nickName,
     String? avatarUrl,
     String? overlayAvatar,
@@ -84,6 +88,7 @@ class Profile {
       overlayAvatar: overlayAvatar ?? this.overlayAvatar,
       skillSummary: skillSummary ?? this.skillSummary,
       jobTitle: jobTitle ?? this.jobTitle,
+      personalWorks: personalWorks ?? this.personalWorks,
     );
   }
 
@@ -102,5 +107,6 @@ class Profile {
     required this.overlayAvatar,
     required this.skillSummary,
     required this.jobTitle,
+    required this.personalWorks,
   });
 }

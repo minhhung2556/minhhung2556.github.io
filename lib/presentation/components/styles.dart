@@ -5,6 +5,7 @@ import '../../generated/index.dart';
 final kThemeData = ThemeData(
   visualDensity: VisualDensity.adaptivePlatformDensity,
   scaffoldBackgroundColor: Colors.black,
+  primaryColor: Color(0xFFb39ddb),
   colorScheme: ColorScheme.dark(),
   textTheme: TextTheme(
     headline1: TextStyle(
